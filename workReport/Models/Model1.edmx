@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="workReportModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="mun">
+          <Key>
+            <PropertyRef Name="mun_id" />
+          </Key>
+          <Property Name="mun_id" Type="int" Nullable="false" />
+          <Property Name="mun_name" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="district_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="usrId" />
+          </Key>
+          <Property Name="usrId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="userPassword" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="firstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="workList">
+          <Key>
+            <PropertyRef Name="workListId" />
+          </Key>
+          <Property Name="workListId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="workListType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="mun" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="time" Type="int" Nullable="false" />
+          <Property Name="users" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="workTypes">
+          <Key>
+            <PropertyRef Name="workId" />
+          </Key>
+          <Property Name="workId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="workName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="workReportModelStoreContainer">
+          <EntitySet Name="mun" EntityType="Self.mun" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="workList" EntityType="Self.workList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="workTypes" EntityType="Self.workTypes" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="workReportModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="mun">
+          <Key>
+            <PropertyRef Name="mun_id" />
+          </Key>
+          <Property Name="mun_id" Type="Int32" Nullable="false" />
+          <Property Name="mun_name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="district_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="usrId" />
+          </Key>
+          <Property Name="usrId" Type="Int32" Nullable="false" />
+          <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="userPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="workList">
+          <Key>
+            <PropertyRef Name="workListId" />
+          </Key>
+          <Property Name="workListId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="workListType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mun" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="time" Type="Int32" Nullable="false" />
+          <Property Name="users" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="workTypes">
+          <Key>
+            <PropertyRef Name="workId" />
+          </Key>
+          <Property Name="workId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="workName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="workReportEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="mun" EntityType="Self.mun" />
+          <EntitySet Name="user" EntityType="Self.user" />
+          <EntitySet Name="workList" EntityType="Self.workList" />
+          <EntitySet Name="workTypes" EntityType="Self.workTypes" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="workReportModelStoreContainer" CdmEntityContainer="workReportEntities">
+          <EntitySetMapping Name="mun">
+            <EntityTypeMapping TypeName="workReportModel.mun">
+              <MappingFragment StoreEntitySet="mun">
+                <ScalarProperty Name="mun_id" ColumnName="mun_id" />
+                <ScalarProperty Name="mun_name" ColumnName="mun_name" />
+                <ScalarProperty Name="district_id" ColumnName="district_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="workReportModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="usrId" ColumnName="usrId" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="userPassword" ColumnName="userPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="workList">
+            <EntityTypeMapping TypeName="workReportModel.workList">
+              <MappingFragment StoreEntitySet="workList">
+                <ScalarProperty Name="workListId" ColumnName="workListId" />
+                <ScalarProperty Name="workListType" ColumnName="workListType" />
+                <ScalarProperty Name="mun" ColumnName="mun" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="users" ColumnName="users" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="workTypes">
+            <EntityTypeMapping TypeName="workReportModel.workTypes">
+              <MappingFragment StoreEntitySet="workTypes">
+                <ScalarProperty Name="workId" ColumnName="workId" />
+                <ScalarProperty Name="workName" ColumnName="workName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
