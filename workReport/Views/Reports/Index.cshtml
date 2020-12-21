@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<div class="content-footer">
+    <button id="btn-export" onclick="exportHTML();">
+        Export to
+        word doc
+    </button>
+</div>
+<div id="source-html">
+    <p style="text-align: center;"><strong>Timesheet</strong></p>
+    <p>I have submitted this time sheet to the Program Manager of VERSP for verification of the end of calendar month.</p>
+    <p><strong>Month: - Mangsir, 2077</strong></p>
+    <table style="width: 100%; border-collapse: collapse; border-style: solid; height: 90px;" border="1">
+        <tbody>
+            <tr style="height: 18px;">
+                <td style="width: 7.10227%; text-align: center; height: 72px;" rowspan="4"><strong>Days of the month</strong></td>
+                <td style="width: 17.8977%; text-align: center; height: 72px;" rowspan="4"><strong>Day</strong></td>
+                <td style="height: 36px; text-align: center;" colspan="3" rowspan="2"><strong>Description of Works&nbsp; </strong></td>
+                <td style="width: 12.5%; height: 18px; text-align: center;"><strong>Remarks</strong></td>
+                <td style="width: 12.5%; height: 18px; text-align: center;"><strong>per Diem</strong></td>
+            </tr>
+            <tr style="height: 18px;">
+                <td style="width: 12.5%; height: 18px; text-align: center;">&nbsp;</td>
+                <td style="width: 12.5%; height: 18px; text-align: center;"><strong>(1=day)<br /></strong></td>
+            </tr>
+            <tr style="height: 18px;">
+                <td style="width: 12.5%; height: 18px; text-align: center;"><strong>Email</strong></td>
+                <td style="width: 12.5%; height: 18px; text-align: center;"><strong>Call</strong></td>
+                <td style="width: 12.5%; height: 18px; text-align: center;"><strong>Anydesk</strong></td>
+                <td style="width: 12.5%; height: 18px; text-align: center;">&nbsp;</td>
+                <td style="width: 12.5%; height: 18px; text-align: center;">&nbsp;</td>
+            </tr>
+            <tr style="height: 18px;">
+                <td style="width: 12.5%; height: 18px; text-align: center;"><strong>(Nos)</strong></td>
+                <td style="width: 12.5%; height: 18px; text-align: center;"><strong>(Nos)</strong></td>
+                <td style="width: 12.5%; height: 18px; text-align: center;"><strong>(Nos)</strong></td>
+                <td style="width: 12.5%; height: 18px; text-align: center;">&nbsp;</td>
+                <td style="width: 12.5%; height: 18px; text-align: center;">&nbsp;</td>
+            </tr>
+            <tr style="height: 18px;">
+                <td style="width: 7.10227%; text-align: center; height: 18px;"><strong>&nbsp;</strong></td>
+                <td style="width: 17.8977%; text-align: center; height: 18px;"><strong>&nbsp;</strong></td>
+                <td style="width: 37.5%; text-align: center; height: 18px;" colspan="3"><strong>&nbsp;</strong></td>
+                <td style="width: 12.5%; height: 18px;">&nbsp;</td>
+                <td style="width: 12.5%; height: 18px;">&nbsp;</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    <p style="text-align: justify;">&nbsp;</p>
+    <p style="text-align: justify;"><strong>Submitted By: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; Approved By:</strong></p>
+    <div>
+        <div class="pull-left" style="text-align: justify;">Pradeep Budhathoki&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Director</div>
+    </div>
+</div>
+    <script>
+        function exportHTML() {
+            var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
+                "xmlns:w='urn:schemas-microsoft-com:office:word' " +
+                "xmlns='http://www.w3.org/TR/REC-html40'>" +
+                "<head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title></head><body>";
+            var footer = "</body></html>";
+            var sourceHTML = header + document.getElementById("source-html").innerHTML + footer;
+
+            var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+            var fileDownload = document.createElement("a");
+            document.body.appendChild(fileDownload);
+            fileDownload.href = source;
+            fileDownload.download = 'document.doc';
+            fileDownload.click();
+            document.body.removeChild(fileDownload);
+        }
+    </script>

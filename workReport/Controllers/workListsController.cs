@@ -23,6 +23,7 @@ namespace workReport.Controllers
             {
                 ViewBag.mun = new SelectList(db.mun, "mun_id", "mun_name");
                 ViewBag.work_Types = new SelectList(db.workTypes, "workId", "workName");
+                ViewBag.issues = new SelectList(db.issues, "issueId", "issueName");
                 string isuser = Session["userName"].ToString();
 
                 return View(db.workList.AsNoTracking().Where(x=>x.users==isuser).OrderByDescending(x=>x.date).ToList().ToPagedList(i??1,10));
@@ -53,11 +54,12 @@ namespace workReport.Controllers
         }
 
       
-        public ActionResult Create(string workTypeId, string munId, int timeId,string userId)
+        public ActionResult Create(string workTypeId, string issueTypeId,string munId, int timeId,string userId)
         {
 
             workList workList = new workList();
             workList.workListType = workTypeId;
+            workList.issue = issueTypeId;
             workList.mun = munId;
             workList.time = timeId;
             workList.users = userId;

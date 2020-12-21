@@ -15,7 +15,7 @@ namespace workReport.Controllers
         private workReportEntities db = new workReportEntities();
         public ActionResult SignIn()
         {
-            Session.Abandon();
+            //Session.Abandon();
             return View();
         }
         [HttpPost]

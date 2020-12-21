@@ -20,5 +20,6 @@ namespace workReport.Models
         public int time { get; set; }
         public string users { get; set; }
         public System.DateTime date { get; set; }
+        public string issue { get; set; }
     }
 }

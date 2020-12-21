@@ -5,6 +5,20 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="workReportModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="issues">
+          <Key>
+            <PropertyRef Name="issueId" />
+          </Key>
+          <Property Name="issueId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="issueName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Months">
+          <Key>
+            <PropertyRef Name="monthId" />
+          </Key>
+          <Property Name="monthId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="monthName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="mun">
           <Key>
             <PropertyRef Name="mun_id" />
@@ -33,6 +47,7 @@
           <Property Name="time" Type="int" Nullable="false" />
           <Property Name="users" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="issue" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="workTypes">
           <Key>
@@ -42,6 +57,8 @@
           <Property Name="workName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityContainer Name="workReportModelStoreContainer">
+          <EntitySet Name="issues" EntityType="Self.issues" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Months" EntityType="Self.Months" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="mun" EntityType="Self.mun" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="workList" EntityType="Self.workList" Schema="dbo" store:Type="Tables" />
@@ -69,17 +86,6 @@
           <Property Name="firstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="lastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="workList">
-          <Key>
-            <PropertyRef Name="workListId" />
-          </Key>
-          <Property Name="workListId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="workListType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="mun" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="time" Type="Int32" Nullable="false" />
-          <Property Name="users" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <EntityType Name="workTypes">
           <Key>
             <PropertyRef Name="workId" />
@@ -90,9 +96,37 @@
         <EntityContainer Name="workReportEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="mun" EntityType="Self.mun" />
           <EntitySet Name="user" EntityType="Self.user" />
-          <EntitySet Name="workList" EntityType="Self.workList" />
           <EntitySet Name="workTypes" EntityType="Self.workTypes" />
+          <EntitySet Name="Months" EntityType="workReportModel.Months" />
+          <EntitySet Name="issues" EntityType="workReportModel.issues" />
+          <EntitySet Name="workList" EntityType="workReportModel.workList" />
         </EntityContainer>
+        <EntityType Name="Months">
+          <Key>
+            <PropertyRef Name="monthId" />
+          </Key>
+          <Property Name="monthId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="monthName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="issues">
+          <Key>
+            <PropertyRef Name="issueId" />
+          </Key>
+          <Property Name="issueId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="issueName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="workList">
+          <Key>
+            <PropertyRef Name="workListId" />
+          </Key>
+          <Property Name="workListId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="workListType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mun" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="time" Type="Int32" Nullable="false" />
+          <Property Name="users" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="issue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -119,23 +153,40 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="workList">
-            <EntityTypeMapping TypeName="workReportModel.workList">
-              <MappingFragment StoreEntitySet="workList">
-                <ScalarProperty Name="workListId" ColumnName="workListId" />
-                <ScalarProperty Name="workListType" ColumnName="workListType" />
-                <ScalarProperty Name="mun" ColumnName="mun" />
-                <ScalarProperty Name="time" ColumnName="time" />
-                <ScalarProperty Name="users" ColumnName="users" />
-                <ScalarProperty Name="date" ColumnName="date" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="workTypes">
             <EntityTypeMapping TypeName="workReportModel.workTypes">
               <MappingFragment StoreEntitySet="workTypes">
                 <ScalarProperty Name="workId" ColumnName="workId" />
                 <ScalarProperty Name="workName" ColumnName="workName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Months">
+            <EntityTypeMapping TypeName="workReportModel.Months">
+              <MappingFragment StoreEntitySet="Months">
+                <ScalarProperty Name="monthName" ColumnName="monthName" />
+                <ScalarProperty Name="monthId" ColumnName="monthId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="issues">
+            <EntityTypeMapping TypeName="workReportModel.issues">
+              <MappingFragment StoreEntitySet="issues">
+                <ScalarProperty Name="issueName" ColumnName="issueName" />
+                <ScalarProperty Name="issueId" ColumnName="issueId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="workList">
+            <EntityTypeMapping TypeName="workReportModel.workList">
+              <MappingFragment StoreEntitySet="workList">
+                <ScalarProperty Name="issue" ColumnName="issue" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="users" ColumnName="users" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="mun" ColumnName="mun" />
+                <ScalarProperty Name="workListType" ColumnName="workListType" />
+                <ScalarProperty Name="workListId" ColumnName="workListId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
