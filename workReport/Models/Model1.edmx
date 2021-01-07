@@ -5,6 +5,24 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="workReportModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="COM_ENGLISH_NEPALI_DATE">
+          <Key>
+            <PropertyRef Name="NEP_DATE_NUM" />
+          </Key>
+          <Property Name="NEPALI_YEAR" Type="int" />
+          <Property Name="MONTH_CD" Type="int" />
+          <Property Name="NO_OF_DAYS" Type="int" />
+          <Property Name="NEPALI_ST_DATE" Type="varchar" MaxLength="10" />
+          <Property Name="ENG_ST_DATE" Type="datetime" />
+          <Property Name="ENG_END_DATE" Type="datetime" />
+          <Property Name="FISCAL_YR" Type="varchar" MaxLength="10" />
+          <Property Name="ENTERED_BY" Type="varchar" MaxLength="10" />
+          <Property Name="ENTERED_DT" Type="datetime" />
+          <Property Name="NEPALI_ST_DT_YEAR_MON" Type="varchar" MaxLength="10" />
+          <Property Name="NEPALI_ST_DT_YEAR_DAY" Type="varchar" MaxLength="10" />
+          <Property Name="NEW_NEP_DATE" Type="varchar" MaxLength="10" />
+          <Property Name="NEP_DATE_NUM" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="issues">
           <Key>
             <PropertyRef Name="issueId" />
@@ -27,6 +45,20 @@
           <Property Name="mun_name" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="district_id" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="nepMonths">
+          <Key>
+            <PropertyRef Name="monthId" />
+          </Key>
+          <Property Name="monthId" Type="int" Nullable="false" />
+          <Property Name="monthName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="posts">
+          <Key>
+            <PropertyRef Name="postId" />
+          </Key>
+          <Property Name="postId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="postName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="user">
           <Key>
             <PropertyRef Name="usrId" />
@@ -36,18 +68,29 @@
           <Property Name="userPassword" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="firstName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="lastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="post" Type="int" />
+          <Property Name="contractDate" Type="varchar" MaxLength="50" />
+          <Property Name="monthlySalary" Type="int" />
+          <Property Name="totalAmount" Type="int" />
+          <Property Name="bankName" Type="varchar" MaxLength="50" />
+          <Property Name="branch" Type="varchar" MaxLength="50" />
+          <Property Name="acnumber" Type="varchar" MaxLength="50" />
+          <Property Name="lastMonthAmount" Type="int" />
+          <Property Name="enteredDate" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="workList">
           <Key>
             <PropertyRef Name="workListId" />
           </Key>
           <Property Name="workListId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="workListType" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="mun" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="time" Type="int" Nullable="false" />
-          <Property Name="users" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="date" Type="datetime" Nullable="false" />
-          <Property Name="issue" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="workListType" Type="varchar" MaxLength="50" />
+          <Property Name="mun" Type="varchar" MaxLength="50" />
+          <Property Name="time" Type="int" />
+          <Property Name="users" Type="int" />
+          <Property Name="date" Type="varchar" MaxLength="50" />
+          <Property Name="issue" Type="varchar" MaxLength="50" />
+          <Property Name="date_Eng" Type="datetime" />
+          <Property Name="workDet" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="workTypes">
           <Key>
@@ -56,10 +99,19 @@
           <Property Name="workId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="workName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <Function Name="PR_engtonep" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="engdate" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PR_neptoeng" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nepdate" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="workReportModelStoreContainer">
+          <EntitySet Name="COM_ENGLISH_NEPALI_DATE" EntityType="Self.COM_ENGLISH_NEPALI_DATE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="issues" EntityType="Self.issues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Months" EntityType="Self.Months" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="mun" EntityType="Self.mun" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="nepMonths" EntityType="Self.nepMonths" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="posts" EntityType="Self.posts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="workList" EntityType="Self.workList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="workTypes" EntityType="Self.workTypes" Schema="dbo" store:Type="Tables" />
@@ -76,16 +128,6 @@
           <Property Name="mun_name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="district_id" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="user">
-          <Key>
-            <PropertyRef Name="usrId" />
-          </Key>
-          <Property Name="usrId" Type="Int32" Nullable="false" />
-          <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="userPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="firstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="lastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="workTypes">
           <Key>
             <PropertyRef Name="workId" />
@@ -95,11 +137,20 @@
         </EntityType>
         <EntityContainer Name="workReportEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="mun" EntityType="Self.mun" />
-          <EntitySet Name="user" EntityType="Self.user" />
           <EntitySet Name="workTypes" EntityType="Self.workTypes" />
           <EntitySet Name="Months" EntityType="workReportModel.Months" />
           <EntitySet Name="issues" EntityType="workReportModel.issues" />
+          <EntitySet Name="posts" EntityType="workReportModel.posts" />
+          <FunctionImport Name="PR_neptoeng" ReturnType="Collection(DateTime)">
+          <Parameter Name="nepdate" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PR_engtonep" ReturnType="Collection(String)">
+          <Parameter Name="engdate" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="nepMonths" EntityType="workReportModel.nepMonths" />
+          <EntitySet Name="COM_ENGLISH_NEPALI_DATE" EntityType="workReportModel.COM_ENGLISH_NEPALI_DATE" />
           <EntitySet Name="workList" EntityType="workReportModel.workList" />
+          <EntitySet Name="user" EntityType="workReportModel.user" />
         </EntityContainer>
         <EntityType Name="Months">
           <Key>
@@ -115,17 +166,70 @@
           <Property Name="issueId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="issueName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="posts">
+          <Key>
+            <PropertyRef Name="postId" />
+          </Key>
+          <Property Name="postId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="postName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="nepMonths">
+          <Key>
+            <PropertyRef Name="monthId" />
+          </Key>
+          <Property Name="monthId" Type="Int32" Nullable="false" />
+          <Property Name="monthName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="COM_ENGLISH_NEPALI_DATE">
+          <Key>
+            <PropertyRef Name="NEP_DATE_NUM" />
+          </Key>
+          <Property Name="NEPALI_YEAR" Type="Int32" />
+          <Property Name="MONTH_CD" Type="Int32" />
+          <Property Name="NO_OF_DAYS" Type="Int32" />
+          <Property Name="NEPALI_ST_DATE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ENG_ST_DATE" Type="DateTime" Precision="3" />
+          <Property Name="ENG_END_DATE" Type="DateTime" Precision="3" />
+          <Property Name="FISCAL_YR" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ENTERED_BY" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ENTERED_DT" Type="DateTime" Precision="3" />
+          <Property Name="NEPALI_ST_DT_YEAR_MON" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NEPALI_ST_DT_YEAR_DAY" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NEW_NEP_DATE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NEP_DATE_NUM" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="workList">
           <Key>
             <PropertyRef Name="workListId" />
           </Key>
           <Property Name="workListId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="workListType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="mun" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="time" Type="Int32" Nullable="false" />
-          <Property Name="users" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="issue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="workListType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mun" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="time" Type="Int32" />
+          <Property Name="users" Type="Int32" />
+          <Property Name="date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="issue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_Eng" Type="DateTime" Precision="3" />
+          <Property Name="workDet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="usrId" />
+          </Key>
+          <Property Name="usrId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="userPassword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="post" Type="Int32" />
+          <Property Name="contractDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="monthlySalary" Type="Int32" />
+          <Property Name="totalAmount" Type="Int32" />
+          <Property Name="bankName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="branch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="acnumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastMonthAmount" Type="Int32" />
+          <Property Name="enteredDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -139,17 +243,6 @@
                 <ScalarProperty Name="mun_id" ColumnName="mun_id" />
                 <ScalarProperty Name="mun_name" ColumnName="mun_name" />
                 <ScalarProperty Name="district_id" ColumnName="district_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="user">
-            <EntityTypeMapping TypeName="workReportModel.user">
-              <MappingFragment StoreEntitySet="user">
-                <ScalarProperty Name="lastName" ColumnName="lastName" />
-                <ScalarProperty Name="firstName" ColumnName="firstName" />
-                <ScalarProperty Name="usrId" ColumnName="usrId" />
-                <ScalarProperty Name="userName" ColumnName="userName" />
-                <ScalarProperty Name="userPassword" ColumnName="userPassword" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -177,9 +270,48 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="posts">
+            <EntityTypeMapping TypeName="workReportModel.posts">
+              <MappingFragment StoreEntitySet="posts">
+                <ScalarProperty Name="postName" ColumnName="postName" />
+                <ScalarProperty Name="postId" ColumnName="postId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="PR_neptoeng" FunctionName="workReportModel.Store.PR_neptoeng" />
+          <FunctionImportMapping FunctionImportName="PR_engtonep" FunctionName="workReportModel.Store.PR_engtonep" />
+          <EntitySetMapping Name="nepMonths">
+            <EntityTypeMapping TypeName="workReportModel.nepMonths">
+              <MappingFragment StoreEntitySet="nepMonths">
+                <ScalarProperty Name="monthName" ColumnName="monthName" />
+                <ScalarProperty Name="monthId" ColumnName="monthId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COM_ENGLISH_NEPALI_DATE">
+            <EntityTypeMapping TypeName="workReportModel.COM_ENGLISH_NEPALI_DATE">
+              <MappingFragment StoreEntitySet="COM_ENGLISH_NEPALI_DATE">
+                <ScalarProperty Name="NEP_DATE_NUM" ColumnName="NEP_DATE_NUM" />
+                <ScalarProperty Name="NEW_NEP_DATE" ColumnName="NEW_NEP_DATE" />
+                <ScalarProperty Name="NEPALI_ST_DT_YEAR_DAY" ColumnName="NEPALI_ST_DT_YEAR_DAY" />
+                <ScalarProperty Name="NEPALI_ST_DT_YEAR_MON" ColumnName="NEPALI_ST_DT_YEAR_MON" />
+                <ScalarProperty Name="ENTERED_DT" ColumnName="ENTERED_DT" />
+                <ScalarProperty Name="ENTERED_BY" ColumnName="ENTERED_BY" />
+                <ScalarProperty Name="FISCAL_YR" ColumnName="FISCAL_YR" />
+                <ScalarProperty Name="ENG_END_DATE" ColumnName="ENG_END_DATE" />
+                <ScalarProperty Name="ENG_ST_DATE" ColumnName="ENG_ST_DATE" />
+                <ScalarProperty Name="NEPALI_ST_DATE" ColumnName="NEPALI_ST_DATE" />
+                <ScalarProperty Name="NO_OF_DAYS" ColumnName="NO_OF_DAYS" />
+                <ScalarProperty Name="MONTH_CD" ColumnName="MONTH_CD" />
+                <ScalarProperty Name="NEPALI_YEAR" ColumnName="NEPALI_YEAR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="workList">
             <EntityTypeMapping TypeName="workReportModel.workList">
               <MappingFragment StoreEntitySet="workList">
+                <ScalarProperty Name="workDet" ColumnName="workDet" />
+                <ScalarProperty Name="date_Eng" ColumnName="date_Eng" />
                 <ScalarProperty Name="issue" ColumnName="issue" />
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="users" ColumnName="users" />
@@ -187,6 +319,26 @@
                 <ScalarProperty Name="mun" ColumnName="mun" />
                 <ScalarProperty Name="workListType" ColumnName="workListType" />
                 <ScalarProperty Name="workListId" ColumnName="workListId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="workReportModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="enteredDate" ColumnName="enteredDate" />
+                <ScalarProperty Name="lastMonthAmount" ColumnName="lastMonthAmount" />
+                <ScalarProperty Name="acnumber" ColumnName="acnumber" />
+                <ScalarProperty Name="branch" ColumnName="branch" />
+                <ScalarProperty Name="bankName" ColumnName="bankName" />
+                <ScalarProperty Name="totalAmount" ColumnName="totalAmount" />
+                <ScalarProperty Name="monthlySalary" ColumnName="monthlySalary" />
+                <ScalarProperty Name="contractDate" ColumnName="contractDate" />
+                <ScalarProperty Name="post" ColumnName="post" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="userPassword" ColumnName="userPassword" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="usrId" ColumnName="usrId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

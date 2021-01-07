@@ -17,9 +17,11 @@ namespace workReport.Models
         public int workListId { get; set; }
         public string workListType { get; set; }
         public string mun { get; set; }
-        public int time { get; set; }
-        public string users { get; set; }
-        public System.DateTime date { get; set; }
+        public Nullable<int> time { get; set; }
+        public Nullable<int> users { get; set; }
+        public string date { get; set; }
         public string issue { get; set; }
+        public Nullable<System.DateTime> date_Eng { get; set; }
+        public string workDet { get; set; }
     }
 }

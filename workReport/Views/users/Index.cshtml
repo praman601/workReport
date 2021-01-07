@@ -23,6 +23,27 @@
         <th>
             @Html.DisplayNameFor(model => model.lastName)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.post)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.contractDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.monthlySalary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.totalAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bankName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.branch)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.acnumber)
+        </th>
         <th></th>
     </tr>
 
@@ -39,6 +60,27 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.lastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.post)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.contractDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.monthlySalary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.totalAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bankName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.branch)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.acnumber)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.usrId }) |

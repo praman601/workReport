@@ -3,25 +3,30 @@
 @using PagedList.Mvc;
 @using PagedList;
 
+
 <div id="List_Container">
     <table class="table">
         <tr>
             <th>
                 SN
             </th>
-            <th>
-                Type
-            </th>
-            <th>
-                Issue
-            </th>
+          
+                <th>
+                    Type
+                </th>
+                <th>
+                    Issue
+                </th>
+            
             <th>
                 Municipality
             </th>
-            <th>
-                Time
-            </th>
-            <th></th>
+              <th>
+                    Time
+                </th>
+
+                <th></th>
+
         </tr>
         @{ int rowNo = 0; }
         @foreach (var item in Model)
@@ -30,24 +35,26 @@
                 <td>
                     @(rowNo += 1)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.workListType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.issue)
-                </td>
-
+              
+                    <td>
+                        @Html.DisplayFor(modelItem => item.workListType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.issue)
+                    </td>
+                
                 <td>
                     @Html.DisplayFor(modelItem => item.mun)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.time)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.workListId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.workListId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.workListId })
-                </td>
+                        @Html.DisplayFor(modelItem => item.time)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.workListId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.workListId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.workListId })
+                    </td>
+
             </tr>
         }
 
@@ -55,4 +62,3 @@
     @Html.PagedListPager(Model, i => Url.Action("Index", "workLists", new { i }))
 
 </div>
-

@@ -12,7 +12,7 @@ namespace workReport.Controllers
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             HttpSessionStateBase session = filterContext.HttpContext.Session;
-            if (session != null && session["userName"] == null)
+            if (session != null && session["userId"] == null)
             {
                 filterContext.Result = new RedirectToRouteResult(
                     new RouteValueDictionary {

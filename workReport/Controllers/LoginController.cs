@@ -33,8 +33,9 @@ namespace workReport.Controllers
             {
                 user isuser = db.user.AsNoTracking().Where(x => x.userName == email && x.userPassword == password).First();
                
-                    Session["userName"] = (isuser.firstName);
-                   
+                    Session["userName"] = (isuser.userName);
+                Session["userId"] = isuser.usrId;
+                Session["userPost"] = isuser.post;
 
                     return RedirectToAction("Index", "workLists");
                 

@@ -6,11 +6,14 @@
     <edmx:Diagrams>
       <Diagram DiagramId="ed9930ed381146b78b56ecbbcfd13819" Name="Diagram1">
         <EntityTypeShape EntityType="workReportModel.mun" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="workReportModel.user" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="workReportModel.workTypes" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="workReportModel.Months" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="workReportModel.issues" Width="1.5" PointX="5.375" PointY="3.75" />
-        <EntityTypeShape EntityType="workReportModel.workList" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="workReportModel.posts" Width="1.5" PointX="3.375" PointY="6.75" />
+        <EntityTypeShape EntityType="workReportModel.nepMonths" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="workReportModel.COM_ENGLISH_NEPALI_DATE" Width="1.5" PointX="7.375" PointY="4.75" />
+        <EntityTypeShape EntityType="workReportModel.workList" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="workReportModel.user" Width="1.5" PointX="9.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

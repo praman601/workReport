@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>Monthly Report</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -17,14 +17,20 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Work Report", "Index", "workLists", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
+              
+
+                   
+                
+                </div>
             <div class="navbar-collapse collapse">
 @if (Session["userName"] != null)
 {
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @*     <li>@Html.ActionLink("Home", "Index", "Home")</li>*@
+                    <li>@Html.ActionLink("Dashboard", "Main", "WorkLists")</li>
 
                     <li class="nav-item dropdown">
+
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Report
                         </a>
@@ -32,7 +38,7 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
                             <li>@Html.ActionLink("Monthly Report", "report", "Reports")</li>
-                       @*     <li>@Html.ActionLink("Rent Report", "Rentreport", "Reports")</li>*@
+                            <li>@Html.ActionLink("Daily Report", "report1", "Reports")</li>
 
                         </ul>
                     </li>

@@ -19,5 +19,14 @@ namespace workReport.Models
         public string userPassword { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
+        public Nullable<int> post { get; set; }
+        public string contractDate { get; set; }
+        public Nullable<int> monthlySalary { get; set; }
+        public Nullable<int> totalAmount { get; set; }
+        public string bankName { get; set; }
+        public string branch { get; set; }
+        public string acnumber { get; set; }
+        public Nullable<int> lastMonthAmount { get; set; }
+        public string enteredDate { get; set; }
     }
 }
