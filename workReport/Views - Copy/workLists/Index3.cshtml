@@ -1,0 +1,43 @@
+﻿@model IPagedList<workReport.Models.workList>
+
+@using PagedList.Mvc;
+@using PagedList;
+
+
+<div id="List_Container">
+    <table class="table">
+        <tr>
+            <th>
+                SN
+            </th>
+
+            <th>
+                Municipality
+            </th>
+            <th>
+                work Details
+            </th>
+
+        </tr>
+        @{ int rowNo = 0; }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @(rowNo += 1)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.mun)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.workDet)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+    @Html.PagedListPager(Model, i => Url.Action("Index", "workLists", new { i }))
+
+</div>

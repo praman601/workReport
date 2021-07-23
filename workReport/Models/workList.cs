@@ -24,4 +24,17 @@ namespace workReport.Models
         public Nullable<System.DateTime> date_Eng { get; set; }
         public string workDet { get; set; }
     }
+
+    public partial class workListnew
+    {
+        public int workListId { get; set; }
+        public string workListType { get; set; }
+        public string mun { get; set; }
+        public string time { get; set; }
+        public string users { get; set; }
+        public string date { get; set; }
+        public string issue { get; set; }
+        public string date_Eng { get; set; }
+        public string workDet { get; set; }
+    }
 }

@@ -1,0 +1,146 @@
+﻿@model IEnumerable<workReport.Models.WorkListModel>
+@{
+    ViewBag.Title = "Index";
+    int id = 1;
+}
+<div class="content-footer">
+    <button id="btn-export" onclick="exportHTML();">
+        Export to
+        word doc
+    </button>
+</div>
+<div id="source-html">
+
+
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>Month: - @ViewBag.isReportMonth, @ViewBag.isReportYear</strong></p>
+    <table  style="border: none;width:6.5123in;margin-left:-1.5pt;border-collapse:collapse;">
+        <tbody>
+           
+        
+            <tr>
+
+                <td style="width:34.05pt;border-top:none;border-left:solid windowtext 1.0pt;border-top:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">SN</span></strong></p>
+                </td>
+                <td style="width:34.05pt;border-top:none;border-left:none;border-top:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">Day</span></strong></p>
+                </td>
+                <td style="width:60.75pt;border-top:none;border-left:none;border-top:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">Day</span></strong></p>
+                </td>
+                <td style="width:69.75pt;border-top:none;border-left:none;border-top:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">Mun</span></strong></p>
+                </td>
+                <td style="width:40.75pt;border-top:none;border-left:none;border-top:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">Work Type</span></strong></p>
+                </td>
+                <td style="width:40.75pt;border-top:none;border-left:none;border-top:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">Issue Type</span></strong></p>
+                </td>
+                <td style="width:50.75pt;border-top:none;border-left:none;border-top:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">Count</span></strong></p>
+                </td>
+                <td style="width:30.75pt;border-top:none;border-left:none;border-top:solid windowtext 1.0pt;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">Remarks</span></strong></p>
+                </td>
+                @*<td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+        </td>*@
+            </tr>
+            @foreach (var item in Model)
+            {
+        <tr>
+            <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;'><span style="color:black;">   @id</span></p>
+            </td>
+            <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;'><span style="color:black;">   @item.isDay</span></p>
+            </td>
+
+            <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;'><span style="color:black;">   @item.DayofMonth</span></p>
+            </td>
+            @if (item.DayofMonth == "Saturday")
+            {
+                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;" colspan="3">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'>
+                        <span style="color:black;">
+
+                            Public Holiday
+
+                        </span>
+                    </p>
+                </td>
+
+                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                </td>
+
+                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">   </td>
+            }
+            else
+            {
+
+
+                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">      @item.mun</span></p>
+                </td>
+                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">     @item.workListType</span></p>
+                </td>
+                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">     @item.issue</span></p>
+                </td>
+                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">     @item.time</span></p>
+                </td>
+                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                </td>
+                @*<td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+            </td>*@
+            }
+        </tr>
+
+                id++;
+            }
+
+            @*<tr>
+                    <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;" colspan="2">
+                        <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;'><span style="color:black;">Total</span></p>
+                    </td>
+                    <td style="width:74.05pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                        <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:10pt;color:black;">  @ViewBag.TotalEmail </span></strong></p>
+                    </td>
+                    <td style="width:80.75pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                        <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:10pt;color:black;">  @ViewBag.TotalCall </span></strong></p>
+                    </td>
+                    <td style="width:69.75pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                        <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:10pt;color:black;">   @ViewBag.TotalAnydesk </span></strong></p>
+                    </td>
+
+                    <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                    </td>
+
+                    <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">   </td>
+                </tr>*@
+
+        </tbody>
+    </table>
+    </div>
+
+<script>
+    function exportHTML() {
+        var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
+            "xmlns:w='urn:schemas-microsoft-com:office:word' " +
+            "xmlns='http://www.w3.org/TR/REC-html40'>" +
+            "<head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title></head><body>";
+        var footer = "</body></html>";
+        var sourceHTML = header + document.getElementById("source-html").innerHTML + footer;
+
+        var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+        var fileDownload = document.createElement("a");
+        document.body.appendChild(fileDownload);
+        fileDownload.href = source;
+        fileDownload.download = 'document.doc';
+        fileDownload.click();
+        document.body.removeChild(fileDownload);
+    }
+</script>

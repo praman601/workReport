@@ -1,0 +1,240 @@
+﻿
+
+<div class="box1" id="List_Container">
+    <div class="box2">
+        <div class="box3">
+            <h1 id="oldToNew" style="color: #fff !important;">
+                Date Convertor
+            </h1>
+            <h5 style="color: whitesmoke; font-family: sans-serif">
+            </h5>
+
+            <hr />
+
+
+            <div class="row" id="checkDate">
+                <div class="col-md-3">
+                    <h4>Select Change type:</h4>
+                </div>
+                <div class="col-md-3">
+                    <input type="radio" id="adtobs" name="adbschange" value="1" checked>
+
+                    <label for="adtobs">AD to BS</label>
+                </div>
+
+                <div class="col-md-3">
+                    <input type="radio" id="bstoad" name="adbschange" value="2">
+                    <label for="bstoad">BS To AD</label>
+                </div>
+            </div>
+
+            <div id="divOldtoNew" class="row">
+                <p style="font-size: 20px; color: lavender">
+
+                    <div class="col-md-2">
+                        @Html.DropDownList("NepYears", null, htmlAttributes: new { @class = "form-control", placeholder = "Day" })
+
+                    </div>
+                    <div class="col-md-2" id="months1">
+                        <select class="form-control" name="Month" id="months" >
+
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
+                            <option value="32">32</option>
+
+                        </select>
+                    </div>
+
+
+                    <div class="col-md-2" id="days1">
+                    
+                        <select class="form-control" name="Day" id="days">
+
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
+                            <option value="32">32</option>
+
+                        </select>
+                    </div>
+
+
+                    <input type="submit" name="btnConvertOldToNew" value="Change" id="changedate" class="btn btn-primary" onclick="return changeDate()" />
+                </p>
+                <hr />
+
+                <br />
+
+                <div class="row" id="hiddenresult" hidden>
+
+                    <h2 color: lavender" >
+                        Date Converted :  <span id="message">
+                        </span>
+                    </h2>
+                    
+                       
+                   
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script>
+
+
+
+    function changeDate() {
+        debugger;
+        $('#List_Container').html();
+        var year = $('#NepYears').val();
+        var month = $('#months').val();
+        var day = $('#days').val();
+        var bsadchange = $("input[type='radio'][name='adbschange']:checked").val();
+
+
+        {
+
+            $.ajax({
+                url: '/Reports/DateConvertor',
+                //type: "post",
+                //dataType: "JSON",
+                // async: true,
+                method: "post",
+                type: "application/json",
+
+                data: {
+                    year: year,
+                    month: month,
+                    day: day,
+                    bsadchange: bsadchange
+
+                }
+                ,
+                success: function (x) {
+                    debugger;
+                   
+                    console.log(x);
+                    $('#hiddenresult').show();
+                    $('#message').text(x);
+
+                }
+
+                , error: function (result) {
+                    debugger;
+
+                    alert("something went wrongsss!!");
+                }
+
+
+            });
+        }
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+@*<script>
+    $(document).ready(function () {
+        $("#NepYears").change(function () {
+            debugger
+            var catid = $('#NepYears').val();
+            if (catid == "") {
+                $("#Months").html(null); // clear before appending new list
+                $("#Months").append(
+                    $('<option value></option>').html("--select Month--"));
+            }
+            else {
+                $.ajax({
+                    url: '/GetData/getDistrictList',
+                    type: "get",
+                    datatype: "json",
+                    async: true,
+                    data: {
+                        provinceId: catid
+                    },
+                    success: function (viewmodel) {
+                        $("#User_District").html(null); // clear before appending new list
+                        $("#User_District").append(
+                            $('<option value></option>').html("--select district--"));
+                        $.each(viewmodel, function (index, viewmodel) {
+                            $("#User_District").append(
+                                $('<option></option>').val(viewmodel.dis_id).html(viewmodel.dis_name));
+                        });
+                    },
+                    error: function (textstatus, errorthrown) {
+                        bootbox.alert(textstatus + errorthrown);
+                        success = false;
+
+                    }
+                });
+            }
+        });*@
+<!--</script>-->

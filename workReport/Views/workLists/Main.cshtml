@@ -85,7 +85,8 @@
     }
 </script>
 <header style="position:static; width:100%">
-    <div class="wrapper" style="margin-left:360px">
+    <div class="wrapper" style="margin-left:500px">
+         
         <div class="c-monthyear">
             <div class="c-month">
                 <span id="prev" class="prev fa fa-angle-left" aria-hidden="true"></span>
@@ -105,12 +106,23 @@
                 </div>
                 <span id="next" class="next fa fa-angle-right" aria-hidden="true"></span>
             </div>
-            <span class="c-paginator__year">2021</span>
-        </div>
-        @*<div class="c-sort">
-            <a class="o-btn c-today__btn" href="javascript:;"></a>
+
+            @*<div class="c-year">
+            <span id="prev" class="prev fa fa-angle-left" aria-hidden="true"></span>
+            <div id="c-paginator">
+                <span class="c-paginator__year">2020 </span>
+                <span class="c-paginator__year">2021 </span>
+            </div>
+            <span id="next" class="next fa fa-angle-right" aria-hidden="true"></span>
         </div>*@
-    </div>
+            @Html.DropDownList("fscYear", null, "--Select Year--", htmlAttributes: new { @class = "c-year" })
+
+            @*<span class="c-paginator__year">2021 </span>*@
+        </div>
+            @*<div class="c-sort">
+                <a class="o-btn c-today__btn" href="javascript:;"></a>
+            </div>*@
+        </div>
 </header>
 <div class="wrapper">
     <div class="c-calendar" style="padding-top:0px">
@@ -181,7 +193,7 @@
         </form>
         <br>
         <a href="javascript:;" class="o-btn js-event__save">SAVE <span class="fa fa-save"></span></a>
-        <a  href="javascript:;" class="o-btn js-event__close pull-right ">CLOSE <span class="fa fa-close "></span></a>
+        <a href="javascript:;" class="o-btn js-event__close pull-right ">CLOSE <span class="fa fa-close "></span></a>
     </div>
 </div>
 
@@ -343,9 +355,9 @@
 
             });
         }
-      
 
-     
+
+
     });
 
     //fill sidebar event info
@@ -363,7 +375,7 @@
         //var thisFestivity = self.hasClass("event--festivity");
         //var thisEvent = self.hasClass("event");
 
-      
+
 
             $.ajax({
                 url: '/Reports/GetData',
@@ -391,10 +403,10 @@
                         );
 
                     })
-             
 
 
-                
+
+
 
                 }
                 , error: function (result) {
@@ -445,7 +457,7 @@
         //        );
         //        break;
         //}
-   
+
     dataCel.on("click", function () {
         debugger;
         var thisEl = $(this);

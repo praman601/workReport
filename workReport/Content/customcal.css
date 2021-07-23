@@ -130,6 +130,93 @@ header {
     display: flex;
 }
 
+
+.c-year {
+    position: relative;
+    padding-top: 15px;
+    height: 80px;
+    line-height: 80px;
+}
+
+    .c-year #c-paginator {
+        position: relative;
+        width: 200px;
+        display: block;
+        height: 80px;
+        line-height: 80px;
+        text-align: center;
+        overflow: hidden;
+    }
+
+        .c-year #c-paginator .c-paginator__year {
+            position: relative;
+            width: 200px;
+            top: 0;
+            bottom: 0;
+            right: 0;
+        }
+
+            .c-year #c-paginator .c-paginator__year:nth-child(1) {
+                left: 100px;
+            }
+
+        .c-year #c-paginator .c-paginator__month:nth-child(2) {
+            left: 300px;
+        }
+
+
+
+    .c-year .prev, .c-year .next {
+        position: absolute;
+        display: block;
+        top: 50%;
+        width: 30px;
+        height: 30px;
+        padding: 9px 12px;
+        background-color: #004b8f;
+        cursor: pointer;
+        z-index: 10;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        transform: inherit;
+        -webkit-transform: inherit;
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+        transition: all 0.4s cubic-bezier(0.4,0.0,0.2,1);
+        -webkit-transition: all 0.4s cubic-bezier(0.4,0.0,0.2,1);
+    }
+
+        .c-year .prev.long, .c-year .next.long {
+            transition: all 0.8s cubic-bezier(0.4,0.0,0.2,1);
+            -webkit-transition: all 0.8s cubic-bezier(0.4,0.0,0.2,1);
+        }
+
+        .c-year .prev.elastic, .c-year .next.elastic {
+            transition: all 0.25s cubic-bezier(0.175,0.885,0.320,1.275);
+            -webkit-transition: all 0.25s cubic-bezier(0.175,0.885,0.320,1.275);
+        }
+
+    .c-year .prev {
+        left: 0;
+    }
+
+        .c-year .prev:hover {
+            padding: 9px 10px;
+            background-color: #0055a4;
+        }
+
+    .c-year .next {
+        right: 0;
+    }
+
+        .c-year .next:hover {
+            padding: 9px 14px;
+            background-color: #0055a4;
+        }
+
+
+
 .c-month {
     position: relative;
     padding-top:15px;

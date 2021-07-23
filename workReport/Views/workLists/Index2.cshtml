@@ -153,6 +153,9 @@
             <th>
                 work Details
             </th>
+            <th>
+                Date
+            </th>
 
         </tr>
         @{ int rowNo = 0; }
@@ -169,7 +172,9 @@
                 <td>
                     @Html.DisplayFor(modelItem=>item.workDet)
                 </td>
-
+                <td>
+                    @Html.DisplayFor(modelItem => item.date)
+                </td>
             </tr>
         }
 
@@ -208,7 +213,7 @@
             $('#work_Types').val('Call');
             $('#issue_Types').val(0);
 
-          $('#Time').val(1);
+          $('#Time').val(0);
                         }
                 });
 
@@ -218,7 +223,7 @@
         var workTypeId = 'Call';
         var issueTypeId = 0;
         var munId = $('#mun').val();
-        var timeId = 1;
+        var timeId = 0;
         var userId = '@Session["userId"]';
         var workDate = $('#workDate').val();
         var workDet = $('#workDet').val();
@@ -257,7 +262,7 @@
                     $("#work_Types").val('Call');
                     $("#issue_Types").val(0);
                     $("#mun").val('');
-                    $("#Time").val(1);
+                    $("#Time").val(0);
                     $('#workDet').val('');
                     $("#workDate").val();
                 }

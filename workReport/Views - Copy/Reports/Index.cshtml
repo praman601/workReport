@@ -1,0 +1,403 @@
+﻿@model IEnumerable<workReport.Models.WorkListModel>
+@{
+    ViewBag.Title = "Index";
+    int id = 1;
+}
+<div class="content-footer">
+    <button id="btn-export" onclick="exportHTML();">
+        Export to
+        word doc
+    </button>
+</div>
+<div id="source-html">
+
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="font-size:27px;line-height:115%;">Government of Nepal&nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="font-size:27px;line-height:115%;">Ministry of Home Affairs</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:37px;line-height:115%;">Department of National ID and Civil Registration&nbsp;</span></strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="font-size:27px;line-height:115%;">Singhadurbar, Kathmandu</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="font-size:37px;line-height:115%;">&nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="font-size:37px;line-height:115%;">&nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="font-size:37px;line-height:115%;">&nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:32px;line-height:115%;">Monthly Invoice of @ViewBag.userPost</span></strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:32px;line-height:115%;">@ViewBag.reporterName</span></strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:27px;line-height:115%;">&nbsp;</span></strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:27px;line-height:115%;">&nbsp;</span></strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:27px;line-height:115%;">&nbsp;</span></strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:27px;line-height:115%;">&nbsp;</span></strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:27px;line-height:115%;">@ViewBag.isReportMonth, @ViewBag.isReportYear</span></strong></p>
+    <p><span style='font-size:15px;line-height:115%;font-family:"Calibri",sans-serif;'><br>&nbsp;</span></p>
+
+
+
+
+
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'>Date: @ViewBag.todaysDay<sup>th&nbsp;</sup>@ViewBag.todaysMonth, @ViewBag.todaysYear </p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:150%;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:150%;font-size:15px;font-family:"Calibri",sans-serif;'>Director</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:150%;font-size:15px;font-family:"Calibri",sans-serif;'>Administration Section</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:150%;font-size:15px;font-family:"Calibri",sans-serif;'>Department of National ID and Civil Registration,</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:150%;font-size:15px;font-family:"Calibri",sans-serif;'>Singhadurbar, Kathmandu.</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:.5in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-indent:.5in;'><strong>Subject: <u>Request for Payment of Monthly Invoice of @ViewBag.isReportMonth @ViewBag.isReportYear.&nbsp;</u></strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'>Dear Sir,</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>As per contract made between &nbsp;DONIDCR &amp; Me on  @ViewBag.contractDay<sup>st&nbsp;</sup>@ViewBag.contractMonth ,  @ViewBag.contractYear and Notice to Proceed issued on the same date and Services provided as @ViewBag.userPost, I have submitted monthly invoice of total NRs. @ViewBag.isUserSalary for the month of @ViewBag.isReportMonth, @ViewBag.isReportYear. I would like to request to make the payment of monthly renumeration. The bank address and saving account is <strong> @ViewBag.isUserBank,@ViewBag.isBankAdd, A/c number: @ViewBag.isAccountNo</strong>.</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>I have also submitted brief progress of this month.</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>Your earliest action in this regard is highly appreciated.</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:200%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>&nbsp;</strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:200%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>&nbsp;</strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:200%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>&nbsp;</strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:150%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>Your Sincerely,</strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:150%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>&nbsp;</strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:150%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>&nbsp;</strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:150%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>&hellip;&hellip;&hellip;.&hellip;&hellip;&hellip;&hellip;.</strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:150%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'><strong>@ViewBag.reporterName</strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:150%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>@ViewBag.userPost&nbsp;</strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:150%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>Enclosures: &nbsp; Monthly invoice of @ViewBag.isReportMonth, @ViewBag.isReportYear</strong>.</p>
+
+
+
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong><u><span style="font-size:19px;line-height:115%;">Summary of monthly invoice&nbsp;</span></u></strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>Name of the Consultant: - @ViewBag.reporterName</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'>Position: - @ViewBag.userPost</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>Month: - @ViewBag.isReportMonth, @ViewBag.isReportYear.</strong></p>
+    <table style="width:6.45in;border-collapse:collapse;border:none;">
+        <tbody>
+            <tr>
+                <td style="width: 30.5pt;border: 1pt solid windowtext;padding: 0in 5.4pt;height: 62.05pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>S.N.</strong></p>
+                </td>
+                <td style="width: 87.25pt;border-top: 1pt solid windowtext;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-image: initial;border-left: none;padding: 0in 5.4pt;height: 62.05pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>Description</strong></p>
+                </td>
+                <td style="width: 81.2pt;border-top: 1pt solid windowtext;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-image: initial;border-left: none;padding: 0in 5.4pt;height: 62.05pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>Contract Amount NRs</strong></p>
+                </td>
+                <td style="width: 68.85pt;border-top: 1pt solid windowtext;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-image: initial;border-left: none;padding: 0in 5.4pt;height: 62.05pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>Up to Previous Month NRs</strong></p>
+                </td>
+                <td style="width: 55.95pt;border-top: 1pt solid windowtext;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-image: initial;border-left: none;padding: 0in 5.4pt;height: 62.05pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>This Month NRs&nbsp;</strong></p>
+                </td>
+                <td style="width: 68.85pt;border-top: 1pt solid windowtext;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-image: initial;border-left: none;padding: 0in 5.4pt;height: 62.05pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>Total up-to this month NRs</strong></p>
+                </td>
+                <td style="width: 71.8pt;border-top: 1pt solid windowtext;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-image: initial;border-left: none;padding: 0in 5.4pt;height: 62.05pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>Balance of contract amount NRs&nbsp;</strong></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 30.5pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 17.5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><span style="font-size:16px;line-height:115%;">&nbsp;</span></p>
+                </td>
+                <td style="width: 87.25pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;height: 17.5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'>1</p>
+                </td>
+                <td style="width: 81.2pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;height: 17.5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'>2</p>
+                </td>
+                <td style="width: 68.85pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;height: 17.5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'>3</p>
+                </td>
+                <td style="width: 55.95pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;height: 17.5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'>4</p>
+                </td>
+                <td style="width: 68.85pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;height: 17.5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'>5</p>
+                </td>
+                <td style="width: 71.8pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;height: 17.5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'>6</p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 30.5pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'>1</p>
+                </td>
+                <td style="width: 87.25pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'>Remuneration</p>
+                </td>
+                <td style="width: 81.2pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><span style="font-size:16px;line-height:115%;">@ViewBag.isContractAmount</span></p>
+                </td>
+                <td style="width: 68.85pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><span style="font-size:16px;line-height:115%;">@ViewBag.prevMonthAmount</span></p>
+                </td>
+                <td style="width: 55.95pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><span style="font-size:16px;line-height:115%;">@ViewBag.isUserSalary</span></p>
+                </td>
+                <td style="width: 68.85pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><span style="font-size:16px;line-height:115%;">@ViewBag.totalThisMonthAmount</span></p>
+                </td>
+                <td style="width: 71.8pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="font-size:16px;line-height:115%;">@ViewBag.remAmount</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 30.5pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 7.15pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style="font-size:16px;line-height:115%;">&nbsp;</span></strong></p>
+                </td>
+                <td style="width: 87.25pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;height: 7.15pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>Total&nbsp;</strong></p>
+                </td>
+                <td style="width: 81.2pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;height: 7.15pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style="font-size:16px;line-height:115%;">@ViewBag.isContractAmount</span></strong></p>
+                </td>
+                <td style="width: 68.85pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;height: 7.15pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style="font-size:16px;line-height:115%;">@ViewBag.prevMonthAmount</span></strong></p>
+                </td>
+                <td style="width: 55.95pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;height: 7.15pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style="font-size:16px;line-height:115%;">@ViewBag.isUserSalary</span></strong></p>
+                </td>
+                <td style="width: 68.85pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;height: 7.15pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style="font-size:16px;line-height:115%;">@ViewBag.totalThisMonthAmount</span></strong></p>
+                </td>
+                <td style="width: 71.8pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;height: 7.15pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:16px;line-height:115%;">@ViewBag.remAmount</span></strong></p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style='font-family:"Calibri",sans-serif;'>Submitted by: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Checked by: - &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Approved by: -</span></strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>@ViewBag.reporterName &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Account Officer. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Director</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+    @*<p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+        <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+        <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+        <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
+        <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>*@
+
+
+
+
+
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:19px;line-height:115%;">Timesheet</span></strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><span style="font-size:13px;line-height:115%;">I have submitted this time sheet to the Program Manager of VERSP for verification of the end of calendar month.&nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>Month: - @ViewBag.isReportMonth, @ViewBag.isReportYear</strong></p>
+    <table style="border: none;width:6.5123in;margin-left:-1.5pt;border-collapse:collapse;">
+        <tbody>
+            <tr>
+                <td style="width:48.0pt;border:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:12.5pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">Days of</span></strong></p>
+                </td>
+                <td rowspan="4" style="width:63.45pt;border-top:solid windowtext 1.0pt;border-left:none;border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:12.5pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">Day</span></strong></p>
+                </td>
+                <td colspan="3" rowspan="2" style="width:224.55pt;border-top:solid windowtext 1.0pt;border-left:none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:12.5pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">Description of Works &nbsp;</span></strong></p>
+                </td>
+                <td rowspan="2" style="width:48.0pt;border-top:solid windowtext 1.0pt;border-left:none;border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:12.5pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">Remarks</span></strong></p>
+                </td>
+                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-left:  none;padding:0in 5.4pt 0in 5.4pt;height:12.5pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">Per Diem</span></strong></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:13.85pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">the Month</span></strong></p>
+                </td>
+                <td style="width:48.0pt;border-top:none;border-left:none;border-bottom:  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:13.85pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">(1=Day)</span></strong></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:13.4pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;'><span style="color:black;">&nbsp;</span></p>
+                </td>
+                <td style="width:74.05pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:13.4pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">Email</span></strong></p>
+                </td>
+                <td style="width:80.75pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:13.4pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">Calls</span></strong></p>
+                </td>
+                <td style="width:69.75pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:13.4pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">Anydesk</span></strong></p>
+                </td>
+                <td rowspan="2" style="width:48.0pt;border-top:none;border-left:none;border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:13.4pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">&nbsp;</span></strong></p>
+                </td>
+                <td rowspan="2" style="width:48.0pt;border-top:none;border-left:none;border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:13.4pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">&nbsp;</span></strong></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;'><span style="color:black;">&nbsp;</span></p>
+                </td>
+                <td style="width:74.05pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">(Nos)</span></strong></p>
+                </td>
+                <td style="width:80.75pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">(min)</span></strong></p>
+                </td>
+                <td style="width:69.75pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:12px;color:black;">(min)</span></strong></p>
+                </td>
+            </tr>
+            @foreach (var item in Model)
+            {
+        <tr>
+            <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;'><span style="color:black;">   @id</span></p>
+            </td>
+            <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;'><span style="color:black;">   @item.DayofMonth</span></p>
+            </td>
+            @if (item.DayofMonth == "Saturday")
+            {
+        <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;" colspan="3">
+            <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'>
+                <span style="color:black;">
+                
+                        Public Holiday
+                
+                </span>
+            </p>
+        </td>
+
+                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                </td>
+
+                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">   </td>
+                    }
+                    else
+                    {
+
+
+        <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+            <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">      @item.totalCountEmail</span></p>
+        </td>
+        <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+            <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">     @item.totalCountCall</span></p>
+        </td>
+        <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+            <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">     @item.totalCountAnydesk</span></p>
+        </td>
+                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                </td>
+                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                </td> }
+            </tr>    
+                id++;
+            }
+
+        <tr>
+            <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;" colspan="2">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;'><span style="color:black;">Total</span></p>
+            </td>
+            <td style="width:74.05pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:10pt;color:black;">  @ViewBag.TotalEmail </span></strong></p>
+            </td>
+            <td style="width:80.75pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:10pt;color:black;">  @ViewBag.TotalCall </span></strong></p>
+            </td>
+            <td style="width:69.75pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:10pt;color:black;">   @ViewBag.TotalAnydesk </span></strong></p>
+            </td>
+
+            <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+            </td>
+
+            <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">   </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <p><br></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style='font-family:"Calibri",sans-serif;'>&nbsp;</span></strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style='font-family:"Calibri",sans-serif;'>&nbsp;</span></strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>Submitted by: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Approved by:&nbsp;</strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>@ViewBag.reporterName &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Director</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'> @ViewBag.userPost &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>
+
+    @*<table class="table-bordered">
+        <thead>
+            <tr>
+                <td>
+                    S.N
+                </td>
+                <td>
+                    Day
+                </td>
+                <td>
+                    Anydesk
+                </td>
+                <td>
+                    Call
+                </td>
+                <td>
+                    Email
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @id
+                </td>
+                <td>
+                    @item.DayofMonth
+                </td>
+                <td>
+                    @item.totalCountAnydesk
+                </td>
+                <td>
+                    @item.totalCountCall
+                </td>
+                <td>
+                    @item.totalCountEmail
+                </td>
+
+            </tr>
+                id++;
+            }
+
+        </tbody>
+    </table>*@
+
+</div>
+<script>
+    function exportHTML() {
+        var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
+            "xmlns:w='urn:schemas-microsoft-com:office:word' " +
+            "xmlns='http://www.w3.org/TR/REC-html40'>" +
+            "<head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title></head><body>";
+        var footer = "</body></html>";
+        var sourceHTML = header + document.getElementById("source-html").innerHTML + footer;
+
+        var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+        var fileDownload = document.createElement("a");
+        document.body.appendChild(fileDownload);
+        fileDownload.href = source;
+        fileDownload.download = 'document.doc';
+        fileDownload.click();
+        document.body.removeChild(fileDownload);
+    }
+</script>

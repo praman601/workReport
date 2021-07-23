@@ -15,10 +15,10 @@ namespace workReport.Controllers
         private workReportEntities db = new workReportEntities();
 
         // GET: users
-        //public ActionResult Index()
-        //{
-        //    return View(db.user.ToList());
-        //}
+        public ActionResult Index()
+        {
+            return View(db.user.ToList());
+        }
 
         //// GET: users/Details/5
         //public ActionResult Details(int? id)
@@ -39,8 +39,20 @@ namespace workReport.Controllers
         public ActionResult Create()
         {
             ViewBag.isPost = new SelectList(db.posts, "postId", "postName");
-            return View();
+            user model = new user();
+            return View(model);
         }
+
+
+        [HttpPost]
+        public JsonResult CheckUsername(string username)
+        {
+          
+            bool isValid = db.user.ToList().Exists(p => p.userName.Equals(username, StringComparison.CurrentCultureIgnoreCase));
+                return Json(isValid);
+        }
+
+
 
         // POST: users/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -51,10 +63,15 @@ namespace workReport.Controllers
         {
            
             workReportEntities dbA = new workReportEntities();
-            user.post = Convert.ToInt32(fc["isPost"]);
+             user.post = Convert.ToInt32(fc["isPost"]);
             user.enteredDate =DateTime.Now.ToString("yyyy-MM-dd");
+            bool isValid = db.user.ToList().Exists(p => p.userName.Equals(user.userName, StringComparison.CurrentCultureIgnoreCase));
+            if(!isValid)
+            {
+                return View(user);
+            }
 
-            if (ModelState.IsValid)
+          else  if (ModelState.IsValid)
             {
 
                 dbA.user.Add(user);
@@ -68,35 +85,33 @@ namespace workReport.Controllers
         }
 
         // GET: users/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    user user = db.user.Find(id);
-        //    if (user == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(user);
-        //}
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            user user = db.user.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
 
-        // POST: users/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "usrId,userName,userPassword,firstName,lastName,post,contractDate,monthlySalary,totalAmount,bankName,branch,acnumber")] user user)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(user).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(user);
-        //}
+      
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "usrId,userName,userPassword,firstName,lastName,post,contractDate,monthlySalary,totalAmount,bankName,branch,acnumber")] user user)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(user);
+        }
 
         // GET: users/Delete/5
         //public ActionResult Delete(int? id)

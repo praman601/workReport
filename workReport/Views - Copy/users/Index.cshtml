@@ -1,0 +1,93 @@
+﻿@model IEnumerable<workReport.Models.user>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.userName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.userPassword)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.firstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.post)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.contractDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.monthlySalary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.totalAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bankName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.branch)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.acnumber)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.userName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.userPassword)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.firstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.post)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.contractDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.monthlySalary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.totalAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bankName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.branch)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.acnumber)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.usrId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.usrId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.usrId })
+        </td>
+    </tr>
+}
+
+</table>

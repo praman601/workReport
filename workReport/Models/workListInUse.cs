@@ -21,15 +21,19 @@ namespace workReport.Models
         public Nullable<System.DateTime> date_Eng { get; set; }
     }
     public class WorkListModel
-        {public int workListId { get; set; }
+        {
+        
+        public int workListId { get; set; }
     public string workListType { get; set; }
     public string mun { get; set; }
     public Nullable<int> time { get; set; }
     public Nullable<int> users { get; set; }
     public string date { get; set; }
     public string issue { get; set; }
-    public Nullable<System.DateTime> date_Eng { get; set; }
-    public string workDet { get; set; }
+        public string AddedDateString { get; set; }
+        public Nullable<System.DateTime> date_Eng { get; set; }
+        public Nullable<decimal> LastTradedPrice { get; set; }
+        public string workDet { get; set; }
         public int? call { get; set; }
         public int? anydesk { get; set; }
         public int? email { get; set; }
@@ -38,7 +42,7 @@ namespace workReport.Models
         public int? totalCountAnydesk { get; set; }
         public int? totalCountEmail { get; set; }
         public string DayofMonth { get; set; }
-
+        public Nullable<System.DateTime> AddedDate { get; set; }
         public int? totalCall { get; set; }
         public int? isDay { get; set; }
         public int? totalAnydesk { get; set; }

@@ -59,6 +59,14 @@
           <Property Name="postId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="postName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="repYear">
+          <Key>
+            <PropertyRef Name="sn" />
+          </Key>
+          <Property Name="sn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="yearId" Type="int" Nullable="false" />
+          <Property Name="yearName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="user">
           <Key>
             <PropertyRef Name="usrId" />
@@ -112,6 +120,7 @@
           <EntitySet Name="mun" EntityType="Self.mun" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="nepMonths" EntityType="Self.nepMonths" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="posts" EntityType="Self.posts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="repYear" EntityType="Self.repYear" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="workList" EntityType="Self.workList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="workTypes" EntityType="Self.workTypes" Schema="dbo" store:Type="Tables" />
@@ -151,6 +160,7 @@
           <EntitySet Name="COM_ENGLISH_NEPALI_DATE" EntityType="workReportModel.COM_ENGLISH_NEPALI_DATE" />
           <EntitySet Name="workList" EntityType="workReportModel.workList" />
           <EntitySet Name="user" EntityType="workReportModel.user" />
+          <EntitySet Name="repYear" EntityType="workReportModel.repYear" />
         </EntityContainer>
         <EntityType Name="Months">
           <Key>
@@ -230,6 +240,14 @@
           <Property Name="acnumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="lastMonthAmount" Type="Int32" />
           <Property Name="enteredDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="repYear">
+          <Key>
+            <PropertyRef Name="sn" />
+          </Key>
+          <Property Name="sn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="yearId" Type="Int32" Nullable="false" />
+          <Property Name="yearName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -339,6 +357,15 @@
                 <ScalarProperty Name="userPassword" ColumnName="userPassword" />
                 <ScalarProperty Name="userName" ColumnName="userName" />
                 <ScalarProperty Name="usrId" ColumnName="usrId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="repYear">
+            <EntityTypeMapping TypeName="workReportModel.repYear">
+              <MappingFragment StoreEntitySet="repYear">
+                <ScalarProperty Name="yearName" ColumnName="yearName" />
+                <ScalarProperty Name="yearId" ColumnName="yearId" />
+                <ScalarProperty Name="sn" ColumnName="sn" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

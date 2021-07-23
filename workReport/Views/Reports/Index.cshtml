@@ -260,70 +260,90 @@
             </tr>
             @foreach (var item in Model)
             {
-        <tr>
-            <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
-                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;'><span style="color:black;">   @id</span></p>
-            </td>
-            <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
-                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;'><span style="color:black;">   @item.DayofMonth</span></p>
-            </td>
-            @if (item.DayofMonth == "Saturday")
-            {
-        <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;" colspan="3">
-            <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'>
-                <span style="color:black;">
-                
-                        Public Holiday
-                
-                </span>
-            </p>
-        </td>
+                <tr>
+                    <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                        <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;'><span style="color:black;">   @id</span></p>
+                    </td>
+                    <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                        <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;'><span style="color:black;">   @item.DayofMonth</span></p>
+                    </td>
+                    @if (item.DayofMonth == "Saturday")
+                    {
+                        <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;" colspan="3">
+                            <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'>
+                                <span style="color:black;">
 
-                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
-                </td>
+                                    Public Holiday
 
-                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">   </td>
+                                </span>
+                            </p>
+                        </td>
+
+                        <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                        </td>
+
+                        <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">   </td>
+                    }
+                    else if (item.mun == "" && item.workDet != "")
+                    {
+                        <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;" colspan="3">
+                            <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'>
+                                <span style="color:black;">
+
+                                    @item.workDet
+
+                                </span>
+                            </p>
+                        </td>
+
+                        <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                        </td>
+
+                        <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">   </td>
+
                     }
                     else
                     {
 
 
-        <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
-            <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">      @item.totalCountEmail</span></p>
-        </td>
-        <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
-            <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">     @item.totalCountCall</span></p>
-        </td>
-        <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
-            <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">     @item.totalCountAnydesk</span></p>
-        </td>
-                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
-                </td>
-                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
-                </td> }
-            </tr>    
+                        <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                            <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">      @item.totalCountEmail</span></p>
+                        </td>
+                        <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                            <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">     @item.totalCountCall</span></p>
+                        </td>
+                        <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                            <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><span style="color:black;">     @item.totalCountAnydesk</span></p>
+                        </td>
+                        <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                        </td>
+                        <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                        </td>
+                    }
+                </tr>
+
                 id++;
             }
 
-        <tr>
-            <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;" colspan="2">
-                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;'><span style="color:black;">Total</span></p>
-            </td>
-            <td style="width:74.05pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
-                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:10pt;color:black;">  @ViewBag.TotalEmail </span></strong></p>
-            </td>
-            <td style="width:80.75pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
-                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:10pt;color:black;">  @ViewBag.TotalCall </span></strong></p>
-            </td>
-            <td style="width:69.75pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
-                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:10pt;color:black;">   @ViewBag.TotalAnydesk </span></strong></p>
-            </td>
+            <tr>
+                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;" colspan="2">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;'><span style="color:black;">Total</span></p>
+                </td>
+                <td style="width:74.05pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:10pt;color:black;">  @ViewBag.TotalEmail </span></strong></p>
+                </td>
+                <td style="width:80.75pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:10pt;color:black;">  @ViewBag.TotalCall </span></strong></p>
+                </td>
+                <td style="width:69.75pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:10pt;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:10pt;color:black;">   @ViewBag.TotalAnydesk </span></strong></p>
+                </td>
 
-            <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
-            </td>
+                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">
+                </td>
 
-            <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">   </td>
-        </tr>
+                <td style="width:48.0pt;border:solid windowtext 1.0pt;border-top:  none;padding:0in 5.4pt 0in 5.4pt;height:10.25pt;">   </td>
+            </tr>
 
         </tbody>
     </table>
@@ -336,51 +356,51 @@
     <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'> @ViewBag.userPost &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>
 
     @*<table class="table-bordered">
-        <thead>
-            <tr>
-                <td>
-                    S.N
-                </td>
-                <td>
-                    Day
-                </td>
-                <td>
-                    Anydesk
-                </td>
-                <td>
-                    Call
-                </td>
-                <td>
-                    Email
-                </td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-            <tr>
-                <td>
-                    @id
-                </td>
-                <td>
-                    @item.DayofMonth
-                </td>
-                <td>
-                    @item.totalCountAnydesk
-                </td>
-                <td>
-                    @item.totalCountCall
-                </td>
-                <td>
-                    @item.totalCountEmail
-                </td>
+            <thead>
+                <tr>
+                    <td>
+                        S.N
+                    </td>
+                    <td>
+                        Day
+                    </td>
+                    <td>
+                        Anydesk
+                    </td>
+                    <td>
+                        Call
+                    </td>
+                    <td>
+                        Email
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @id
+                    </td>
+                    <td>
+                        @item.DayofMonth
+                    </td>
+                    <td>
+                        @item.totalCountAnydesk
+                    </td>
+                    <td>
+                        @item.totalCountCall
+                    </td>
+                    <td>
+                        @item.totalCountEmail
+                    </td>
 
-            </tr>
-                id++;
-            }
+                </tr>
+                    id++;
+                }
 
-        </tbody>
-    </table>*@
+            </tbody>
+        </table>*@
 
 </div>
 <script>

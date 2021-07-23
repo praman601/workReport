@@ -156,7 +156,7 @@
             <th>
                 Time
             </th>
-
+            <th>Date</th>
             <th></th>
         </tr>
         @{ int rowNo = 0; }
@@ -180,6 +180,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.time)
                 </td>
+                <td>@Html.DisplayFor(ModelItem=>item.date)</td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.workListId }) |
                     @Html.ActionLink("Details", "Details", new { id = item.workListId }) |

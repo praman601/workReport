@@ -1,0 +1,208 @@
+﻿@model IEnumerable<workReport.Models.WorkListModel>
+@{
+    ViewBag.Title = "Index";
+    int id = 1;
+}
+
+<p style="font-weight:bold;color:red!important;float:right; border:1px solid red;padding:5px;">
+    @Html.ActionLink("Export To Excel", "ExportToExcel","workLists", routeValues: new
+{
+    nepMonth = ViewBag.months,
+    nepYear= ViewBag.fscYear
+},
+    htmlAttributes: null)
+</p>
+
+@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<button onclick="Export2Doc('DivPrint', 'word-content');" class="btn btn-danger">Export Excel</button>*@
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.workListId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.workListType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mun)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.users)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.issue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date_Eng)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.workDet)
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.workListId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.workListType)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.mun)
+    </td>
+    @if (item.DayofMonth == "Saturday")
+    {
+    }
+    else
+    {
+
+        <td>
+            @Html.DisplayFor(modelItem => item.time)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.users)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.issue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_Eng)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.workDet)
+        </td>
+        }
+
+    </tr>}
+
+</table>
+
+@*<style>
+    td {
+      border: 1px solid black;
+    }
+</style>
+
+<div class="glyphicon-credit-card" id="DivPrint">
+    <h4> Work Report</h4>
+    <div>
+
+        <table class="table table-bordered table-hover table-condensed table-responsive">
+
+            <thead>
+                <tr>
+                    <th title="Field #1">workListId</th>
+                    <th title="Field #2">workListType</th>
+                    <th title="Field #3">mun</th>
+                    <th title="Field #4">time</th>
+                    <th title="Field #5">users</th>
+                    <th title="Field #6">date</th>
+                    <th title="Field #7">issue</th>
+                    <th title="Field #8">date_Eng</th>
+                    <th title="Field #9">workDet</th>
+                </tr>
+            </thead>
+            <tbody style="border:double; width:800px">
+                @foreach (var item in Model)
+                {
+                    <tr style="border: 1px solid black;">
+                        <td align="right"> @item.workListId</td>
+                        <td align="right">
+                            @item.workListType
+                        </td>
+                        <td align="right"> @item.mun</td>
+                        @if (item.DayofMonth == "Saturday")
+                        {
+                        }
+                        else
+                        {
+
+                            <td align="right"> @item.time</td>
+                            <td align="right"> @item.users</td>
+                            <td align="right"> @item.date</td>
+                            <td align="right">  @item.issue</td>
+                            <td align="right"> @item.date_Eng</td>
+                            <td align="right"> @item.workDet</td>
+
+                        }
+                    </tr>
+
+                    id++;
+                }
+
+
+
+            </tbody>
+        </table>
+    </div>
+</div>*@
+
+
+@*<script>
+    function Export2Doc(element, filename = '') {
+        var preHtml = "< html xmlns: o = 'urn:schemas-microsoft-com:office:office' xmlns: w = 'urn:schemas-microsoft-com:office:excel' xmlns = 'http://www.w3.org/TR/REC-html40' > <head> <meta charset='utf-8'><title>Export HTML To Doc</title></head>  <body> "; var postHtml = "</body></html>";
+        var html = preHtml + document.getElementById(element).innerHTML + postHtml;
+        var blob = new Blob(['\ufeff', html], {
+            type: 'application/msexcel'
+        });
+        // Specify link url
+        var url = 'data:application/vnd.ms-excel;charset=utf-8,' + encodeURIComponent(html);
+        // Specify file name
+        filename = filename ? filename + '.xls' : 'document.xls';
+        // Create download link element
+        var downloadLink = document.createElement("a");
+        document.body.appendChild(downloadLink);
+        if (navigator.msSaveOrOpenBlob) {
+            navigator.msSaveOrOpenBlob(blob, filename);
+        } else {
+            // Create a link to the file
+            downloadLink.href = url;
+            // Setting the file name
+            downloadLink.download = filename;
+            //triggering the function
+            downloadLink.click();
+        }
+        document.body.removeChild(downloadLink);
+    }
+
+    function printTable() {
+        var printContent = document.getElementById("DivPrint");
+        var windowUrl = 'about:blank';
+        var num;
+        var uniqueName = new Date();
+        var windowName = 'Print' + uniqueName.getTime();
+        var printWindow = window.open(num, windowName);
+        var cssReference = printWindow.document.createElement("link")
+        cssReference.href = "/Content/DataTable.css"; //include real path like "CSS/CSSFileName.css"
+        cssReference.rel = "stylesheet";
+        cssReference.type = "text/css";
+        printWindow.document.write(printContent.outerHTML);
+        printWindow.document.getElementsByTagName('head')[0].appendChild(cssReference);
+        printWindow.document.close();
+        printWindow.focus();
+        printWindow.print();
+        printWindow.close();
+    }
+
+
+
+
+
+
+
+</script>*@
+

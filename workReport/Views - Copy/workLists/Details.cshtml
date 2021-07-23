@@ -1,0 +1,58 @@
+﻿@model workReport.Models.workList
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>workList</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.workListType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.workListType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.mun)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mun)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.users)
+        </dt>
+
+        <dd>
+            @ViewBag.username
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.workListId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

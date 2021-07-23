@@ -1,0 +1,112 @@
+﻿@model workReport.Models.user
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>user</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.userName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userPassword)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userPassword)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.firstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.firstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.post)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.contractDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.contractDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.monthlySalary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.monthlySalary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.totalAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.totalAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bankName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bankName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.branch)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.branch)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.acnumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.acnumber)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

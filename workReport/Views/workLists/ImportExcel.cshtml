@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewBag.Title = "ImportExcel";
+}
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<h2>ImportExcel</h2>
+
+@*<div>
+
+    @using (Html.BeginForm("Import", "workLists", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary();
+        <input type="file" name="file" />
+        <div>
+            <input type="submit" button id="upload" value="Import" class="btn-success" />
+        </div>
+    }
+</div>*@
+
+
+<div id="mycarousel" class="carousel slide" data-ride="carousel"data-interval="6000">
+    <div class="container">
+        @*@using (Html.BeginForm("Import", "workLists", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+            <input type="file" name="file" id="postedfile" />
+            <div>
+                <input type="button" button id="upload" value="Import" class="btn-success" />
+            </div>
+        }*@
+
+        @*<form method="post" asp-controller="workLists" asp-action="Import" enctype="multipart/form-data">
+            <input type="file" name="file"/>
+            <button type="button" id="upload">Import from Excel</button>
+        </form>*@
+
+
+        <form action="/worklists/import" enctype="multipart/form-data" method="post">
+
+            <table>
+                <tr>
+                <td width="60%">
+                    <input type='file' name='file' id='file' />
+                </td>
+
+                </tr>
+                <tr class="even">
+
+                    <td colspan="3" align="center" height="55" style="padding-top: 5px;">
+                        <input type="submit" value='Upload' id="btn_Upload" name="btn_Upload" class="subButton active" />&nbsp;
+                      
+                        @*<input type="submit" value="submit" />*@
+                    </td>
+                </tr>
+
+
+            </table>
+
+        </form>
+
+
+    </div>
+</div> 
+
+
+
+
+
+@*<script>
+        $("#upload").click(function () {
+            debugger;
+            if (window.FormData == undefined)
+                alert("Error: FormData is undefined");
+
+            else {
+                var fileUpload = $("#postedFile").get(0);
+                var files = fileUpload.files;
+
+                var fileData = new FormData();
+
+                fileData.append(files[0].name, files[0]);
+
+                $.ajax({
+                    url: '/workLists/import',
+                    type: 'post',
+                    datatype: 'json',
+                    contentType: false,
+                    processData: false,
+                    async: false,
+                    data: fileData,
+                    success: function (response) {
+                        alert(response);
+                    }
+                });
+            }
+
+        });
+</script>*@
