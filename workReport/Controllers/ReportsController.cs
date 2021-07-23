@@ -19,7 +19,7 @@ namespace workReport.Controllers
 
 
 
-    public class ReportsController : Controller
+    public class ReportsController : SessionCheckController
     {
         private workReportEntities db = new workReportEntities();
 
@@ -38,10 +38,7 @@ namespace workReport.Controllers
             if(bsadchange==1)
             {
                 string x = db.PR_engtonep(engdate: isdate).FirstOrDefault();
-                if(x==null)
-                {
-
-                }
+               
                 return Json(x, JsonRequestBehavior.AllowGet);
             }
             else

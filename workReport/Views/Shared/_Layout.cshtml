@@ -31,7 +31,7 @@
                 {
                 <ul class="nav navbar-nav">
                     @*     <li>@Html.ActionLink("Home", "Index", "Home")</li>*@
-               
+
 
                     <li class="nav-item dropdown">
 
@@ -64,6 +64,21 @@
 
                         </ul>
                     </li>
+
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Utilities
+                        </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                            <li>@Html.ActionLink("Date Converter", "DateConvert", "Reports")</li>
+                            @*<li>@Html.ActionLink("Daily Report", "report1", "Reports")</li>*@
+
+                        </ul>
+                    </li>
+
 
                     @*<li>@Html.ActionLink("About", "About", "Home")</li>
         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@

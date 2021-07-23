@@ -2,8 +2,8 @@
 
 <div class="box1" id="List_Container">
     <div class="box2">
-        <div class="box3">
-            <h1 id="oldToNew" style="color: #fff !important;">
+        <div class="box3 ">
+            <h1 id="oldToNew" class="text-center" >
                 Date Convertor
             </h1>
             <h5 style="color: whitesmoke; font-family: sans-serif">
@@ -14,7 +14,7 @@
 
             <div class="row" id="checkDate">
                 <div class="col-md-3">
-                    <h4>Select Change type:</h4>
+                    <label>Select Change type:</label>
                 </div>
                 <div class="col-md-3">
                     <input type="radio" id="adtobs" name="adbschange" value="1" checked>
@@ -115,14 +115,15 @@
                         </select>
                     </div>
 
-
-                    <input type="submit" name="btnConvertOldToNew" value="Change" id="changedate" class="btn btn-primary" onclick="return changeDate()" />
+                    <div class="col-md-2">
+                        <input type="submit" name="btnConvertOldToNew" value=" Change Date" id="changedate" class="btn btn-primary" onclick="return changeDate()" />
+                    </div>
                 </p>
                 <hr />
 
                 <br />
 
-                <div class="row" id="hiddenresult" hidden>
+                <div class="row pull-left" id="hiddenresult" hidden>
 
                     <h2 color: lavender" >
                         Date Converted :  <span id="message">
@@ -151,7 +152,6 @@
         var month = $('#months').val();
         var day = $('#days').val();
         var bsadchange = $("input[type='radio'][name='adbschange']:checked").val();
-
 
         {
 
