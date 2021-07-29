@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<workReport.Models.WorkListModel>
 @{
     ViewBag.Title = "Index";
-    int id = 1;
+    //int id = 1;
 }
-
+<br />
 <p style="font-weight:bold;color:red!important;float:right; border:1px solid red;padding:5px;">
     @Html.ActionLink("Export To Excel", "ExportToExcel","workLists", routeValues: new
 {
@@ -12,6 +12,10 @@
 },
     htmlAttributes: null)
 </p>
+ @{ 
+     var isUserId = Session["userId"];
+
+ }
 
 @*<script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <button onclick="Export2Doc('DivPrint', 'word-content');" class="btn btn-danger">Export Excel</button>*@

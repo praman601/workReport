@@ -27,7 +27,7 @@ namespace workReport.Controllers
 
         public ActionResult DateConvert()
         {
-            ViewBag.NepYears = new SelectList(db.COM_ENGLISH_NEPALI_DATE, "NEPALI_YEAR", "NEPALI_YEAR");
+            ViewBag.NepYears = new SelectList(db.COM_ENGLISH_NEPALI_DATE.Select(x=>x.NEPALI_YEAR).Distinct().OrderByDescending(x=>x.Value), "NEPALI_YEAR");
             return View();
         }
 

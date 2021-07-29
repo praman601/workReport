@@ -4,10 +4,12 @@
 <script>
     // fill the month table with column headings
     function day_title(day_name) {
+        debugger;
         document.write("<div class='c-cal__col'>" + day_name + "</div>");
     }
     // fills the month table with numbers
-    function fill_table(month, month_length, indexMonth) {
+    function fill_table(month, month_length, indexMonth,year) {
+        debugger;
         day = 1;
         // begin the new month table
         document.write("<div class='c-main c-main-" + indexMonth + "'>");
@@ -85,8 +87,8 @@
     }
 </script>
 <header style="position:static; width:100%">
-    <div class="wrapper" style="margin-left:500px">
-         
+    <div class="wrapper" style="margin-left:300px">
+
         <div class="c-monthyear">
             <div class="c-month">
                 <span id="prev" class="prev fa fa-angle-left" aria-hidden="true"></span>
@@ -107,22 +109,28 @@
                 <span id="next" class="next fa fa-angle-right" aria-hidden="true"></span>
             </div>
 
-            @*<div class="c-year">
-            <span id="prev" class="prev fa fa-angle-left" aria-hidden="true"></span>
-            <div id="c-paginator">
-                <span class="c-paginator__year">2020 </span>
-                <span class="c-paginator__year">2021 </span>
+            <div class="c-year" style="margin-left:10px">
+                <span id="prev1" class="prev fa fa-angle-left" aria-hidden="true"></span>
+                <span id="c-paginator">
+                    <span class="c-paginator__year"> 2021 </span>
+                    <span class="c-paginator__year"> 2022 </span>
+                </span>
+                <span id="next1" class="next fa fa-angle-right" aria-hidden="true"></span>
             </div>
-            <span id="next" class="next fa fa-angle-right" aria-hidden="true"></span>
-        </div>*@
-            @Html.DropDownList("fscYear", null, "--Select Year--", htmlAttributes: new { @class = "c-year" })
+        </div>
 
-            @*<span class="c-paginator__year">2021 </span>*@
-        </div>
-            @*<div class="c-sort">
-                <a class="o-btn c-today__btn" href="javascript:;"></a>
-            </div>*@
-        </div>
+        @*<div class="c-monthyear">
+            <div class="c-year">
+                <span id="prev" class="prev fa fa-angle-left" aria-hidden="true"></span>
+                <div id="c-paginator">
+                    <span class="c-paginator__year">2021 </span>
+                </div>
+                <span id="next" class="next fa fa-angle-right" aria-hidden="true"></span>
+            </div>
+
+           
+        </div>*@
+    </div>
 </header>
 <div class="wrapper">
     <div class="c-calendar" style="padding-top:0px">
@@ -140,7 +148,7 @@
                 // CAHNGE the below variable to the CURRENT YEAR
                 year = 2021;
 
-                // first day of the week of the new year
+ // first day of the week of the new year
                 today = new Date("January 1, " + year);
                 start_day = today.getDay() + 1;
                 fill_table("January", 31, "01");
@@ -206,6 +214,7 @@
     var monthEl = $(".c-main");
     var dataCel = $(".c-cal__cel");
     var dateObj = new Date();
+  
     var month = dateObj.getUTCMonth() + 1;
     var day = dateObj.getUTCDate();
     var year = dateObj.getUTCFullYear();
@@ -235,6 +244,7 @@
 
     // ------ set default events -------
     function defaultEvents(dataDay, dataName, dataNotes, classTag) {
+        debugger;
         var date = $('*[data-day=' + dataDay + ']');
         date.attr("data-name", dataName);
         date.attr("data-notes", dataNotes);
@@ -252,6 +262,7 @@
 
     //button of the current day
     todayBtn.on("click", function () {
+        debugger;
         if (month < indexMonth) {
             var step = indexMonth % month;
             movePrev(step, true);
@@ -480,6 +491,7 @@
 
     //function for move the months
     function moveNext(fakeClick, indexNext) {
+        debugger;
         for (var i = 0; i < fakeClick; i++) {
             $(".c-main").css({
                 left: "-=100%"
@@ -495,6 +507,7 @@
         }
     }
     function movePrev(fakeClick, indexPrev) {
+        debugger;
         for (var i = 0; i < fakeClick; i++) {
             $(".c-main").css({
                 left: "+=100%"
@@ -512,7 +525,9 @@
 
     //months paginator
     function buttonsPaginator(buttonId, mainClass, monthClass, next, prev) {
+        debugger;
         switch (true) {
+           
             case next:
                 $(buttonId).on("click", function () {
                     if (indexMonth >= 2) {

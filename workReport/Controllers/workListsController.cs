@@ -7,23 +7,17 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using workReport.Models;
-using workReport;
-using PagedList.Mvc;
 using PagedList;
-using System.Threading.Tasks;
 using System.IO;
-using ExcelDataReader;
 using System.Configuration;
 using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
 using System.Web.UI;
-using Microsoft.AspNetCore.Http;
-using OfficeOpenXml;
-using System.Collections.Generic;
-using System.Data;
 using System.Reflection;
 using ClosedXML.Excel;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 
 namespace workReport.Controllers
 {
@@ -235,7 +229,7 @@ namespace workReport.Controllers
             }
         }
 
-        public FileResult ExportToExcel(int? nepMonth, int? nepYear)
+        public void ExportToExcel(int? nepMonth, int? nepYear)
         {
             var gv = new GridView();
             List<workList> DATAALISTS = WorkListExportData(nepMonth, nepYear).Select(x => new workList() {
@@ -248,6 +242,63 @@ issue=x.issue,
 date_Eng=x.date_Eng,
 workDet=x.workDet
  }).ToList();
+
+           List<workListone> workslist = new List<workListone>();
+            foreach(var x in DATAALISTS)
+            {
+                workListone workone = new workListone();
+               workone.workListType = x.workListType;
+                workone.mun = x.mun;
+                workone.time = x.time;
+                workone.users = x.users;
+                workone.date = x.date;
+                workone.issue = x.issue;
+                //DateTime engdate=Convert.ToDateTime( x.date_Eng);
+                //workone.date_Eng = engdate.ToString("yyyy-MM-dd");
+                workone.workDet = x.workDet;
+                workslist.Add(workone);
+
+            }
+         
+
+
+            ExcelPackage excel = new ExcelPackage();
+            var workSheet = excel.Workbook.Worksheets.Add("Sheet1");
+
+            workSheet.Cells[1, 1, 1, 7].Style.Font.Bold = true;
+            workSheet.Cells[1, 1, 1, 7].Text.ToUpper();
+
+            var modelCells = workSheet.Cells["A1"];
+            var modelRows = workslist.Count() + 1;
+            string modelRange = "A1:G" + modelRows.ToString();
+            var modelTable = workSheet.Cells[modelRange];
+            modelTable.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+            modelTable.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+            modelTable.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+            modelTable.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+            modelCells.LoadFromCollection(Collection: workslist, PrintHeaders: true);
+            modelTable.AutoFitColumns();
+
+
+            //optional use this to make all columms just a bit wider, text would sometimes still overflow after AutoFitColumns().
+            //for (int col = 1; col <= modelTable.End.Column; col++)
+            //{
+            //    workSheet.Column(col).Width = workSheet.Column(col).Width + 25;
+            //}
+
+            //modelTable.Cells[1, 1].LoadFromCollection(DATAALISTS, true);
+            using (var memoryStream = new MemoryStream())
+            {
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                //here i have set filname as Students.xlsx
+                Response.AddHeader("content-disposition", "attachment;  filename=Worklist.xlsx");
+                excel.SaveAs(memoryStream);
+                memoryStream.WriteTo(Response.OutputStream);
+                Response.Flush();
+                Response.End();
+            }
+
+
             //gv.DataSource = DATAALISTS;
             //gv.DataBind();
 
@@ -256,71 +307,78 @@ workDet=x.workDet
             //Response.AddHeader("content-disposition", "attachment; filename=DemoExcel.xls");
             //Response.ContentType = "application/ms-excel";
 
-            ListtoDataTable lsttodt = new ListtoDataTable();
-            DataTable dt = lsttodt.ToDataTable(DATAALISTS); string filesavename = "";
-            string sheetname = "Sheet1"; string filepath="";
-            string dayss = DateTime.Now.Month.ToString();
-            try
-            {
-                XLWorkbook workbook = new XLWorkbook();
+            //ListtoDataTable lsttodt = new ListtoDataTable();
+            //DataTable dt = lsttodt.ToDataTable(DATAALISTS); string filesavename = "";
+            //string sheetname = "Sheet1"; string filepath="";
+            //string dayss = DateTime.Now.Month.ToString();
+            //try
+            //{
+            //    XLWorkbook workbook = new XLWorkbook();
 
-                workbook.Worksheets.Add(dt, sheetname);
-       
-                workbook.Worksheet(sheetname).Rows(1, 1).Style.Protection.SetLocked(true); for (int ii = 1; ii <= 10; ii++)
-                {
-                    workbook.Worksheet(sheetname).Columns(ii, ii).Width = 25;
+            //    workbook.Worksheets.Add(dt, sheetname);
 
-                }
-                var filesss = Path.GetFileNameWithoutExtension(dayss);
+            //    workbook.Worksheet(sheetname).Rows(1, 1).Style.Protection.SetLocked(true); for (int ii = 1; ii <= 10; ii++)
+            //    {
+            //        workbook.Worksheet(sheetname).Columns(ii, ii).Width = 25;
 
-                string dir = HttpContext.Server.MapPath("~/files/");
-           
-                if (!System.IO.Directory.Exists(dir)) System.IO.Directory.CreateDirectory(dir);
-                try
-                {
-                    filepath = Server.MapPath("~/files/") ;
-                }
-                catch
-                {
-              
-                }
-                 filesavename = DateTime.Now.ToString("yyyy-mm-dd HH-MM-ss");
-                workbook.SaveAs(string.Format("{0}{1}.xlsx", filepath, filesavename));
-                //workbook.SaveAs(string.Format("{0}{1}.xlsx",  DateTime.Now.ToString("yyyy-mm-dd HH-ss")));
+            //    }
+            //    var filesss = Path.GetFileNameWithoutExtension(dayss);
+
+            //    string dir = HttpContext.Server.MapPath("~/files/");
+
+            //    if (!System.IO.Directory.Exists(dir)) System.IO.Directory.CreateDirectory(dir);
+            //    try
+            //    {
+            //        filepath = Server.MapPath("~/files/") ;
+            //    }
+            //    catch
+            //    {
+
+            //    }
+            //     filesavename = DateTime.Now.ToString("yyyy-mm-dd HH-MM-ss");
+            //    workbook.SaveAs(string.Format("{0}{1}.xlsx", filepath, filesavename));
+            //    //workbook.SaveAs(string.Format("{0}{1}.xlsx",  DateTime.Now.ToString("yyyy-mm-dd HH-ss")));
 
 
-            }
-            catch(Exception ex)
-            {
-                var text = ex.Message; 
-            }
+            //}
+            //catch(Exception ex)
+            //{
+            //    var text = ex.Message; 
+            //}
 
-            Response.Charset = "";
-            StringWriter objStringWriter = new StringWriter();
-            HtmlTextWriter objHtmlTextWriter = new HtmlTextWriter(objStringWriter);
+            //Response.Charset = "";
+            //StringWriter objStringWriter = new StringWriter();
+            //HtmlTextWriter objHtmlTextWriter = new HtmlTextWriter(objStringWriter);
 
-            gv.RenderControl(objHtmlTextWriter);
+            //gv.RenderControl(objHtmlTextWriter);
 
-            Response.Output.Write(objStringWriter.ToString());
-            Response.Flush();
-            Response.End();
-            string savingname = filepath + filesavename;
-            try
-            {
+            //Response.Output.Write(objStringWriter.ToString());
+            //Response.Flush();
+            //Response.End();
+            //string savingname = filepath + filesavename;
+            //try
+            //{
 
-                using (var client = new WebClient())
-                {
-                    client.DownloadFile(filepath, filesavename);
-                }
-                return File(savingname, "application/msexcel", filesavename + ".xlsx");
-            }
-            catch (Exception ex)
-            {
-                var test = ex.Message;
+            //    using (var client = new WebClient())
+            //    {
+            //        client.DownloadFile(filepath, filesavename);
+            //    }
+            //    return File(savingname, "application/msexcel", filesavename + ".xlsx");
+            //}
+            //catch (Exception ex)
+            //{
+            //    var test = ex.Message;
 
-                return File(savingname, "application/msexcel", filesavename + ".xlsx");
-            }
+            //    return File(savingname, "application/msexcel", filesavename + ".xlsx");
+            //}
         }
+
+
+
+
+
+
+
 
         private object ToDataTable<T>(object p)
         {
@@ -384,6 +442,7 @@ workDet=x.workDet
 
         public ActionResult Import(HttpPostedFileBase file)
         {
+            var obj = new workReportEntities();
             if (file != null)
             {
                 string filepath;
@@ -440,11 +499,13 @@ workDet=x.workDet
                                 List<workList> DATAALISTS = worklist1.Select(x => new workList()
                                 {
                                     date=x.date,
-                                    date_Eng=Convert.ToDateTime( x.date_Eng),
+
+                                    date_Eng = Convert.ToDateTime(obj.PR_neptoeng(nepdate: x.date).FirstOrDefault()),
+                                
                                     issue=x.issue,
                                     mun=x.mun,
                                     time=Convert.ToInt32( x.time),
-                                    users=Convert.ToInt32(x.users),
+                                    users=Convert.ToInt32(Session["userId"]),
                                     workDet=x.workDet,
                                     workListType=x.workListType
 
@@ -468,8 +529,8 @@ workDet=x.workDet
                 }
 
             }
-          
-            return View("");
+
+            return RedirectToAction("Main");
         }
 
 
@@ -487,6 +548,8 @@ workDet=x.workDet
                         {
                             try
                             {
+                              var a = row[pro.Name];
+                              var b = objT;
                                 pro.SetValue(objT, row[pro.Name]);
                             }
                             catch (Exception ex) {
@@ -611,6 +674,8 @@ workDet=x.workDet
             return View();
         }
 
+     
+
         public ActionResult WorkListData(FormCollection fc)
         {
             var obj = new workReportEntities();
@@ -656,25 +721,25 @@ workDet=x.workDet
             int daysInMonth = Convert.ToInt32( db.COM_ENGLISH_NEPALI_DATE.AsNoTracking().Where(x => x.NEPALI_YEAR == nepYear && x.MONTH_CD == nepmonth).Select(x => x.NO_OF_DAYS).FirstOrDefault());
 
 
-            string isUserName = Session["userName"].ToString();
+            //  string isUserName = Session["userName"].ToString();
             int isUserId = Convert.ToInt32(Session["userId"]);
 
-            var userdet = db.user.AsNoTracking().Where(x => x.usrId == isUserId).FirstOrDefault();
-            var userPost = db.posts.AsNoTracking().Where(x => x.postId == userdet.post).FirstOrDefault();
-            ViewBag.userPost = userPost.postName;
-           
-            ViewBag.isReportMonth = nepaliMonth.monthName;
-            ViewBag.isReportYear =nepYear;
-            ViewBag.isUserBank = userdet.bankName;
-            ViewBag.isBankAdd = userdet.branch;
-            ViewBag.isAccountNo = userdet.acnumber;
-            string userfullname = userdet.firstName + " " + userdet.lastName;
-            ViewBag.reporterName = userfullname;
-          //  int isMonth = Convert.ToInt32(fc["months"]);
-            ViewBag.isReportDate = nepDate;
-            ViewBag.isContractAmount = userdet.totalAmount;
+            //  var userdet = db.user.AsNoTracking().Where(x => x.usrId == isUserId).FirstOrDefault();
+            //  var userPost = db.posts.AsNoTracking().Where(x => x.postId == userdet.post).FirstOrDefault();
+            //  ViewBag.userPost = userPost.postName;
 
-            ViewBag.isUserSalary = userdet.monthlySalary.ToString();
+            //  ViewBag.isReportMonth = nepaliMonth.monthName;
+            //  ViewBag.isReportYear =nepYear;
+            //  ViewBag.isUserBank = userdet.bankName;
+            //  ViewBag.isBankAdd = userdet.branch;
+            //  ViewBag.isAccountNo = userdet.acnumber;
+            //  string userfullname = userdet.firstName + " " + userdet.lastName;
+            //  ViewBag.reporterName = userfullname;
+            ////  int isMonth = Convert.ToInt32(fc["months"]);
+            //  ViewBag.isReportDate = nepDate;
+            //  ViewBag.isContractAmount = userdet.totalAmount;
+
+            //  ViewBag.isUserSalary = userdet.monthlySalary.ToString();
             var lastengdate = engDate.AddDays(daysInMonth);
             //var list=db.workList.Where(x=>x.date_Eng>= engDate && x.date_Eng<=lastengdate).Select
             List<WorkListModel> WorksList = new List<WorkListModel>();
@@ -704,18 +769,26 @@ workDet=x.workDet
                 
             }
            
-            if (Convert.ToInt32(Session["userPost"]) == 7 || Convert.ToInt32(Session["userPost"]) == 8)
-            {
-                return View("Index1", WorksList);
-            }
-            else { 
+            //if (Convert.ToInt32(Session["userPost"]) == 7 || Convert.ToInt32(Session["userPost"]) == 8)
+            //{
+            //    //return View("Index1", WorksList);
+
+
+            //    return WorkListData1(WorksList);
+
+
+            //}
+            //else { 
 
             return View(WorksList);
-            }
+            
         }
 
+        public ActionResult WorkListData1(List<WorkListModel> worksList)
+        {
+            return View(worksList);
+        }
 
-     
         [HttpPost]
         public ActionResult ImportFromExcel(HttpPostedFileBase postedFile)
         {

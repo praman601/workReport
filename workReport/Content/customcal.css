@@ -149,16 +149,24 @@ header {
     }
 
         .c-year #c-paginator .c-paginator__year {
-            position: relative;
-            width: 200px;
-            top: 0;
-            bottom: 0;
-            right: 0;
+      
+           position: relative;
+      
+        display: block;
+        height: 80px;
+        line-height: 80px;
+       
+        overflow: hidden;
         }
 
             .c-year #c-paginator .c-paginator__year:nth-child(1) {
+                left: 10px;
+            }
+
+            .c-year #c-paginator .c-paginator__year:nth-child(2) {
                 left: 100px;
             }
+
 
         .c-year #c-paginator .c-paginator__month:nth-child(2) {
             left: 300px;
@@ -340,10 +348,11 @@ header {
         }
 
 .c-paginator__year {
-    height: 80px;
-    line-height: 80px;
-    padding-top: 15px;
-    padding-left:25px;
+    position: absolute;
+    width: 200px;
+    top: 0;
+    bottom: 0;
+    right: 0;
 }
 
 .o-btn {

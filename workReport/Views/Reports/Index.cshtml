@@ -2,13 +2,76 @@
 @{
     ViewBag.Title = "Index";
     int id = 1;
+
+    int isday = @ViewBag.todaysDay;
+    int iscontractday = @ViewBag.contractDay;
+    string iscontractsuffix = ordinal_suffix_of(iscontractday);
+    string issuffix = ordinal_suffix_of(isday);
+
+
 }
+
+@functions
+{
+    public string ordinal_suffix_of(int i)
+    {
+
+
+        var j = i % 10;
+        var   k = i % 100;
+        if (j == 1 && k != 11)
+        {
+            return "st";
+
+        }
+        if (j == 2 && k != 12)
+        {
+            return "nd";
+        }
+        if (j == 3 && k != 13)
+        {
+          return "rd";
+        }
+       return "th";
+
+       
+    }
+
+}
+
+@*<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<script>
+    
+    var i = @ViewBag.todaysDay;
+    ordinal_suffix_of(i);
+    function ordinal_suffix_of(i) {
+        alert(i);
+        debugger;
+        var j = i % 10,
+            k = i % 100;
+        if (j == 1 && k != 11) {
+            $("#supspan").text('st');
+            
+        }
+        if (j == 2 && k != 12) {
+            $("#supspan").text('nd');
+        }
+        if (j == 3 && k != 13) {
+            $("#supspan").text('rd');
+        }
+        $("#supspan").text('th');
+    }
+</script>*@
+    
+
 <div class="content-footer">
     <button id="btn-export" onclick="exportHTML();">
         Export to
         word doc
     </button>
 </div>
+
+
 <div id="source-html">
 
     <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="font-size:27px;line-height:115%;">Government of Nepal&nbsp;</span></p>
@@ -31,7 +94,7 @@
 
 
 
-    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'>Date: @ViewBag.todaysDay<sup>th&nbsp;</sup>@ViewBag.todaysMonth, @ViewBag.todaysYear </p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'>Date: @ViewBag.todaysDay<sup>@issuffix&nbsp;</sup>@ViewBag.todaysMonth, @ViewBag.todaysYear </p>
     <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:150%;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
     <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:150%;font-size:15px;font-family:"Calibri",sans-serif;'>Director</p>
     <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:150%;font-size:15px;font-family:"Calibri",sans-serif;'>Administration Section</p>
@@ -40,7 +103,7 @@
     <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
     <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:.5in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-indent:.5in;'><strong>Subject: <u>Request for Payment of Monthly Invoice of @ViewBag.isReportMonth @ViewBag.isReportYear.&nbsp;</u></strong></p>
     <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'>Dear Sir,</p>
-    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>As per contract made between &nbsp;DONIDCR &amp; Me on  @ViewBag.contractDay<sup>st&nbsp;</sup>@ViewBag.contractMonth ,  @ViewBag.contractYear and Notice to Proceed issued on the same date and Services provided as @ViewBag.userPost, I have submitted monthly invoice of total NRs. @ViewBag.isUserSalary for the month of @ViewBag.isReportMonth, @ViewBag.isReportYear. I would like to request to make the payment of monthly renumeration. The bank address and saving account is <strong> @ViewBag.isUserBank,@ViewBag.isBankAdd, A/c number: @ViewBag.isAccountNo</strong>.</p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>As per contract made between &nbsp;DONIDCR &amp; Me on  @ViewBag.contractDay<sup>@iscontractsuffix&nbsp;</sup>@ViewBag.contractMonth ,  @ViewBag.contractYear and Notice to Proceed issued on the same date and Services provided as @ViewBag.userPost, I have submitted monthly invoice of total NRs. @ViewBag.isUserSalary for the month of @ViewBag.isReportMonth, @ViewBag.isReportYear. I would like to request to make the payment of monthly renumeration. The bank address and saving account is <strong> @ViewBag.isUserBank,@ViewBag.isBankAdd, A/c number: @ViewBag.isAccountNo</strong>.</p>
     <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
     <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>I have also submitted brief progress of this month.</p>
     <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>&nbsp;</p>
@@ -349,11 +412,51 @@
     </table>
 
     <p><br></p>
-    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style='font-family:"Calibri",sans-serif;'>&nbsp;</span></strong></p>
-    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style='font-family:"Calibri",sans-serif;'>&nbsp;</span></strong></p>
-    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>Submitted by: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Approved by:&nbsp;</strong></p>
-    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'>@ViewBag.reporterName &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Director</p>
-    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'> @ViewBag.userPost &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>
+    <style>
+        .last tr {
+            height: 1px;
+        }
+    </style>
+
+    <table border="1" class="last">
+        <colgroup>
+            <col span="1" style="width: 900px;">
+            <col span="1" style="width: 900px;">
+            <col span="1" style="width: 2000px;">
+        </colgroup>
+        <tbody>
+           
+            <tr>
+                <td colspan="2">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:100%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>Submitted by:</strong></p>
+                </td>
+
+                <td> <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:100%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>Approved by:</strong></p></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:100%;font-size:15px;font-family:"Calibri",sans-serif;'>@ViewBag.reporterName</p>
+                </td>
+                <td>
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:100%;font-size:15px;font-family:"Calibri",sans-serif;'>Director</p>
+                </td>
+
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:100%;font-size:15px;font-family:"Calibri",sans-serif;'>@ViewBag.userPost</p>
+                </td>
+                <td>
+                   
+                </td>
+
+            </tr>
+
+
+        </tbody>
+    </table>
+ 
 
     @*<table class="table-bordered">
             <thead>
