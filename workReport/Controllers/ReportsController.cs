@@ -33,7 +33,11 @@ namespace workReport.Controllers
 
         public JsonResult DateConvertor(int year, int month, int day,int bsadchange)
         {
-            string isdate = year + "-" + month + "-" + day;
+            string monthh = (month <= 9) ?  "0" + month : month.ToString();
+            string dayy = (day <= 9) ?  "0" + day:day.ToString();
+           
+            string isdate = year + "-" + monthh + "-" + dayy;
+            
            
             if(bsadchange==1)
             {
