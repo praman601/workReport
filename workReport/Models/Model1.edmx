@@ -23,6 +23,16 @@
           <Property Name="NEW_NEP_DATE" Type="varchar" MaxLength="10" />
           <Property Name="NEP_DATE_NUM" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="engDateList">
+          <Key>
+            <PropertyRef Name="engDateId" />
+          </Key>
+          <Property Name="engDateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="engYear" Type="int" Nullable="false" />
+          <Property Name="engMonth" Type="int" Nullable="false" />
+          <Property Name="engMonthName" Type="varchar" MaxLength="20" />
+          <Property Name="daysCount" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="issues">
           <Key>
             <PropertyRef Name="issueId" />
@@ -115,6 +125,7 @@
         </Function>
         <EntityContainer Name="workReportModelStoreContainer">
           <EntitySet Name="COM_ENGLISH_NEPALI_DATE" EntityType="Self.COM_ENGLISH_NEPALI_DATE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="engDateList" EntityType="Self.engDateList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="issues" EntityType="Self.issues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Months" EntityType="Self.Months" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="mun" EntityType="Self.mun" Schema="dbo" store:Type="Tables" />
@@ -161,6 +172,7 @@
           <EntitySet Name="workList" EntityType="workReportModel.workList" />
           <EntitySet Name="user" EntityType="workReportModel.user" />
           <EntitySet Name="repYear" EntityType="workReportModel.repYear" />
+          <EntitySet Name="engDateList" EntityType="workReportModel.engDateList" />
         </EntityContainer>
         <EntityType Name="Months">
           <Key>
@@ -248,6 +260,16 @@
           <Property Name="sn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="yearId" Type="Int32" Nullable="false" />
           <Property Name="yearName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="engDateList">
+          <Key>
+            <PropertyRef Name="engDateId" />
+          </Key>
+          <Property Name="engDateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="engYear" Type="Int32" Nullable="false" />
+          <Property Name="engMonth" Type="Int32" Nullable="false" />
+          <Property Name="engMonthName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="daysCount" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -366,6 +388,17 @@
                 <ScalarProperty Name="yearName" ColumnName="yearName" />
                 <ScalarProperty Name="yearId" ColumnName="yearId" />
                 <ScalarProperty Name="sn" ColumnName="sn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="engDateList">
+            <EntityTypeMapping TypeName="workReportModel.engDateList">
+              <MappingFragment StoreEntitySet="engDateList">
+                <ScalarProperty Name="daysCount" ColumnName="daysCount" />
+                <ScalarProperty Name="engMonthName" ColumnName="engMonthName" />
+                <ScalarProperty Name="engMonth" ColumnName="engMonth" />
+                <ScalarProperty Name="engYear" ColumnName="engYear" />
+                <ScalarProperty Name="engDateId" ColumnName="engDateId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

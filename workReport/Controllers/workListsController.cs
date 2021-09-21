@@ -51,7 +51,8 @@ namespace workReport.Controllers
             {
                 ViewBag.StartDatee = todaysDate.ToString("yyyy-MM-dd");
                 ViewBag.EndDatee = todaysDate.ToString("yyyy-MM-dd");
-                return View(db.workList.AsNoTracking().Where(x => x.users == isuser && x.date_Eng == todaysDate).OrderByDescending(x => x.workListId).ToList().ToPagedList(i ?? 1, 10));
+                var worklistdata = db.workList.AsNoTracking().Where(x => x.users == isuser && x.date_Eng == todaysDate).OrderByDescending(x => x.workListId).ToList().ToPagedList(i ?? 1, 10);
+                return View(worklistdata);
             }
             ViewBag.PageNume = i;
             DateTime startingDate = Convert.ToDateTime(StartDatee);
@@ -63,6 +64,59 @@ namespace workReport.Controllers
         }
 
 
+
+        public ActionResult RangeListnew(string StartDatee, string EndDatee, int? i)
+        {
+            DateTime todaysDate = DateTime.Now.Date;
+            int isuser = Convert.ToInt32(Session["userId"]);
+
+            ViewBag.StartDatee = StartDatee;
+            ViewBag.EndDatee = EndDatee;
+            if (ViewBag.StartDatee == null || ViewBag.EndDatee == null)
+            {
+                ViewBag.StartDatee = todaysDate.ToString("yyyy-MM-dd");
+                ViewBag.EndDatee = todaysDate.ToString("yyyy-MM-dd");
+                var worklistdata = db.workList.AsNoTracking().Where(x => x.users == isuser && x.date_Eng == todaysDate).OrderByDescending(x => x.workListId).ToList();
+                return Json(new { data = worklistdata }, JsonRequestBehavior.AllowGet);
+            }
+            ViewBag.PageNume = i;
+            DateTime startingDate = Convert.ToDateTime(StartDatee);
+            DateTime endingDate = Convert.ToDateTime(EndDatee);
+            ViewBag.PageNume = i;
+            //return View(db.workList.AsNoTracking().Where(x => x.users == isuser && x.date_Eng == todaysDate).OrderByDescending(x => x.workListId).ToList().ToPagedList(i ?? 1, 10));
+            var worklistdatanew=db.workList.AsNoTracking().Where(x => x.users == isuser && x.date_Eng >= startingDate && x.date_Eng <= endingDate).OrderByDescending(x => x.workListId).ToList();
+            return Json(new { data = worklistdatanew }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        //public ViewResult Indexnew(string sortOrder, string searchString)
+        //{
+
+        //    var students = from s in db.Students
+        //                   select s;
+        //    if (!String.IsNullOrEmpty(searchString))
+        //    {
+        //        students = students.Where(s => s.LastName.Contains(searchString)
+        //                               || s.FirstMidName.Contains(searchString));
+        //    }
+        //    switch (sortOrder)
+        //    {
+        //        case "name_desc":
+        //            students = students.OrderByDescending(s => s.LastName);
+        //            break;
+        //        case "Date":
+        //            students = students.OrderBy(s => s.EnrollmentDate);
+        //            break;
+        //        case "date_desc":
+        //            students = students.OrderByDescending(s => s.EnrollmentDate);
+        //            break;
+        //        default:
+        //            students = students.OrderBy(s => s.LastName);
+        //            break;
+        //    }
+
+        //    return View(students.ToList());
+        //}
 
         //public ActionResult RangeList1(string startDate, string endDate,int? i)
         //{
@@ -495,7 +549,11 @@ workDet=x.workDet
                                 }
                                 List<workListnew> worklist1 = new List<workListnew>();
                                 worklist1 = CommonMethod.ConvertToList<workListnew>(dtExcelnew);
-                               
+                                foreach (var item in worklist1)
+                                {
+                                    item.date = item.date.Replace("'", ""); 
+                             
+                                }
                                 List<workList> DATAALISTS = worklist1.Select(x => new workList()
                                 {
                                     date=x.date,

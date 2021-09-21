@@ -1,0 +1,14 @@
+﻿@*<div id="test"> </div>
+<script>
+    $(document).ready(function () {
+        alert("C");
+        var yr = 2020;
+        for (var j = 1; j <= 50; j++) {
+            for (var i = 1; i <= 12; i++) {
+                var dataa = yr + " " + i + " " + new Date(yr, i, 0).getDate() + "<br />";
+                $("#test").append(dataa);
+            }
+            yr = yr + 1;
+        }
+    });
+</script>*@

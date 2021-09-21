@@ -24,6 +24,7 @@ namespace workReport.Models
         public Nullable<System.DateTime> date_Eng { get; set; }
         public string workDet { get; set; }
     }
+
     public partial class workListone
     {
         //public int workListId { get; set; }
@@ -48,4 +49,5 @@ namespace workReport.Models
         public string date_Eng { get; set; }
         public string workDet { get; set; }
     }
+
 }

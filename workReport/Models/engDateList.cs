@@ -12,10 +12,12 @@ namespace workReport.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class repYear
+    public partial class engDateList
     {
-        public int sn { get; set; }
-        public int yearId { get; set; }
-        public string yearName { get; set; }
+        public int engDateId { get; set; }
+        public int engYear { get; set; }
+        public int engMonth { get; set; }
+        public string engMonthName { get; set; }
+        public int daysCount { get; set; }
     }
 }

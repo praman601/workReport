@@ -113,6 +113,29 @@ namespace workReport.Controllers
             return View(user);
         }
 
+        
+        public ActionResult ForgotPassword()
+        {
+
+            return View();
+
+        }
+
+        [HttpPost]
+        public ActionResult UpdatePassword(FormCollection fc)
+        {
+            string username = fc["username"].ToString();
+            string password = fc["password"].ToString();
+            user isuser = db.user.AsNoTracking().Where(x => x.userName == username).FirstOrDefault();
+            isuser.userPassword = password;
+            db.Entry(isuser).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+
+        }
+
+
         // GET: users/Delete/5
         //public ActionResult Delete(int? id)
         //{

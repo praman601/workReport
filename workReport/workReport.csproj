@@ -358,6 +358,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Days.cs" />
+    <Compile Include="Models\engDateList.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\issues.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -393,6 +396,7 @@
     <Compile Include="Models\posts.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RangeList.cs" />
     <Compile Include="Models\report.cs" />
     <Compile Include="Models\repYear.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -416,6 +420,49 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\customcal.css" />
+    <Content Include="Content\DataTables-1.11.2\css\dataTables.bootstrap.css" />
+    <Content Include="Content\DataTables-1.11.2\css\dataTables.bootstrap.min.css" />
+    <Content Include="Content\DataTables-1.11.2\css\dataTables.bootstrap4.css" />
+    <Content Include="Content\DataTables-1.11.2\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Content\DataTables-1.11.2\css\dataTables.bootstrap5.css" />
+    <Content Include="Content\DataTables-1.11.2\css\dataTables.bootstrap5.min.css" />
+    <Content Include="Content\DataTables-1.11.2\css\dataTables.bulma.css" />
+    <Content Include="Content\DataTables-1.11.2\css\dataTables.bulma.min.css" />
+    <Content Include="Content\DataTables-1.11.2\css\dataTables.dataTables.css" />
+    <Content Include="Content\DataTables-1.11.2\css\dataTables.dataTables.min.css" />
+    <Content Include="Content\DataTables-1.11.2\css\dataTables.foundation.css" />
+    <Content Include="Content\DataTables-1.11.2\css\dataTables.foundation.min.css" />
+    <Content Include="Content\DataTables-1.11.2\css\dataTables.jqueryui.css" />
+    <Content Include="Content\DataTables-1.11.2\css\dataTables.jqueryui.min.css" />
+    <Content Include="Content\DataTables-1.11.2\css\dataTables.semanticui.css" />
+    <Content Include="Content\DataTables-1.11.2\css\dataTables.semanticui.min.css" />
+    <Content Include="Content\DataTables-1.11.2\css\jquery.dataTables.css" />
+    <Content Include="Content\DataTables-1.11.2\css\jquery.dataTables.min.css" />
+    <Content Include="Content\DataTables-1.11.2\images\sort_asc.png" />
+    <Content Include="Content\DataTables-1.11.2\images\sort_asc_disabled.png" />
+    <Content Include="Content\DataTables-1.11.2\images\sort_both.png" />
+    <Content Include="Content\DataTables-1.11.2\images\sort_desc.png" />
+    <Content Include="Content\DataTables-1.11.2\images\sort_desc_disabled.png" />
+    <Content Include="Content\DataTables-1.11.2\js\dataTables.bootstrap.js" />
+    <Content Include="Content\DataTables-1.11.2\js\dataTables.bootstrap.min.js" />
+    <Content Include="Content\DataTables-1.11.2\js\dataTables.bootstrap4.js" />
+    <Content Include="Content\DataTables-1.11.2\js\dataTables.bootstrap4.min.js" />
+    <Content Include="Content\DataTables-1.11.2\js\dataTables.bootstrap5.js" />
+    <Content Include="Content\DataTables-1.11.2\js\dataTables.bootstrap5.min.js" />
+    <Content Include="Content\DataTables-1.11.2\js\dataTables.bulma.js" />
+    <Content Include="Content\DataTables-1.11.2\js\dataTables.bulma.min.js" />
+    <Content Include="Content\DataTables-1.11.2\js\dataTables.dataTables.js" />
+    <Content Include="Content\DataTables-1.11.2\js\dataTables.dataTables.min.js" />
+    <Content Include="Content\DataTables-1.11.2\js\dataTables.foundation.js" />
+    <Content Include="Content\DataTables-1.11.2\js\dataTables.foundation.min.js" />
+    <Content Include="Content\DataTables-1.11.2\js\dataTables.jqueryui.js" />
+    <Content Include="Content\DataTables-1.11.2\js\dataTables.jqueryui.min.js" />
+    <Content Include="Content\DataTables-1.11.2\js\dataTables.semanticui.js" />
+    <Content Include="Content\DataTables-1.11.2\js\dataTables.semanticui.min.js" />
+    <Content Include="Content\DataTables-1.11.2\js\jquery.dataTables.js" />
+    <Content Include="Content\DataTables-1.11.2\js\jquery.dataTables.min.js" />
+    <Content Include="Content\datatables.css" />
+    <Content Include="Content\datatables.min.css" />
     <Content Include="Content\formdesign.css" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\PagedList.css" />
@@ -465,6 +512,8 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\datatables.js" />
+    <Content Include="Scripts\datatables.min.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -557,6 +606,8 @@
     <Content Include="Views\workLists\ExportToExcel.cshtml" />
     <Content Include="Views\Reports\DateConvert.cshtml" />
     <Content Include="Views\workLists\WorkListData1.cshtml" />
+    <Content Include="Views\Login\addDate.cshtml" />
+    <Content Include="Views\users\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

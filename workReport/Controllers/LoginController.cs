@@ -17,6 +17,30 @@ namespace workReport.Controllers
     public class LoginController : Controller
     {
         private workReportEntities db = new workReportEntities();
+
+        public ActionResult addDate()
+        {
+            var yr = 2020;
+            for (var j = 1; j <= 50; j++)
+            {
+
+                for (var i = 1; i <= 12; i++)
+                {
+                    engDateList engList = new engDateList();
+                    engList.engYear = yr;
+                    engList.engMonth = i;
+                    engList.daysCount = DateTime.DaysInMonth(yr, i);
+                    db.engDateList.Add(engList);
+                    db.SaveChanges();
+
+                    // var dataa = yr + " " + i + " " + DateTime.DaysInMonth(yr, i) + "<br />";
+
+                }
+                yr = yr + 1;
+            }
+            return View();
+        }
+
         public ActionResult SignIn()
         {
             //Session.Abandon();
