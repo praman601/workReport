@@ -47,6 +47,7 @@ namespace workReport.Models
         public int? isDay { get; set; }
         public int? totalAnydesk { get; set; }
         public int? totalEmail { get; set; }
+        public int? totalSum { get; set; }
         public int? totalRows { get; set; }
  
     }

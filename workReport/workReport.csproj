@@ -608,6 +608,7 @@
     <Content Include="Views\workLists\WorkListData1.cshtml" />
     <Content Include="Views\Login\addDate.cshtml" />
     <Content Include="Views\users\ForgotPassword.cshtml" />
+    <Content Include="Views\Reports\worklistGraph.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -223,10 +223,105 @@ namespace workReport.Controllers
 
         
 
-           
+        public ActionResult worklistGraph()
+        {
+            ViewBag.isMonth = new SelectList(db.nepMonths, "monthId", "monthName");
+            ViewBag.isYear = new SelectList(db.repYear, "yearId", "yearName");
+            return View();
+        }
 
 
-            public ActionResult Index(FormCollection fc)
+        public ActionResult GetGraphData(string isYear, string isMonth)
+        {
+            int isUserId = Convert.ToInt32(Session["userId"]);
+            
+
+
+
+            using (var ent = new workReportEntities())
+            {
+                //if (isMonth == null)
+                //{
+                //    string startDateNep = isYear + "-" + "01" + "-" + "01";
+                //    string endDateNep = isYear + "-" + "12" + "-" + "30";
+                //    DateTime startDateEng = Convert.ToDateTime(db.PR_neptoeng(nepdate: startDateNep).FirstOrDefault());
+                //    DateTime endDateEng = Convert.ToDateTime(db.PR_neptoeng(nepdate: endDateNep).FirstOrDefault());
+
+                //    //  SumScore = ent.workList.Where(x => x.users == isUserId && x.date_Eng >= startDateEng && x.date_Eng < endDateEng)
+                //    //.Select(x => new WorkListModel()
+                //    //{
+                //    //    SecurityName = x.SecurityName,
+                //    //    StockID = x.StockID,
+                //    //    AddedDateString = x.AddedDate.ToString(),
+                //    //    LastTradedPrice = x.LastTradedPrice,
+                //    //    AddedDate = x.AddedDate
+
+
+                //    //})
+                //    //    .OrderBy(a => a.AddedDate)
+                //    //    .ToList();
+                //}
+                //else
+                {
+                    int daysInMonth = Convert.ToInt32(db.COM_ENGLISH_NEPALI_DATE.Where(x => x.NEPALI_YEAR.ToString() == isYear && x.MONTH_CD.ToString() == isMonth).Select(x => x.NO_OF_DAYS).FirstOrDefault());
+                  if( Convert.ToInt32(isMonth)<10)
+                    {
+                        isMonth = "0" + isMonth;
+                    }
+                   
+                    string startDateNep = isYear + "-" + isMonth + "-" + "01";
+                    string endDateNep = isYear + "-" + isMonth + "-" + daysInMonth;
+                    DateTime startDateEng = Convert.ToDateTime(db.PR_neptoeng(nepdate: startDateNep).FirstOrDefault());
+                    DateTime endDateEng = Convert.ToDateTime(db.PR_neptoeng(nepdate: endDateNep).FirstOrDefault());
+
+                    List<WorkListModel> WorksList = new List<WorkListModel>();
+                    int? xxx = 0, xxy = 0, xxz = 0, xyx = 0;
+                    for (int i = 0; i < daysInMonth; i++)
+                    {
+                        WorkListModel model = new WorkListModel();
+                        model.date_Eng = Convert.ToDateTime(startDateEng.AddDays(i).ToShortDateString());
+                        var nextday = Convert.ToDateTime(startDateEng.AddDays(i + 1).ToShortDateString());
+                        model.DayofMonth = Convert.ToDateTime(model.date_Eng).DayOfWeek.ToString();
+                        // string datess = obj.PR_engtonep(engdate: model.date_Eng.ToString()).FirstOrDefault();
+                        model.totalCountAnydesk = db.workList.Where(x => x.workListType == "Anydesk" && x.users == isUserId && x.date_Eng >= model.date_Eng && x.date_Eng < nextday).Select(x => x.time).Sum();
+                        model.totalRows = db.workList.Where(x => x.date_Eng >= model.date_Eng && x.users == isUserId && x.date_Eng < nextday).Select(x => x.workListId).Count();
+                        model.totalCountCall = db.workList.Where(x => x.workListType == "Call" && x.users == isUserId && x.date_Eng >= model.date_Eng && x.date_Eng < nextday).Select(x => x.time).Sum();
+                        model.totalCountEmail = db.workList.Where(x => x.workListType == "Email" && x.users == isUserId && x.date_Eng >= model.date_Eng && x.date_Eng < nextday).Select(x => x.time).Sum();
+                        model.mun = db.workList.Where(x => x.users == isUserId && x.date_Eng >= model.date_Eng && x.date_Eng < nextday).Select(x => x.mun).FirstOrDefault();
+                        model.workDet = db.workList.Where(x => x.users == isUserId && x.date_Eng >= model.date_Eng && x.date_Eng < nextday).Select(x => x.workDet).FirstOrDefault();
+                        model.totalSum = model.totalCountAnydesk + model.totalCountCall + model.totalCountEmail;
+                        xxx += model.totalCountEmail ?? 0;
+                        xxy += model.totalCountCall ?? 0;
+                        xxz += model.totalCountAnydesk ?? 0;
+                        xyx += model.totalRows ?? 0;
+                        WorksList.Add(model);
+                    }
+
+
+
+                    var SumScore = WorksList.Select(x => new WorkListModel()
+               {
+                   
+                  
+                   AddedDateString = x.date_Eng.ToString(),
+                   totalSum = x.totalSum,
+                   AddedDate = x.AddedDate
+
+
+               })
+                   .OrderBy(a => a.AddedDate)
+                   .ToList();
+
+
+
+
+
+                    return Json(SumScore, JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
+
+        public ActionResult Index(FormCollection fc)
         {
             var obj = new workReportEntities();
             string nepMonthstr="0";
