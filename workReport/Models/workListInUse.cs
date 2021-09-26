@@ -32,6 +32,7 @@ namespace workReport.Models
     public string issue { get; set; }
         public string AddedDateString { get; set; }
         public Nullable<System.DateTime> date_Eng { get; set; }
+
         public Nullable<decimal> LastTradedPrice { get; set; }
         public string workDet { get; set; }
         public int? call { get; set; }

@@ -15,7 +15,7 @@ using System.Globalization;
 namespace workReport.Controllers
 {
 
-   
+
 
 
 
@@ -27,32 +27,32 @@ namespace workReport.Controllers
 
         public ActionResult DateConvert()
         {
-            ViewBag.NepYears = new SelectList(db.COM_ENGLISH_NEPALI_DATE.Select(x=>x.NEPALI_YEAR).Distinct().OrderByDescending(x=>x.Value), "NEPALI_YEAR");
+            ViewBag.NepYears = new SelectList(db.COM_ENGLISH_NEPALI_DATE.Select(x => x.NEPALI_YEAR).Distinct().OrderByDescending(x => x.Value), "NEPALI_YEAR");
             return View();
         }
 
-        public JsonResult DateConvertor(int year, int month, int day,int bsadchange)
+        public JsonResult DateConvertor(int year, int month, int day, int bsadchange)
         {
-            string monthh = (month <= 9) ?  "0" + month : month.ToString();
-            string dayy = (day <= 9) ?  "0" + day:day.ToString();
-           
+            string monthh = (month <= 9) ? "0" + month : month.ToString();
+            string dayy = (day <= 9) ? "0" + day : day.ToString();
+
             string isdate = year + "-" + monthh + "-" + dayy;
-            
-           
-            if(bsadchange==1)
+
+
+            if (bsadchange == 1)
             {
                 string x = db.PR_engtonep(engdate: isdate).FirstOrDefault();
-               
+
                 return Json(x, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                DateTime y =Convert.ToDateTime( db.PR_neptoeng(nepdate: isdate).FirstOrDefault());
+                DateTime y = Convert.ToDateTime(db.PR_neptoeng(nepdate: isdate).FirstOrDefault());
                 string x = y.ToString("yyyy-MM-dd");
                 return Json(x, JsonRequestBehavior.AllowGet);
             }
-           
-           
+
+
         }
 
 
@@ -62,7 +62,7 @@ namespace workReport.Controllers
             ViewBag.fscYear = new SelectList(db.repYear, "yearId", "yearName");
             return View();
         }
-     
+
         public ActionResult report1()
         {
             ViewBag.months = new SelectList(db.nepMonths, "monthId", "monthName");
@@ -94,7 +94,7 @@ namespace workReport.Controllers
 
             nepMonths nepaliMonth = db.nepMonths.AsNoTracking().Where(x => x.monthId == nepmonth).FirstOrDefault();
             ViewBag.nepmonth = nepaliMonth.monthName;
-           
+
             int nepDay = 1;
             string nepDaystr = '0' + nepDay.ToString();
             string nepDate = nepYear.ToString() + '-' + nepMonthstr + '-' + nepDaystr;
@@ -130,14 +130,14 @@ namespace workReport.Controllers
             //int? xxx = 0, xxy = 0, xxz = 0, xyx = 0;
             for (int i = 0; i < daysInMonth; i++)
             {
-                
+
                 WorkListModel model = new WorkListModel();
                 model.isDay = i + 1;
                 model.date_Eng = Convert.ToDateTime(engDate.AddDays(i).ToShortDateString());
                 var nextday = Convert.ToDateTime(engDate.AddDays(i + 1).ToShortDateString());
                 var model1 = db.workList.Where(x => x.users == isUserId && x.date_Eng >= model.date_Eng && x.date_Eng < nextday).ToList();
-               
-                foreach(var mmm in model1)
+
+                foreach (var mmm in model1)
                 {
                     WorkListModel nmodel = new WorkListModel();
                     nmodel.DayofMonth = Convert.ToDateTime(mmm.date_Eng).DayOfWeek.ToString();
@@ -221,7 +221,7 @@ namespace workReport.Controllers
             return Json(Datalists, JsonRequestBehavior.AllowGet);
         }
 
-        
+
 
         public ActionResult worklistGraph()
         {
@@ -234,9 +234,6 @@ namespace workReport.Controllers
         public ActionResult GetGraphData(string isYear, string isMonth)
         {
             int isUserId = Convert.ToInt32(Session["userId"]);
-            
-
-
 
             using (var ent = new workReportEntities())
             {
@@ -264,20 +261,22 @@ namespace workReport.Controllers
                 //else
                 {
                     int daysInMonth = Convert.ToInt32(db.COM_ENGLISH_NEPALI_DATE.Where(x => x.NEPALI_YEAR.ToString() == isYear && x.MONTH_CD.ToString() == isMonth).Select(x => x.NO_OF_DAYS).FirstOrDefault());
-                  if( Convert.ToInt32(isMonth)<10)
+                    if (Convert.ToInt32(isMonth) < 10)
                     {
                         isMonth = "0" + isMonth;
                     }
-                   
+
                     string startDateNep = isYear + "-" + isMonth + "-" + "01";
                     string endDateNep = isYear + "-" + isMonth + "-" + daysInMonth;
                     DateTime startDateEng = Convert.ToDateTime(db.PR_neptoeng(nepdate: startDateNep).FirstOrDefault());
                     DateTime endDateEng = Convert.ToDateTime(db.PR_neptoeng(nepdate: endDateNep).FirstOrDefault());
 
                     List<WorkListModel> WorksList = new List<WorkListModel>();
-                    int? xxx = 0, xxy = 0, xxz = 0, xyx = 0;
-                    for (int i = 0; i < daysInMonth; i++)
+
+                    for (int i = 1; i < daysInMonth; i++)
                     {
+                        string nepalidate = isYear + "-" + isMonth + "-" + i;
+                        int? xxx = 0, xxy = 0, xxz = 0, xyx = 0;
                         WorkListModel model = new WorkListModel();
                         model.date_Eng = Convert.ToDateTime(startDateEng.AddDays(i).ToShortDateString());
                         var nextday = Convert.ToDateTime(startDateEng.AddDays(i + 1).ToShortDateString());
@@ -294,27 +293,22 @@ namespace workReport.Controllers
                         xxy += model.totalCountCall ?? 0;
                         xxz += model.totalCountAnydesk ?? 0;
                         xyx += model.totalRows ?? 0;
+                        model.totalSum = xxx + xxy + xxz;
+                        model.date = nepalidate;
+                        model.AddedDateString = Convert.ToDateTime(model.date_Eng).ToString("yyyy-MM-dd");
                         WorksList.Add(model);
                     }
-
-
-
                     var SumScore = WorksList.Select(x => new WorkListModel()
-               {
-                   
-                  
-                   AddedDateString = x.date_Eng.ToString(),
-                   totalSum = x.totalSum,
-                   AddedDate = x.AddedDate
+                    {
 
 
-               })
+                        AddedDateString = x.date,
+                        totalSum = x.totalSum,
+                        AddedDate = Convert.ToDateTime(x.AddedDateString)
+
+                    })
                    .OrderBy(a => a.AddedDate)
                    .ToList();
-
-
-
-
 
                     return Json(SumScore, JsonRequestBehavior.AllowGet);
                 }
@@ -324,10 +318,10 @@ namespace workReport.Controllers
         public ActionResult Index(FormCollection fc)
         {
             var obj = new workReportEntities();
-            string nepMonthstr="0";
+            string nepMonthstr = "0";
             int nepYear = Convert.ToInt32(fc["fscYear"]);
             int nepmonth = Convert.ToInt32(fc["months"]);
-            if(nepmonth<10)
+            if (nepmonth < 10)
             {
                 nepMonthstr = '0' + nepmonth.ToString();
             }
@@ -339,25 +333,25 @@ namespace workReport.Controllers
             //DateTime todaysDateNep = DateTime.Parse(obj.PR_engtonep(engdate: todaysDateEng).FirstOrDefault());
             string todaysDateNep = obj.PR_engtonep(engdate: todaysDateEng).FirstOrDefault();
             var datesep = todaysDateNep.Split('-');
-            int todaysYear = Convert.ToInt32( datesep[0]);
-            int todaysMonth =Convert.ToInt32( datesep[1]);
+            int todaysYear = Convert.ToInt32(datesep[0]);
+            int todaysMonth = Convert.ToInt32(datesep[1]);
             int todaysDay = Convert.ToInt32(datesep[2]);
             ViewBag.todaysYear = todaysYear;
-            ViewBag.todaysMonth = db.nepMonths.AsNoTracking().Where(x => x.monthId == todaysMonth).Select(x=>x.monthName).FirstOrDefault();
+            ViewBag.todaysMonth = db.nepMonths.AsNoTracking().Where(x => x.monthId == todaysMonth).Select(x => x.monthName).FirstOrDefault();
             ViewBag.todaysDay = todaysDay;
 
 
             nepMonths nepaliMonth = db.nepMonths.AsNoTracking().Where(x => x.monthId == nepmonth).FirstOrDefault();
             ViewBag.nepmonth = nepaliMonth.monthName;
-            
+
             int nepDay = 1;
             string nepDaystr = '0' + nepDay.ToString();
-            string nepDate = nepYear.ToString() + '-' + nepMonthstr + '-' + nepDaystr ;
-            DateTime engDate =Convert.ToDateTime( obj.PR_neptoeng(nepdate: nepDate).FirstOrDefault());
+            string nepDate = nepYear.ToString() + '-' + nepMonthstr + '-' + nepDaystr;
+            DateTime engDate = Convert.ToDateTime(obj.PR_neptoeng(nepdate: nepDate).FirstOrDefault());
             int engYear = engDate.Year;
             int engMonth = engDate.Month;
 
-            int daysInMonth = Convert.ToInt32( db.COM_ENGLISH_NEPALI_DATE.AsNoTracking().Where(x => x.NEPALI_YEAR == nepYear && x.MONTH_CD == nepmonth).Select(x => x.NO_OF_DAYS).FirstOrDefault());
+            int daysInMonth = Convert.ToInt32(db.COM_ENGLISH_NEPALI_DATE.AsNoTracking().Where(x => x.NEPALI_YEAR == nepYear && x.MONTH_CD == nepmonth).Select(x => x.NO_OF_DAYS).FirstOrDefault());
 
 
             string isUserName = Session["userName"].ToString();
@@ -366,15 +360,15 @@ namespace workReport.Controllers
             var userdet = db.user.AsNoTracking().Where(x => x.usrId == isUserId).FirstOrDefault();
             var userPost = db.posts.AsNoTracking().Where(x => x.postId == userdet.post).FirstOrDefault();
             ViewBag.userPost = userPost.postName;
-           
+
             ViewBag.isReportMonth = nepaliMonth.monthName;
-            ViewBag.isReportYear =nepYear;
+            ViewBag.isReportYear = nepYear;
             ViewBag.isUserBank = userdet.bankName;
             ViewBag.isBankAdd = userdet.branch;
             ViewBag.isAccountNo = userdet.acnumber;
             string userfullname = userdet.firstName + " " + userdet.lastName;
             ViewBag.reporterName = userfullname;
-          //  int isMonth = Convert.ToInt32(fc["months"]);
+            //  int isMonth = Convert.ToInt32(fc["months"]);
             ViewBag.isReportDate = nepDate;
             ViewBag.isContractAmount = userdet.totalAmount;
 
@@ -382,23 +376,23 @@ namespace workReport.Controllers
             var lastengdate = engDate.AddDays(daysInMonth);
             //var list=db.workList.Where(x=>x.date_Eng>= engDate && x.date_Eng<=lastengdate).Select
             List<WorkListModel> WorksList = new List<WorkListModel>();
-            int? xxx = 0,xxy = 0,xxz = 0,xyx=0;
+            int? xxx = 0, xxy = 0, xxz = 0, xyx = 0;
             for (int i = 0; i < daysInMonth; i++)
             {
                 WorkListModel model = new WorkListModel();
                 model.date_Eng = Convert.ToDateTime(engDate.AddDays(i).ToShortDateString());
-                var nextday= Convert.ToDateTime(engDate.AddDays(i+1).ToShortDateString());
+                var nextday = Convert.ToDateTime(engDate.AddDays(i + 1).ToShortDateString());
                 model.DayofMonth = Convert.ToDateTime(model.date_Eng).DayOfWeek.ToString();
-               // string datess = obj.PR_engtonep(engdate: model.date_Eng.ToString()).FirstOrDefault();
-                model.totalCountAnydesk = db.workList.Where(x => x.workListType == "Anydesk" && x.users==isUserId && x.date_Eng >= model.date_Eng && x.date_Eng<nextday).Select(x => x.time).Sum();
+                // string datess = obj.PR_engtonep(engdate: model.date_Eng.ToString()).FirstOrDefault();
+                model.totalCountAnydesk = db.workList.Where(x => x.workListType == "Anydesk" && x.users == isUserId && x.date_Eng >= model.date_Eng && x.date_Eng < nextday).Select(x => x.time).Sum();
                 model.totalRows = db.workList.Where(x => x.date_Eng >= model.date_Eng && x.users == isUserId && x.date_Eng < nextday).Select(x => x.workListId).Count();
                 model.totalCountCall = db.workList.Where(x => x.workListType == "Call" && x.users == isUserId && x.date_Eng >= model.date_Eng && x.date_Eng < nextday).Select(x => x.time).Sum();
                 model.totalCountEmail = db.workList.Where(x => x.workListType == "Email" && x.users == isUserId && x.date_Eng >= model.date_Eng && x.date_Eng < nextday).Select(x => x.time).Sum();
-               model.mun= db.workList.Where(x => x.users == isUserId && x.date_Eng >= model.date_Eng && x.date_Eng < nextday).Select(x => x.mun).FirstOrDefault();
-                model.workDet= db.workList.Where(x => x.users == isUserId && x.date_Eng >= model.date_Eng && x.date_Eng < nextday).Select(x => x.workDet).FirstOrDefault();
-                xxx += model.totalCountEmail ??0;
-                xxy += model.totalCountCall ??0;
-                xxz += model.totalCountAnydesk??0;
+                model.mun = db.workList.Where(x => x.users == isUserId && x.date_Eng >= model.date_Eng && x.date_Eng < nextday).Select(x => x.mun).FirstOrDefault();
+                model.workDet = db.workList.Where(x => x.users == isUserId && x.date_Eng >= model.date_Eng && x.date_Eng < nextday).Select(x => x.workDet).FirstOrDefault();
+                xxx += model.totalCountEmail ?? 0;
+                xxy += model.totalCountCall ?? 0;
+                xxz += model.totalCountAnydesk ?? 0;
                 xyx += model.totalRows ?? 0;
                 WorksList.Add(model);
             }
@@ -410,7 +404,7 @@ namespace workReport.Controllers
             ViewBag.TotalRows = xyx;
 
             //-----------------------------salary table----------------------------
-            DateTime userContractDateNep =Convert.ToDateTime(userdet.contractDate);
+            DateTime userContractDateNep = Convert.ToDateTime(userdet.contractDate);
             ViewBag.contractYear = userContractDateNep.Year;
             int contractMonth = userContractDateNep.Month;
             ViewBag.contractMonth = db.nepMonths.AsNoTracking().Where(x => x.monthId == contractMonth).Select(x => x.monthName).FirstOrDefault();
@@ -427,7 +421,7 @@ namespace workReport.Controllers
 
             string enterDate = userdet.enteredDate;
             DateTime enteredDateNep = Convert.ToDateTime(obj.PR_engtonep(engdate: enterDate).FirstOrDefault());
-            DateTime nepDate1 = Convert.ToDateTime( (nepYear.ToString() + '-' + nepMonthstr + '-' + 25));
+            DateTime nepDate1 = Convert.ToDateTime((nepYear.ToString() + '-' + nepMonthstr + '-' + 25));
 
             TimeSpan differ = nepDate1 - enteredDateNep;
             int totalMins = (int)differ.TotalMinutes;
@@ -435,14 +429,14 @@ namespace workReport.Controllers
             int prevMonthAmount;
             if (totalMonths <= 1)
             {
-                 prevMonthAmount = Convert.ToInt32(userdet.lastMonthAmount);
+                prevMonthAmount = Convert.ToInt32(userdet.lastMonthAmount);
             }
             else
             {
-                 prevMonthAmount = Convert.ToInt32(userdet.lastMonthAmount) + Convert.ToInt32((totalMonths-1) * userdet.monthlySalary);
+                prevMonthAmount = Convert.ToInt32(userdet.lastMonthAmount) + Convert.ToInt32((totalMonths - 1) * userdet.monthlySalary);
             }
             ViewBag.prevMonthAmount = prevMonthAmount;
-            int totalThisMonthAmount =Convert.ToInt32( prevMonthAmount + userdet.monthlySalary);
+            int totalThisMonthAmount = Convert.ToInt32(prevMonthAmount + userdet.monthlySalary);
             ViewBag.totalThisMonthAmount = totalThisMonthAmount;
             int remAmount = Convert.ToInt32(userdet.totalAmount - totalThisMonthAmount);
             ViewBag.remAmount = remAmount;
@@ -452,9 +446,10 @@ namespace workReport.Controllers
             {
                 return View("Index1", WorksList);
             }
-            else { 
+            else
+            {
 
-            return View(WorksList);
+                return View(WorksList);
             }
         }
 

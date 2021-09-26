@@ -512,8 +512,12 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\accessibility.js" />
     <Content Include="Scripts\datatables.js" />
     <Content Include="Scripts\datatables.min.js" />
+    <Content Include="Scripts\export-data.js" />
+    <Content Include="Scripts\exporting.js" />
+    <Content Include="Scripts\highcharts.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -609,6 +613,7 @@
     <Content Include="Views\Login\addDate.cshtml" />
     <Content Include="Views\users\ForgotPassword.cshtml" />
     <Content Include="Views\Reports\worklistGraph.cshtml" />
+    <Content Include="Views\users\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

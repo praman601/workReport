@@ -4,9 +4,10 @@
 }
 <style>
     .highcharts-figure, .highcharts-data-table table {
-        min-width: 320px;
-        max-width: 660px;
+        min-width: 700px;
+        max-width: 900px;
         margin: 1em auto;
+        height:500px;
     }
 
     .highcharts-data-table table {
@@ -16,7 +17,7 @@
         margin: 10px auto;
         text-align: center;
         width: 100%;
-        max-width: 500px;
+        max-width: 600px;
     }
 
     .highcharts-data-table caption {
@@ -42,10 +43,15 @@
         background: #f1f7ff;
     }
 </style>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+@*<script src="https://code.highcharts.com/highcharts.js"></script>*@
+@*<script src="https://code.highcharts.com/modules/exporting.js"></script>*@
+@*<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>*@
+
+<script src="~/Scripts/highcharts.js"></script>
+<script src="~/Scripts/exporting.js"></script>
+<script src="~/Scripts/export-data.js"></script>
+<script src="~/Scripts/accessibility.js"></script>
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 
 <style>
@@ -107,41 +113,32 @@
 
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group row">
-            <div class="col-md-4">
-                @Html.DropDownList("isYear", null, "--Select Year--", htmlAttributes: new { @class = "form-control" })
-
-            </div>
+    <div class="form-group row">
+        <div class="col-md-4">
+            @Html.DropDownList("isYear", null, "--Select Year--", htmlAttributes: new { @class = "form-control" })
 
         </div>
-        <br />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group row">
-            <div class="col-md-4">
-                @Html.DropDownList("isMonth", null, "--Select Month--", htmlAttributes: new { @class = "form-control" })
-
-            </div>
+        <div class="col-md-4">
+            @Html.DropDownList("isMonth", null, "--Select Month--", htmlAttributes: new { @class = "form-control" })
 
         </div>
-
-        <div class="form-group">
-            <div class="col-md-6">
-                <input type="submit" value="Submit" class="btn btn-default" onclick="return Ram()" />
-            </div>
-
-          
+        <div class="col-md-4">
+            <input type="submit" value="Submit" class="btn btn-default" onclick="return Ram()" />
         </div>
+
+   
     </div>
 
 </div>
-<div class="Switchesss" style="float:right">
+    </div>
+@*<div class="Switchesss" style="float:right">
 
     <input type="checkbox" id="switch"
            class="checkbox" />
     <label for="switch" class="toggle">
 
     </label>
-</div>
+</div>*@
 <figure class="highcharts-figure">
 
     <br />
@@ -151,15 +148,15 @@
 </figure>
 
 <script>
-    $(document).ready(function () {
+    //$(document).ready(function () {
 
-        $(".Switchesss").hide();
-    });
-    // Build the chart
-    $("#ID").change(function () {
-        $(".Switchesss").show();
-        Ram(true)
-    });
+    //    $(".Switchesss").hide();
+    //});
+    //// Build the chart
+    //$("#ID").change(function () {
+    //    $(".Switchesss").show();
+    //    Ram(true)
+    //});
 
 
     function Ram() {
@@ -187,7 +184,7 @@
                         type: 'line'
                     },
                     title: {
-                        text: 'Last stock Details'
+                        text: 'Work Data Graph'
                     },
 
                     xAxis: {
@@ -214,9 +211,9 @@
             }
         });
     }
-    $(".toggle").click(function () {
-        var x = $('#' + 'switch').is(":checked");
+    //$(".toggle").click(function () {
+    //    var x = $('#' + 'switch').is(":checked");
 
-        Ram(x);
-    });
+    //    Ram(x);
+    //});
 </script>
