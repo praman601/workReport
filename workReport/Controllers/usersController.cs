@@ -62,13 +62,7 @@ namespace workReport.Controllers
         //}
 
         // GET: users/Create
-        public ActionResult Create()
-        {
-            ViewBag.isPost = new SelectList(db.posts, "postId", "postName");
-            user model = new user();
-            return View(model);
-        }
-
+     
 
         [HttpPost]
         public JsonResult CheckUsername(string username)
@@ -83,32 +77,7 @@ namespace workReport.Controllers
         // POST: users/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create( user user,FormCollection fc)
-        {
-           
-            workReportEntities dbA = new workReportEntities();
-             user.post = Convert.ToInt32(fc["isPost"]);
-            user.enteredDate =DateTime.Now.ToString("yyyy-MM-dd");
-            bool isValid = db.user.ToList().Exists(p => p.userName.Equals(user.userName, StringComparison.CurrentCultureIgnoreCase));
-            if(!isValid)
-            {
-                return View(user);
-            }
-
-          else  if (ModelState.IsValid)
-            {
-
-                dbA.user.Add(user);
-                    dbA.SaveChanges();
-                return RedirectToAction("SignIn", "Login");
-                
-                
-            }
-
-            return View(user);
-        }
+       
 
         // GET: users/Edit/5
         public ActionResult Edit(int? id)
@@ -140,26 +109,7 @@ namespace workReport.Controllers
         }
 
         
-        public ActionResult ForgotPassword()
-        {
-
-            return View();
-
-        }
-
-        [HttpPost]
-        public ActionResult UpdatePassword(FormCollection fc)
-        {
-            string username = fc["username"].ToString();
-            string password = fc["password"].ToString();
-            user isuser = db.user.AsNoTracking().Where(x => x.userName == username).FirstOrDefault();
-            isuser.userPassword = password;
-            db.Entry(isuser).State = EntityState.Modified;
-            db.SaveChanges();
-
-            return RedirectToAction("Index");
-
-        }
+      
 
 
         // GET: users/Delete/5
