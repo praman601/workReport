@@ -18,12 +18,7 @@
                 </button>
                 @Html.ActionLink("Work Report", "Index", "workLists", new { area = "" }, new { @class = "navbar-brand" })
 
-           
-
-
-
-
-
+       
             </div>
 
             <div class="navbar-collapse collapse">
@@ -75,6 +70,7 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
                             <li>@Html.ActionLink("Date Converter", "DateConvert", "Reports")</li>
+                            <li>@Html.ActionLink("Report Graph", "worklistgraph", "Reports")</li>
                             @*<li>@Html.ActionLink("Daily Report", "report1", "Reports")</li>*@
 
                         </ul>
@@ -97,7 +93,7 @@
         <hr />
 
     </div>
-
+   
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

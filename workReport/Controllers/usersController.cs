@@ -6,11 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using workReport.Models;
 
 namespace workReport.Controllers
 {
-    public class usersController : Controller
+    public class usersController : SessionCheckController
     {
         private workReportEntities db = new workReportEntities();
 
@@ -20,6 +21,31 @@ namespace workReport.Controllers
             return View(db.user.ToList());
         }
 
+        public ActionResult ChangePassword()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChangePassword(FormCollection fc)
+        {
+            string oldpassword = fc["oldPassword"].ToString().Trim();
+            string newpassword = fc["newOldPassword"].ToString().Trim();
+            int isUserId = Convert.ToInt32(Session["userId"]);
+            user isUser = db.user.Find(isUserId);
+            while(isUser.userPassword==oldpassword)
+            {
+                isUser.userPassword = newpassword;
+                db.Entry(isUser).State = EntityState.Modified;
+                db.SaveChanges();
+                Session.Abandon();
+                FormsAuthentication.SignOut();
+                return Redirect("/Login/SignIn");
+
+            }
+            ViewBag.message = "Something Went Wrong!!";
+            return View();
+        }
         //// GET: users/Details/5
         //public ActionResult Details(int? id)
         //{
