@@ -273,7 +273,7 @@ namespace workReport.Controllers
 
                     List<WorkListModel> WorksList = new List<WorkListModel>();
 
-                    for (int i = 1; i < daysInMonth; i++)
+                    for (int i = 1; i <= daysInMonth; i++)
                     {
                         string nepalidate = isYear + "-" + isMonth + "-" + i;
                         int? xxx = 0, xxy = 0, xxz = 0, xyx = 0;
