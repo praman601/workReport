@@ -3,14 +3,16 @@
     ViewBag.Title = "report";
 }
 
-<h2>report</h2>
+
+
+
 
 @using (Html.BeginForm("Index", "Reports", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-
+    <h2 id="topichere">Monthly Report</h2>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group row">
@@ -32,7 +34,7 @@
 
     <div class="form-group">
         <div class="col-md-6">
-            <input type="submit" value="Submit" class="btn btn-default" />
+            <input type="submit" value="Submit" class="btn btn-default" onclick="ShowProgress()" />
         </div>
 
         <div class="form-group">
@@ -42,5 +44,34 @@
         </div>
     </div>
 </div>
+<div class="loading" align="center">
+    <span id="texthere"></span>  Loading. Please wait.<br />
+    <br />
+    <img src="~/files/loader/loader.gif" alt="" />
 
+</div>
 }
+
+<link href="~/Content/loading.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+    function ShowProgress() {
+        setTimeout(function () {
+            var istext = document.getElementById("topichere").innerHTML.toLowerCase();
+            document.getElementById("texthere").innerHTML = istext;
+            var fullForm = $(".form-horizontal");
+            fullForm.html('');
+            var modal = $('<div />');
+            modal.addClass("modal");
+            $('body').append(modal);
+            var loading = $(".loading");
+            loading.show();
+            var top = Math.max($(window).height() / 2 - loading[0].offsetHeight / 2, 0);
+            var left = Math.max($(window).width() / 2 - loading[0].offsetWidth / 2, 0);
+            loading.css({ top: top, left: left });
+        }, 200);
+    }
+    $('form').live("submit", function () {
+        ShowProgress();
+    });
+</script>

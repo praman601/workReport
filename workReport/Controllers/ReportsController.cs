@@ -237,28 +237,7 @@ namespace workReport.Controllers
 
             using (var ent = new workReportEntities())
             {
-                //if (isMonth == null)
-                //{
-                //    string startDateNep = isYear + "-" + "01" + "-" + "01";
-                //    string endDateNep = isYear + "-" + "12" + "-" + "30";
-                //    DateTime startDateEng = Convert.ToDateTime(db.PR_neptoeng(nepdate: startDateNep).FirstOrDefault());
-                //    DateTime endDateEng = Convert.ToDateTime(db.PR_neptoeng(nepdate: endDateNep).FirstOrDefault());
-
-                //    //  SumScore = ent.workList.Where(x => x.users == isUserId && x.date_Eng >= startDateEng && x.date_Eng < endDateEng)
-                //    //.Select(x => new WorkListModel()
-                //    //{
-                //    //    SecurityName = x.SecurityName,
-                //    //    StockID = x.StockID,
-                //    //    AddedDateString = x.AddedDate.ToString(),
-                //    //    LastTradedPrice = x.LastTradedPrice,
-                //    //    AddedDate = x.AddedDate
-
-
-                //    //})
-                //    //    .OrderBy(a => a.AddedDate)
-                //    //    .ToList();
-                //}
-                //else
+                
                 {
                     int daysInMonth = Convert.ToInt32(db.COM_ENGLISH_NEPALI_DATE.Where(x => x.NEPALI_YEAR.ToString() == isYear && x.MONTH_CD.ToString() == isMonth).Select(x => x.NO_OF_DAYS).FirstOrDefault());
                     if (Convert.ToInt32(isMonth) < 10)
@@ -396,7 +375,7 @@ namespace workReport.Controllers
                 xyx += model.totalRows ?? 0;
                 WorksList.Add(model);
             }
-            ////  https://stackoverflow.com/questions/34881975/asp-net-mvc-sales-each-day-in-a-month
+          
             WorkListModel nmodel = new WorkListModel();
             ViewBag.TotalEmail = xxx;
             ViewBag.TotalCall = xxy;
