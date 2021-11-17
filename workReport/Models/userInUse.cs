@@ -23,5 +23,6 @@ namespace workReport.Models
         public string bankName { get; set; }
         public string branch { get; set; }
         public string acnumber { get; set; }
+        public string passencryp { get; set; }
     }
 }

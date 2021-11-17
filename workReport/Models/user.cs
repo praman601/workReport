@@ -28,5 +28,7 @@ namespace workReport.Models
         public string acnumber { get; set; }
         public Nullable<int> lastMonthAmount { get; set; }
         public string enteredDate { get; set; }
+        public string passencryp { get; set; }
+        public string passkey { get; set; }
     }
 }

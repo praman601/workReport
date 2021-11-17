@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -54,12 +57,17 @@ namespace workReport.Controllers
             string email = fc["username"].ToString();
             string password = fc["password"].ToString();
 
-            bool isok = db.user.Any(x => x.userName == email && x.userPassword == password);
+            user userYes = db.user.AsNoTracking().Where(x => x.userName == email).FirstOrDefault() ;
 
+            string encKey = userYes.passkey;
+
+            string encryptedPassword =CommonController.Encrypt(password, encKey);
+
+            bool isok = db.user.Any(x => x.userName == email && x.passencryp == encryptedPassword);
 
             if (isok)
             {
-                user isuser = db.user.AsNoTracking().Where(x => x.userName == email && x.userPassword == password).First();
+                user isuser = db.user.AsNoTracking().Where(x => x.userName == email && x.passencryp == encryptedPassword).First();
 
                 Session["userName"] = (isuser.userName);
                 Session["userId"] = isuser.usrId;
@@ -81,6 +89,10 @@ namespace workReport.Controllers
 
             // ModelState.AddModelError("", "Username and Password not matched!!");
         }
+
+
+       
+
         //public ActionResult ForgotPassword()
         //{
         //    return View();

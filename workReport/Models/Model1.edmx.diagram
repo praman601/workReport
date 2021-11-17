@@ -13,9 +13,9 @@
         <EntityTypeShape EntityType="workReportModel.nepMonths" Width="1.5" PointX="0.75" PointY="6.75" />
         <EntityTypeShape EntityType="workReportModel.COM_ENGLISH_NEPALI_DATE" Width="1.5" PointX="7.375" PointY="4.75" />
         <EntityTypeShape EntityType="workReportModel.workList" Width="1.5" PointX="7.375" PointY="0.75" />
-        <EntityTypeShape EntityType="workReportModel.user" Width="1.5" PointX="9.375" PointY="0.75" />
         <EntityTypeShape EntityType="workReportModel.repYear" Width="1.5" PointX="0.75" PointY="9.75" />
         <EntityTypeShape EntityType="workReportModel.engDateList" Width="1.5" PointX="3.375" PointY="9.75" />
+        <EntityTypeShape EntityType="workReportModel.user" Width="1.5" PointX="9.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

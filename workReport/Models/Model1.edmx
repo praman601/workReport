@@ -95,6 +95,8 @@
           <Property Name="acnumber" Type="varchar" MaxLength="50" />
           <Property Name="lastMonthAmount" Type="int" />
           <Property Name="enteredDate" Type="varchar" MaxLength="50" />
+          <Property Name="passencryp" Type="varchar" MaxLength="100" />
+          <Property Name="passkey" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="workList">
           <Key>
@@ -170,9 +172,9 @@
           <EntitySet Name="nepMonths" EntityType="workReportModel.nepMonths" />
           <EntitySet Name="COM_ENGLISH_NEPALI_DATE" EntityType="workReportModel.COM_ENGLISH_NEPALI_DATE" />
           <EntitySet Name="workList" EntityType="workReportModel.workList" />
-          <EntitySet Name="user" EntityType="workReportModel.user" />
           <EntitySet Name="repYear" EntityType="workReportModel.repYear" />
           <EntitySet Name="engDateList" EntityType="workReportModel.engDateList" />
+          <EntitySet Name="user" EntityType="workReportModel.user" />
         </EntityContainer>
         <EntityType Name="Months">
           <Key>
@@ -234,6 +236,24 @@
           <Property Name="date_Eng" Type="DateTime" Precision="3" />
           <Property Name="workDet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="repYear">
+          <Key>
+            <PropertyRef Name="sn" />
+          </Key>
+          <Property Name="sn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="yearId" Type="Int32" Nullable="false" />
+          <Property Name="yearName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="engDateList">
+          <Key>
+            <PropertyRef Name="engDateId" />
+          </Key>
+          <Property Name="engDateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="engYear" Type="Int32" Nullable="false" />
+          <Property Name="engMonth" Type="Int32" Nullable="false" />
+          <Property Name="engMonthName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="daysCount" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="user">
           <Key>
             <PropertyRef Name="usrId" />
@@ -252,24 +272,8 @@
           <Property Name="acnumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="lastMonthAmount" Type="Int32" />
           <Property Name="enteredDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="repYear">
-          <Key>
-            <PropertyRef Name="sn" />
-          </Key>
-          <Property Name="sn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="yearId" Type="Int32" Nullable="false" />
-          <Property Name="yearName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="engDateList">
-          <Key>
-            <PropertyRef Name="engDateId" />
-          </Key>
-          <Property Name="engDateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="engYear" Type="Int32" Nullable="false" />
-          <Property Name="engMonth" Type="Int32" Nullable="false" />
-          <Property Name="engMonthName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="daysCount" Type="Int32" Nullable="false" />
+          <Property Name="passencryp" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="passkey" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -362,26 +366,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="user">
-            <EntityTypeMapping TypeName="workReportModel.user">
-              <MappingFragment StoreEntitySet="user">
-                <ScalarProperty Name="enteredDate" ColumnName="enteredDate" />
-                <ScalarProperty Name="lastMonthAmount" ColumnName="lastMonthAmount" />
-                <ScalarProperty Name="acnumber" ColumnName="acnumber" />
-                <ScalarProperty Name="branch" ColumnName="branch" />
-                <ScalarProperty Name="bankName" ColumnName="bankName" />
-                <ScalarProperty Name="totalAmount" ColumnName="totalAmount" />
-                <ScalarProperty Name="monthlySalary" ColumnName="monthlySalary" />
-                <ScalarProperty Name="contractDate" ColumnName="contractDate" />
-                <ScalarProperty Name="post" ColumnName="post" />
-                <ScalarProperty Name="lastName" ColumnName="lastName" />
-                <ScalarProperty Name="firstName" ColumnName="firstName" />
-                <ScalarProperty Name="userPassword" ColumnName="userPassword" />
-                <ScalarProperty Name="userName" ColumnName="userName" />
-                <ScalarProperty Name="usrId" ColumnName="usrId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="repYear">
             <EntityTypeMapping TypeName="workReportModel.repYear">
               <MappingFragment StoreEntitySet="repYear">
@@ -399,6 +383,28 @@
                 <ScalarProperty Name="engMonth" ColumnName="engMonth" />
                 <ScalarProperty Name="engYear" ColumnName="engYear" />
                 <ScalarProperty Name="engDateId" ColumnName="engDateId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="workReportModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="passkey" ColumnName="passkey" />
+                <ScalarProperty Name="passencryp" ColumnName="passencryp" />
+                <ScalarProperty Name="enteredDate" ColumnName="enteredDate" />
+                <ScalarProperty Name="lastMonthAmount" ColumnName="lastMonthAmount" />
+                <ScalarProperty Name="acnumber" ColumnName="acnumber" />
+                <ScalarProperty Name="branch" ColumnName="branch" />
+                <ScalarProperty Name="bankName" ColumnName="bankName" />
+                <ScalarProperty Name="totalAmount" ColumnName="totalAmount" />
+                <ScalarProperty Name="monthlySalary" ColumnName="monthlySalary" />
+                <ScalarProperty Name="contractDate" ColumnName="contractDate" />
+                <ScalarProperty Name="post" ColumnName="post" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="userPassword" ColumnName="userPassword" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="usrId" ColumnName="usrId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

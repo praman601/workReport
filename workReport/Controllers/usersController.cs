@@ -33,9 +33,16 @@ namespace workReport.Controllers
             string newpassword = fc["newOldPassword"].ToString().Trim();
             int isUserId = Convert.ToInt32(Session["userId"]);
             user isUser = db.user.Find(isUserId);
-            while(isUser.userPassword==oldpassword)
+            string encyKey = isUser.passkey;
+            string encOldPassword = CommonController.Encrypt(encyKey, oldpassword);
+
+           
+            while (isUser.passencryp==encOldPassword)
             {
                 isUser.userPassword = newpassword;
+                 string newpasskey = CommonController.RandomString(15);
+                isUser.passkey = newpasskey;
+                isUser.passencryp = CommonController.Encrypt(newpassword, newpasskey);
                 db.Entry(isUser).State = EntityState.Modified;
                 db.SaveChanges();
                 Session.Abandon();
