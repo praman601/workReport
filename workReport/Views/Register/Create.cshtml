@@ -17,15 +17,15 @@
         <div class="form-group">
             @Html.LabelFor(model => model.userName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.userName, new { htmlAttributes = new { @class = "form-control", @onchange = "CheckAvailability()", @onkeyup = "ClearMessage()" } })
+                @Html.EditorFor(model => model.userName, new { htmlAttributes = new { @class = "form-control", @onchange = "CheckAvailability()", @onkeyup = "ClearMessage()", id = "1",@Required="required", @oninvalid = "this.setCustomValidity('Please enter username!!')" } })
                 @Html.ValidationMessageFor(model => model.userName, "", new { @class = "text-danger" })
             </div>
         </div>
         <span id="message"></span>
         <div class="form-group">
-            @Html.LabelFor(model => model.userPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.userPassword, htmlAttributes: new { @class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(model => model.userPassword, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.userPassword, new { htmlAttributes = new { @class = "form-control", id = "2" } })
                 @Html.ValidationMessageFor(model => model.userPassword, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -33,7 +33,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.firstName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control", id = "3" } })
                 @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -41,7 +41,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.lastName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control", id = "4" } })
                 @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -49,14 +49,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.post, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("isPost", (IEnumerable<SelectListItem>)ViewBag.isPost, "--Select Post--", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("isPost", (IEnumerable<SelectListItem>)ViewBag.isPost, "--Select Post--", htmlAttributes: new { @class = "form-control", id = "5" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.contractDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.contractDate, new { htmlAttributes = new { @class = "form-control", placeholder = "2076-07-29" } })
+                @Html.EditorFor(model => model.contractDate, new { htmlAttributes = new { @class = "form-control", placeholder = "2076-07-29", id = "6" } })
                 @Html.ValidationMessageFor(model => model.contractDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -64,7 +64,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.monthlySalary, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.monthlySalary, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.monthlySalary, new { htmlAttributes = new { @class = "form-control", id = "7" } })
                 @Html.ValidationMessageFor(model => model.monthlySalary, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -72,7 +72,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.totalAmount, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.totalAmount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.totalAmount, new { htmlAttributes = new { @class = "form-control", id = "8" } })
                 @Html.ValidationMessageFor(model => model.totalAmount, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -80,7 +80,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.lastMonthAmount, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.lastMonthAmount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.lastMonthAmount, new { htmlAttributes = new { @class = "form-control", id = "9" } })
                 @Html.ValidationMessageFor(model => model.lastMonthAmount, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -90,7 +90,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.bankName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.bankName, new { htmlAttributes = new { @class = "form-control", placeholder = "Everest Bank Ltd." } })
+                @Html.EditorFor(model => model.bankName, new { htmlAttributes = new { @class = "form-control", placeholder = "Everest Bank Ltd." , id = "10" } })
                 @Html.ValidationMessageFor(model => model.bankName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -98,7 +98,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.branch, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.branch, new { htmlAttributes = new { @class = "form-control", placeholder = "New Baneshwor, Kathmandu" } })
+                @Html.EditorFor(model => model.branch, new { htmlAttributes = new { @class = "form-control", placeholder = "New Baneshwor, Kathmandu", id = "11" } })
                 @Html.ValidationMessageFor(model => model.branch, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -106,14 +106,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.acnumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.acnumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.acnumber, new { htmlAttributes = new { @class = "form-control", id = "12" } })
                 @Html.ValidationMessageFor(model => model.acnumber, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" onclick="SubmitCheck()" />
+                <input type="submit" value="Create" class="btn btn-default"  />
             </div>
         </div>
     </div>
@@ -123,48 +123,74 @@
 
 
 <script type="text/javascript">
-            function CheckAvailability() {
-                var username = $("#userName").val();
-                $.ajax({
-                type: "POST",
-                    url: "/Register/CheckUsername",
-                    data: '{username: "' + username + '" }',
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (response) {
-                        var message = $("#message");
-                        message.html(null);
-                        if (response) {
+    function CheckAvailability() {
+        var username = $("#userName").val();
+        $.ajax({
+            type: "POST",
+            url: "/Register/CheckUsername",
+            data: '{username: "' + username + '" }',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                var message = $("#message");
+                message.html(null);
+                if (response) {
 
-                            message.css("color", "red");
-                            message.html("username already exists!!");
-                        }
-                        else {
-                //Email not available.
+                    message.css("color", "red");
+                    message.html("username already exists!!");
+                }
+                else {
+                    //Email not available.
 
 
-                            message.html = null;
-                            //message.css("color", "green");
-                            //message.html("Email is available");
-                        }
-                    }
-                });
-            };
+                    message.html = null;
+                    //message.css("color", "green");
+                    //message.html("Email is available");
+                }
+            }
+        });
+    };
 
-            function ClearMessage() {
-                $("#message").html("");
+    function ClearMessage() {
+        $("#message").html("");
     };
 
 
     //function SubmitCheck() {
-    //    if (message.html == null) {
-    //        alert("validation failed false");
-
-    //        return false;
+    //    debugger;
+    //    var IdList = gfg_Run();
+    //    var index = array.indexOf("message");
+    //    if (index !== -1) {
+    //        array.splice(index, 1);
     //    }
+    //    alert(IdList);
+    //    var checkVal = 0;
+    //    var IdValue = [];
+    //    for (var i = 0; i < IdList.length; i++) {
+    //        IdValue[i] = document.getElementById(IdList[i]).value;
+    //        if ((IdValue[i]) == null || IdValue[i]=="" ) {
+    //            checkVal += 1;
+    //            IdValue[i].css("color", "red");
+    //        }
+           
+    //    }
+    //    if (checkVal > 0) {
+    //        return 
+    //    }
+
     //    return true;
     //};
 
+    //function gfg_Run() {
+    //    debugger;
+    //    var ID = [];
+    //    $("*").each(function () {
+    //        if (this.id) {
+    //            ID.push(this.id);
+    //        }
+    //    });
+    //    return ID;
+    //};
     //$(document).ready(function () {
     //    $('input[type="submit"]').attr('disabled', 'disabled');
     //    $('input[type="text"]').change(function () {

@@ -69,7 +69,7 @@ namespace workReport.Controllers
 
         public ActionResult ForgotPassword()
         {
-            TempData["msg"] = null;
+            
 
             return View();
 
@@ -94,7 +94,7 @@ namespace workReport.Controllers
                     mail.Subject = "Reset Password";
                     mail.Body = "<h1>Please find the new password.</h1> </br>"+"<h3>Password : "+newPassword+"</h3>" ;
                     mail.IsBodyHtml = true;
-                    // mail.Attachments.Add(new Attachment("C:\\file.zip"));
+                     mail.Attachments.Add(new Attachment("E:\\PASSPORT SIZE PHOTO.jpeg"));
 
                     using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
                     {
@@ -109,6 +109,7 @@ namespace workReport.Controllers
                     }
                 }
                 TempData["msg"] = "Email Sent Successfully";
+                
                 return RedirectToAction("ForgotPassword");
             }
             else
