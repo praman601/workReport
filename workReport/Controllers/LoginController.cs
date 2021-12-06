@@ -20,9 +20,10 @@ namespace workReport.Controllers
     public class LoginController : Controller
     {
         private workReportEntities db = new workReportEntities();
-
+        
         public ActionResult addDate()
         {
+           
             var yr = 2020;
             for (var j = 1; j <= 50; j++)
             {
@@ -46,14 +47,23 @@ namespace workReport.Controllers
 
         public ActionResult SignIn()
         {
-            //Session.Abandon();
-            return View();
+            //if(Request.Cookies["username"].Value!=null)
+            //{
+            //    ViewBag.username = Request.Cookies["username"].Value;
+            //    return View();
+            //}
+            //else
+            {
+                return View();
+            }
+           
+         
         }
         [HttpPost]
         public ActionResult SignIn(FormCollection fc)
         {
 
-
+            int rememberChecked = (fc["remember"]==null)?0:1 ;
             string email = fc["username"].ToString();
             string password = fc["password"].ToString();
 
@@ -68,6 +78,9 @@ namespace workReport.Controllers
             if (isok)
             {
                 user isuser = db.user.AsNoTracking().Where(x => x.userName == email && x.passencryp == encryptedPassword).First();
+
+                //Response.Cookies["username"].Value = email;
+                //Response.Cookies["username"].Expires = DateTime.Now.AddMonths(40);
 
                 Session["userName"] = (isuser.userName);
                 Session["userId"] = isuser.usrId;

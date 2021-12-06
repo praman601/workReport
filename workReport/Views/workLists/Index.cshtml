@@ -117,13 +117,25 @@
         <br />
         <div class="row">
 
-            <div class="col-md-10">
+            <div class="col-md-3">
                 @Html.Editor("workDate", new
                 {
                     htmlAttributes = new
                     {
-                        @class = "form-control "@*, @Value = @DateTime.Now.ToShortDateString()*@ }
-                })
+                        @class = "form-control "@*, @Value = @DateTime.Now.ToShortDateString()*@}
+})
+            </div>
+            <div class="col-lg-8">
+                @Html.Editor("workDet", new
+           {
+               htmlAttributes = new
+               {
+                   @class = "form-control form-grp-lg ",
+                   @placeholder = "Work Details",
+                   @width ="200px"
+                   
+               }
+           })
             </div>
         </div>
         <br />
@@ -222,6 +234,7 @@
         var timeId = $('#Time').val();
         var userId = '@Session["userId"]';
         var workDate = $('#workDate').val();
+        var workDet = $('#workDet').val();
 
         {
 
@@ -239,7 +252,9 @@
                     munId: munId,
                     timeId: timeId,
                     userId: userId,
-                    workDate:workDate
+                    workDate: workDate,
+                    workDet: workDet
+
 
                 }
                 ,
@@ -254,6 +269,7 @@
                     $("#mun").val('');
                     $("#Time").val('');
                     $("#workDate").val();
+                    $("#workDet").val('');
 
                 }
                 , error: function (result) {
