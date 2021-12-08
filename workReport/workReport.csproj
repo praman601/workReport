@@ -627,6 +627,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Data\" />
     <Folder Include="files\77\19\" />
+    <Folder Include="files\profilePictures\" />
     <Folder Include="files\upload\" />
     <Folder Include="Views\Login1\" />
     <Folder Include="Views\SessionCheck\" />
