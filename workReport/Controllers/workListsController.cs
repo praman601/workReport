@@ -134,6 +134,7 @@ namespace workReport.Controllers
         {
             if (Session["userId"] != null)
             {
+                ViewBag.VisitCount = db.MisC_Data.Find(1).Visit_Count;
                 ViewBag.mun = new SelectList(db.mun, "mun_id", "mun_name");
                 ViewBag.work_Types = new SelectList(db.workTypes, "workId", "workName");
                 ViewBag.issues = new SelectList(db.issues, "issueId", "issueName");

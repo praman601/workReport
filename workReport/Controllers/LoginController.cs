@@ -78,10 +78,13 @@ namespace workReport.Controllers
             if (isok)
             {
                 user isuser = db.user.AsNoTracking().Where(x => x.userName == email && x.passencryp == encryptedPassword).First();
-
+                MisC_Data visitCount = db.MisC_Data.Find(1);
+                visitCount.Visit_Count += 1;
+                db.Entry(visitCount).State = EntityState.Modified;
+                db.SaveChanges();
                 //Response.Cookies["username"].Value = email;
                 //Response.Cookies["username"].Expires = DateTime.Now.AddMonths(40);
-
+               
                 Session["userName"] = (isuser.userName);
                 Session["userId"] = isuser.usrId;
                 Session["userPost"] = isuser.post;

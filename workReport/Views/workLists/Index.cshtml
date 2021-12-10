@@ -154,8 +154,10 @@
     @Html.PagedListPager(Model, i => Url.Action("Index", "workLists", new { i }))
 
 </div>
+<div class="row">
+    <div class="btn-primary form-control col-md-2 " style="width:200px;">Total Number of visitors: @ViewBag.VisitCount</div>
+</div>
 @section scripts {
-
     <script src="~/Scripts/jquery-1.12.4.min.js"></script>
     <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
     <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
