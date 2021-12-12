@@ -75,10 +75,10 @@
                 <div class="modal-body">
                     <div class=" row">
                         <div class="col-md-3">
-                            <button type="button" onclick="myFunction()" id="test2">Click me</button>
-                            <p>Clicks: <a id="clicks">0</a></p>
+                            <button class="form-control" type="button"  id="test2">Click me</button>
+                            @*<p>Clicks: <a id="clicks">0</a></p>*@
                         </div>
-                        <div class="col-md-3" id="here"></div>
+                        <div class="col-md-9" id="here"></div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -98,32 +98,38 @@
 
 <script>
 
-    //var clicks = 0;
-    //$j = jQuery.noConflict();
-    //$j("#test2").click(function () {
-    //    //alert(clicks);
-    //    clicks += 1;
-    //    document.getElementById("clicks").innerHTML = clicks;
-    //    //alert(clicks);
-    //});
+    var clicks = 0;
+    $j = jQuery.noConflict();
+    $j("#test2").click(function () {
+        debugger;
+        //alert(clicks);
+        clicks += 1;
+        var isImg = getRandomInt(1, 61);
+        var imgsrc = '/files/dontopen/(' + isImg + ').jpg';
+        //   document.getElementById("clicks").innerHTML = clicks;
+        document.getElementById("here").innerHTML = "<img src='" + imgsrc + "' width='80%' height='80%' />";
+        //alert(clicks);
+    });
 
     
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
 
 
 
-
-    function myFunction() {
-        //debugger;
-        //var fs = require('fs');
-        //var files = fs.readdirSync('/files/dontopen/');
+    //$j = jQuery.noConflict();
+    //$j("#test2").click(function () {
+    //    debugger;
+       
         
 
-        //var img = new Image(400, 250);
-        //img.src = 'files/dontopen/'+ + 'test1.jpg';
-        alert("hello");
-        document.getElementById("here").innerHTML = "<img src='/files/dontopen/1.jpg' width='auto' height='auto' />";
+        
+    //    document.getElementById("here").innerHTML = "<img src='/files/dontopen/1.jpg' width='auto' height='auto' />";
 
-    }
+    //}
 </script>
 
 
