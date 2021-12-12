@@ -515,6 +515,8 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
+    <Content Include="files\dontopen\1.jpg" />
+    <Content Include="files\dontopen\2.jpg" />
     <Content Include="files\loader\loader.gif" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

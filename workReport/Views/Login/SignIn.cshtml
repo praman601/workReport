@@ -3,14 +3,16 @@
 <head>
     @*<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">*@
 
+    @*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
 
 
-    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <link href="~/Content/formdesign.css" rel="stylesheet" />
     <link href="~/Content/Login.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="~/Content/Login.css">
     <link href="~/Content/bootstrap-social.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 </head>
 <body>
     <div class="container" style="padding: 50px 0;">
@@ -71,12 +73,16 @@
                     <h4 class="modal-title">Welcome!!</h4>
                 </div>
                 <div class="modal-body">
-
-                    <button  onClick="click()">Click me</button>
-                    <p>Clicks: <a id="clicks">0</a></p>
+                    <div class=" row">
+                        <div class="col-md-3">
+                            <button type="button" onclick="myFunction()" id="test2">Click me</button>
+                            <p>Clicks: <a id="clicks">0</a></p>
+                        </div>
+                        <div class="col-md-3" id="here"></div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button  class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
 
@@ -91,16 +97,42 @@
 
 
 <script>
-    var clicks = 0;
-    function click() {
-        clicks += 1;
-        document.getElementById("clicks").innerHTML = clicks;
-    };
 
+    //var clicks = 0;
+    //$j = jQuery.noConflict();
+    //$j("#test2").click(function () {
+    //    //alert(clicks);
+    //    clicks += 1;
+    //    document.getElementById("clicks").innerHTML = clicks;
+    //    //alert(clicks);
+    //});
+
+    
+
+
+
+
+    function myFunction() {
+        //debugger;
+        //var fs = require('fs');
+        //var files = fs.readdirSync('/files/dontopen/');
+        
+
+        //var img = new Image(400, 250);
+        //img.src = 'files/dontopen/'+ + 'test1.jpg';
+        alert("hello");
+        document.getElementById("here").innerHTML = "<img src='/files/dontopen/1.jpg' width='auto' height='auto' />";
+
+    }
 </script>
 
 
- @*//$(function () {
+
+
+
+
+
+@*//$(function () {
     //    $('.button-checkbox').each(function () {
     //        var $widget = $(this),
     //            $button = $widget.find('button'),
