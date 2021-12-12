@@ -38,6 +38,7 @@ namespace workReport.Models
         public virtual DbSet<repYear> repYear { get; set; }
         public virtual DbSet<engDateList> engDateList { get; set; }
         public virtual DbSet<user> user { get; set; }
+        public virtual DbSet<MisC_Data> MisC_Data { get; set; }
     
         public virtual ObjectResult<Nullable<System.DateTime>> PR_neptoeng(string nepdate)
         {

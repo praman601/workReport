@@ -94,7 +94,7 @@ namespace workReport.Controllers
                     mail.Subject = "Reset Password";
                     mail.Body = "<h1>Please find the new password.</h1> </br>"+"<h3>Password : "+newPassword+"</h3>" ;
                     mail.IsBodyHtml = true;
-                     mail.Attachments.Add(new Attachment("E:\\PASSPORT SIZE PHOTO.jpeg"));
+                  //   mail.Attachments.Add(new Attachment("E:\\PASSPORT SIZE PHOTO.jpeg"));
 
                     using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
                     {

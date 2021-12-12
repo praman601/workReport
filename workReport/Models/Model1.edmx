@@ -40,6 +40,13 @@
           <Property Name="issueId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="issueName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="MisC_Data">
+          <Key>
+            <PropertyRef Name="int" />
+          </Key>
+          <Property Name="int" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Visit_Count" Type="bigint" Nullable="false" />
+        </EntityType>
         <EntityType Name="Months">
           <Key>
             <PropertyRef Name="monthId" />
@@ -129,6 +136,7 @@
           <EntitySet Name="COM_ENGLISH_NEPALI_DATE" EntityType="Self.COM_ENGLISH_NEPALI_DATE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="engDateList" EntityType="Self.engDateList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="issues" EntityType="Self.issues" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MisC_Data" EntityType="Self.MisC_Data" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Months" EntityType="Self.Months" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="mun" EntityType="Self.mun" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="nepMonths" EntityType="Self.nepMonths" Schema="dbo" store:Type="Tables" />
@@ -175,6 +183,7 @@
           <EntitySet Name="repYear" EntityType="workReportModel.repYear" />
           <EntitySet Name="engDateList" EntityType="workReportModel.engDateList" />
           <EntitySet Name="user" EntityType="workReportModel.user" />
+          <EntitySet Name="MisC_Data" EntityType="workReportModel.MisC_Data" />
         </EntityContainer>
         <EntityType Name="Months">
           <Key>
@@ -274,6 +283,13 @@
           <Property Name="enteredDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="passencryp" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="passkey" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MisC_Data">
+          <Key>
+            <PropertyRef Name="int" />
+          </Key>
+          <Property Name="int" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Visit_Count" Type="Int64" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -405,6 +421,14 @@
                 <ScalarProperty Name="userPassword" ColumnName="userPassword" />
                 <ScalarProperty Name="userName" ColumnName="userName" />
                 <ScalarProperty Name="usrId" ColumnName="usrId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MisC_Data">
+            <EntityTypeMapping TypeName="workReportModel.MisC_Data">
+              <MappingFragment StoreEntitySet="MisC_Data">
+                <ScalarProperty Name="Visit_Count" ColumnName="Visit_Count" />
+                <ScalarProperty Name="int" ColumnName="int" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

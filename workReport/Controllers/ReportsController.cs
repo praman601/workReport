@@ -147,6 +147,7 @@ namespace workReport.Controllers
                     nmodel.isDay = model.isDay;
                     nmodel.workDet = mmm.workDet;
                     nmodel.issue = mmm.issue;
+                    nmodel.workDet = mmm.workDet;
                     WorksList.Add(nmodel);
                 }
 

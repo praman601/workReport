@@ -94,7 +94,17 @@
         <hr />
 
     </div>
-   
+    @*<script>
+
+    var clicks = 0;
+    function click() {
+        debugger;
+        alert("Clicekd");
+        clicks += 1;
+        document.getElementById("clicks").innerHTML = clicks;
+    };
+
+    </script>*@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
