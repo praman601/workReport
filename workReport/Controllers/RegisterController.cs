@@ -25,8 +25,12 @@ namespace workReport.Controllers
             return View(model);
         }
 
+        public ActionResult SildeGallery()
+        {
+            
+            return View();
+        }
 
-        
         [HttpPost]
         public JsonResult CheckUsername(string username)
         {
