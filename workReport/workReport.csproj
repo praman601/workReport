@@ -577,9 +577,9 @@
     <Content Include="files\dontopen\%288%29.jpg" />
     <Content Include="files\dontopen\%289%29.jpg" />
     <Content Include="files\loader\loader.gif" />
-    <Content Include="files\nature\check3.jpg" />
-    <Content Include="files\nature\check1.jpg" />
-    <Content Include="files\nature\check2.jpg" />
+    <Content Include="files\nature\%283%29.jpg" />
+    <Content Include="files\nature\%281%29.jpg" />
+    <Content Include="files\nature\%282%29.jpg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
