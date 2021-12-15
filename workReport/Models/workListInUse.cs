@@ -76,6 +76,8 @@ namespace workReport.Models
         public string issue { get; set; }
         public string date_Eng { get; set; }
         public string workDet { get; set; }
+
+        public int TotalCount { get; set; }
     }
 
 

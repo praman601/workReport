@@ -27,7 +27,8 @@ namespace workReport.Controllers
 
         public ActionResult SildeGallery()
         {
-            
+            var data = db.Database.SqlQuery<workListnew>("allUsersDataCount").ToList();
+
             return View();
         }
 
