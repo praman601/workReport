@@ -80,5 +80,10 @@ namespace workReport.Models
         public int TotalCount { get; set; }
     }
 
+    public partial class workListProc
+    {
+        public int users { get; set; }
+        public int TotalCount { get; set; }
+    }
 
 }

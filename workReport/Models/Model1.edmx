@@ -126,6 +126,7 @@
           <Property Name="workId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="workName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <Function Name="allUsersDataCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="PR_engtonep" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="engdate" Type="varchar" Mode="In" />
         </Function>
@@ -184,6 +185,7 @@
           <EntitySet Name="engDateList" EntityType="workReportModel.engDateList" />
           <EntitySet Name="user" EntityType="workReportModel.user" />
           <EntitySet Name="MisC_Data" EntityType="workReportModel.MisC_Data" />
+          <FunctionImport Name="allUsersDataCount" ReturnType="Collection(workReportModel.allUsersDataCount_Result)" />
         </EntityContainer>
         <EntityType Name="Months">
           <Key>
@@ -291,6 +293,10 @@
           <Property Name="int" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Visit_Count" Type="Int64" Nullable="false" />
         </EntityType>
+        <ComplexType Name="allUsersDataCount_Result">
+          <Property Type="Int32" Name="users" Nullable="true" />
+          <Property Type="Int32" Name="TotalCount" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -432,6 +438,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="allUsersDataCount" FunctionName="workReportModel.Store.allUsersDataCount">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="workReportModel.allUsersDataCount_Result">
+                <ScalarProperty Name="users" ColumnName="users" />
+                <ScalarProperty Name="TotalCount" ColumnName="TotalCount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
