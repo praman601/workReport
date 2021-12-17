@@ -57,5 +57,10 @@ namespace workReport.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("PR_engtonep", engdateParameter);
         }
+    
+        public virtual ObjectResult<allUsersDataCount_Result> allUsersDataCount()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<allUsersDataCount_Result>("allUsersDataCount");
+        }
     }
 }

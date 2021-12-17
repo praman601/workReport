@@ -11,6 +11,9 @@ using workReport.Models;
 using workReport.Controllers;
 using System.Net.Mail;
 using System.Net;
+using System.Data;
+using System.Data.SqlClient;
+using Newtonsoft.Json;
 
 namespace workReport.Controllers
 {
@@ -27,8 +30,17 @@ namespace workReport.Controllers
 
         public ActionResult SildeGallery()
         {
-            var data = db.Database.SqlQuery<workListnew>("allUsersDataCount").ToList();
+            var idParam = new SqlParameter
+            {
+                ParameterName = "userId",
+                Value = 6
+            };
 
+            var data = db.Database.SqlQuery<workListProc>("exec allUsersDataCount @userId", idParam).ToList();
+          /*  var dataaatest = data.AsEnumerable().ToList()*/;
+            DataTable dt = new DataTable();
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
+           dt = JsonConvert.DeserializeObject<DataTable>(json);
             return View();
         }
 
