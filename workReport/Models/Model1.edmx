@@ -23,6 +23,20 @@
           <Property Name="NEW_NEP_DATE" Type="varchar" MaxLength="10" />
           <Property Name="NEP_DATE_NUM" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="CP_WORKLIST">
+          <Key>
+            <PropertyRef Name="workListId" />
+          </Key>
+          <Property Name="workListId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="workListType" Type="varchar" MaxLength="50" />
+          <Property Name="mun" Type="varchar" MaxLength="50" />
+          <Property Name="time" Type="int" />
+          <Property Name="users" Type="int" />
+          <Property Name="date" Type="varchar" MaxLength="50" />
+          <Property Name="issue" Type="varchar" MaxLength="50" />
+          <Property Name="date_Eng" Type="datetime" />
+          <Property Name="workDet" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="engDateList">
           <Key>
             <PropertyRef Name="engDateId" />
@@ -126,7 +140,9 @@
           <Property Name="workId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="workName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Function Name="allUsersDataCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="allUsersDataCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+        </Function>
         <Function Name="PR_engtonep" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="engdate" Type="varchar" Mode="In" />
         </Function>
@@ -135,6 +151,7 @@
         </Function>
         <EntityContainer Name="workReportModelStoreContainer">
           <EntitySet Name="COM_ENGLISH_NEPALI_DATE" EntityType="Self.COM_ENGLISH_NEPALI_DATE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CP_WORKLIST" EntityType="Self.CP_WORKLIST" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="engDateList" EntityType="Self.engDateList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="issues" EntityType="Self.issues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MisC_Data" EntityType="Self.MisC_Data" Schema="dbo" store:Type="Tables" />
@@ -185,7 +202,10 @@
           <EntitySet Name="engDateList" EntityType="workReportModel.engDateList" />
           <EntitySet Name="user" EntityType="workReportModel.user" />
           <EntitySet Name="MisC_Data" EntityType="workReportModel.MisC_Data" />
-          <FunctionImport Name="allUsersDataCount" ReturnType="Collection(workReportModel.allUsersDataCount_Result)" />
+          <FunctionImport Name="allUsersDataCount" ReturnType="Collection(workReportModel.allUsersDataCount_Result)" >
+          <Parameter Name="userId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="CP_WORKLIST" EntityType="workReportModel.CP_WORKLIST" />
         </EntityContainer>
         <EntityType Name="Months">
           <Key>
@@ -297,6 +317,20 @@
           <Property Type="Int32" Name="users" Nullable="true" />
           <Property Type="Int32" Name="TotalCount" Nullable="true" />
         </ComplexType>
+        <EntityType Name="CP_WORKLIST">
+          <Key>
+            <PropertyRef Name="workListId" />
+          </Key>
+          <Property Name="workListId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="workListType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mun" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="time" Type="Int32" />
+          <Property Name="users" Type="Int32" />
+          <Property Name="date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="issue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_Eng" Type="DateTime" Precision="3" />
+          <Property Name="workDet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -446,6 +480,21 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="CP_WORKLIST">
+            <EntityTypeMapping TypeName="workReportModel.CP_WORKLIST">
+              <MappingFragment StoreEntitySet="CP_WORKLIST">
+                <ScalarProperty Name="workDet" ColumnName="workDet" />
+                <ScalarProperty Name="date_Eng" ColumnName="date_Eng" />
+                <ScalarProperty Name="issue" ColumnName="issue" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="users" ColumnName="users" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="mun" ColumnName="mun" />
+                <ScalarProperty Name="workListType" ColumnName="workListType" />
+                <ScalarProperty Name="workListId" ColumnName="workListId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

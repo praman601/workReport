@@ -39,6 +39,7 @@ namespace workReport.Models
         public virtual DbSet<engDateList> engDateList { get; set; }
         public virtual DbSet<user> user { get; set; }
         public virtual DbSet<MisC_Data> MisC_Data { get; set; }
+        public virtual DbSet<CP_WORKLIST> CP_WORKLIST { get; set; }
     
         public virtual ObjectResult<Nullable<System.DateTime>> PR_neptoeng(string nepdate)
         {
@@ -58,9 +59,13 @@ namespace workReport.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("PR_engtonep", engdateParameter);
         }
     
-        public virtual ObjectResult<allUsersDataCount_Result> allUsersDataCount()
+        public virtual ObjectResult<allUsersDataCount_Result> allUsersDataCount(Nullable<int> userId)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<allUsersDataCount_Result>("allUsersDataCount");
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<allUsersDataCount_Result>("allUsersDataCount", userIdParameter);
         }
     }
 }

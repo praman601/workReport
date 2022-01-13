@@ -34,7 +34,7 @@ namespace workReport.Controllers
             int isUserId = Convert.ToInt32(Session["userId"]);
             user isUser = db.user.Find(isUserId);
             string encyKey = isUser.passkey;
-            string encOldPassword = CommonController.Encrypt(encyKey, oldpassword);
+            string encOldPassword = CommonController.Encrypt(oldpassword,encyKey);
 
            
             while (isUser.passencryp==encOldPassword)
