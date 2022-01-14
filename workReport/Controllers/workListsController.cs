@@ -249,18 +249,27 @@ namespace workReport.Controllers
             //}).ToList().Distinct().OrderByDescending(x => x.workId);
             for (int i = 1; i <= daysInMonth; i++)
             {
-                List<CP_WORKLIST> worksList = new List<CP_WORKLIST>();
+               
+                List<WorkListModel> worksList = new List<WorkListModel>();
                 string p = (i <= 9) ? "0" + i : i.ToString();
                 string nepDate = nepYear + "-" + monthh + "-" + p;
+                bool hasHoliday = db.workList.AsNoTracking().Where(h => (h.workDet == "Public Holiday" || h.workDet=="Leave") && h.date == nepDate && h.users== isUserId).Any();
+                var ssre = hasHoliday;
                 DateTime engDate = Convert.ToDateTime(db.PR_neptoeng(nepdate: nepDate).FirstOrDefault());
                 string x = engDate.ToString("yyyy-MM-dd");
                 int dailyWorkListCount = rand.Next(10, 20);
                 int CallRecord = Convert.ToInt32(dailyWorkListCount * 0.7);
                 int test= Convert.ToInt32(CallRecord * 0.4);
                 int Anydesk = Convert.ToInt32(dailyWorkListCount * 0.1);
+                if (Convert.ToDateTime(x).DayOfWeek.ToString() != "Saturday")
+                {
+                    if (!hasHoliday)
+                    { 
                 for (int j = 1; j <= CallRecord; j++)
                 {
-                    CP_WORKLIST workList = new CP_WORKLIST();
+                   
+                  
+                        WorkListModel workList = new WorkListModel();
                     workList.date = nepDate;
                     workList.date_Eng = Convert.ToDateTime(x);
                     workList.workListType = "Call";
@@ -270,51 +279,74 @@ namespace workReport.Controllers
                     workList.time = rand.Next(3, 12);
                     workList.workDet = "Null";
                     workList.users = Convert.ToInt32(Session["userId"]);
+                 
                     worksList.Add(workList);
+                    }
+                    }
                 }
-                foreach (var item in worksList.OrderBy(t => t.mun))
-                {
-                    CP_WORKLIST wl = new CP_WORKLIST();
-                    wl = item;
-                    db.CP_WORKLIST.Add(wl);
-                    db.SaveChanges();
-                }
-                List<CP_WORKLIST> RandomList = new List<CP_WORKLIST>();
+               
+                List<WorkListModel> RandomList = new List<WorkListModel>();
                 RandomList = worksList.Take(test).ToList();
-                List<CP_WORKLIST> AddLists = new List<CP_WORKLIST>();
+                List<WorkListModel> AddLists = new List<WorkListModel>();
             
                 foreach (var item in RandomList)
                 {
-                    CP_WORKLIST andlist = new CP_WORKLIST();
-                    andlist = item;
+                    WorkListModel andlist = new WorkListModel();
+                    andlist.date = item.date;
+                    andlist.date_Eng = item.date_Eng;
+                    
+                    andlist.issue = item.issue;
+
+                    andlist.mun = item.mun;
+                    andlist.time = item.time;
+                    andlist.workDet = "Null";
+                    andlist.users = Convert.ToInt32(Session["userId"]);
                     andlist.workListType = "Anydesk";
 
-                    AddLists.Add(andlist);
-                }
+                    worksList.Add(andlist);
             
-            foreach (var item in AddLists.OrderBy(t => t.mun))
-            {
-                CP_WORKLIST wl = new CP_WORKLIST();
-                wl = item;
-                db.CP_WORKLIST.Add(wl);
-                db.SaveChanges();
-            }
-            //for (int j = 1; j <= Anydesk; j++)
-            //{
-            //    CP_WORKLIST workList = new CP_WORKLIST();
-            //    workList.date = nepDate;
-            //    workList.date_Eng = Convert.ToDateTime(x);
-            //    workList.workListType = "AnyDesk";
-            //    workList.issue = GetRandomIssue();
-            //    workList.mun = db.mun.OrderBy(s => Guid.NewGuid()).Select(s => s.mun_name).FirstOrDefault();
-            //    workList.time = rand.Next(3, 12);
-            //    workList.workDet = "Null";
-            //    workList.users = Convert.ToInt32(Session["userId"]);
-            //    worksList.Add(workList);
-            //}
+                }
+                worksList = worksList.OrderBy(n => n.mun).ToList();
+                foreach (var item in worksList)
+                {
+                    workList wl = new workList();
+                    wl.date = item.date;
+                    wl.date_Eng = item.date_Eng;
 
-    
-           
+                    wl.issue = item.issue;
+
+                    wl.mun = item.mun;
+                    wl.time = item.time;
+                    wl.workDet =item.workDet;
+                    wl.users = item.users ;
+                    wl.workListType =item.workListType;
+                    db.workList.Add(wl);
+                    db.SaveChanges();
+                }
+
+                //foreach (var item in AddLists.OrderBy(t => t.mun))
+                //{
+                //    CP_WORKLIST wl = new CP_WORKLIST();
+                //    wl = item;
+                //    db.CP_WORKLIST.Add(wl);
+                //    db.SaveChanges();
+                //}
+                //for (int j = 1; j <= Anydesk; j++)
+                //{
+                //    CP_WORKLIST workList = new CP_WORKLIST();
+                //    workList.date = nepDate;
+                //    workList.date_Eng = Convert.ToDateTime(x);
+                //    workList.workListType = "AnyDesk";
+                //    workList.issue = GetRandomIssue();
+                //    workList.mun = db.mun.OrderBy(s => Guid.NewGuid()).Select(s => s.mun_name).FirstOrDefault();
+                //    workList.time = rand.Next(3, 12);
+                //    workList.workDet = "Null";
+                //    workList.users = Convert.ToInt32(Session["userId"]);
+                //    worksList.Add(workList);
+                //}
+
+
+
             }
             //var munList = db.mun.Select(x => x.mun_name).Distinct().OrderByDescending(x => x.Length).ToList();
             //int index = rand.Next(munList.Count);
@@ -324,8 +356,9 @@ namespace workReport.Controllers
         }
         public string GetRandomIssue()
         {
-            Random rand = new Random();
-            var abc = rand.Next(0, 100);
+            Random rand = new Random(DateTime.Now.Millisecond);
+            var abc = 0;
+            abc=rand.Next(1,100);
             if (abc <= 40)
             {
                 return "Vital";

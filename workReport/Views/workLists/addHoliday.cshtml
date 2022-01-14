@@ -20,13 +20,24 @@
                         @class = "form-control "@*, @Value = @DateTime.Now.ToShortDateString()*@}
 })
             </div>
-           
-               
-                <div class="col-md-3">
-                    @Html.Editor("workDet", new { htmlAttributes = new { @class = "form-control",placeholder="Enter Detail" } })
-                  
-                </div>
-            
+
+
+            @*<div class="col-md-3">
+            @Html.Editor("workDet", new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Detail" } })
+
+        </div>*@
+        <div class="col-md-3">
+            <select class="btn btn-md btn-danger" name="workDet" id="workDet" style="
+    width: 270px;
+    height: 35px;
+">
+                <option value="Public Holiday" selected>Public Holiday</option>
+                <option value="Leave" selected>Leave</option>
+
+
+            </select>
+        </div>
+
 
             <div class="col-md-2">
                 <input type="button" class="btn  btn-primary btn-block" value="Add" onclick="return addWork()">
