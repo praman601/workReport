@@ -86,4 +86,11 @@ namespace workReport.Models
         public int TotalCount { get; set; }
     }
 
+    public partial class deleteWorkListData
+    {
+        public int isUser { get; set; }
+        public string isYear { get; set; }
+
+    }
+
 }

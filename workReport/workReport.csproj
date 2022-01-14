@@ -701,6 +701,7 @@
     <Content Include="Views\Register\SildeGallery.cshtml" />
     <Content Include="Views\KhaltiPayment\Payment.cshtml" />
     <Content Include="Views\workLists\createRandomWorkList.cshtml" />
+    <Content Include="Views\workLists\deleteWorkDataGet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
