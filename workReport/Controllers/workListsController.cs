@@ -247,6 +247,14 @@ namespace workReport.Controllers
             //    workId = x.workId,
             //    workName = x.workName
             //}).ToList().Distinct().OrderByDescending(x => x.workId);
+
+            //delete
+            //string query = "Select Distinct A.VDC_MUN_CD,B.DESC_ENG from SAT_SERVICE_PROVIDER_MAP A LEFT JOin MIS_VDC_MUNICIPALITY B on A.VDC_MUN_CD = B.VDC_MUN_CD where A.DISABLED = 'N' and A.SERVICE_PROVICER_CD =" + id + " and A.DISTRICT_CD=" + did;
+            //var data = con.Database.SqlQuery<BankLLVModel>(query).ToList();
+
+
+
+
             for (int i = 1; i <= daysInMonth; i++)
             {
                
@@ -257,8 +265,12 @@ namespace workReport.Controllers
                 var ssre = hasHoliday;
                 DateTime engDate = Convert.ToDateTime(db.PR_neptoeng(nepdate: nepDate).FirstOrDefault());
                 string x = engDate.ToString("yyyy-MM-dd");
-                int dailyWorkListCount = rand.Next(10, 20);
-                int CallRecord = Convert.ToInt32(dailyWorkListCount * 0.7);
+                int dailyWorkListCount = rand.Next(8, 20);
+                if(engDate.DayOfWeek.ToString()=="Friday")
+                {
+                    dailyWorkListCount = rand.Next(5, 12);
+                }
+                int CallRecord = Convert.ToInt32(dailyWorkListCount * 0.6);
                 int test= Convert.ToInt32(CallRecord * 0.4);
                 int Anydesk = Convert.ToInt32(dailyWorkListCount * 0.1);
                 if (Convert.ToDateTime(x).DayOfWeek.ToString() != "Saturday")
@@ -276,7 +288,7 @@ namespace workReport.Controllers
                     workList.issue = GetRandomIssue();
                    
                     workList.mun = db.mun.OrderBy(s => Guid.NewGuid()).Select(s => s.mun_name).FirstOrDefault();
-                    workList.time = rand.Next(3, 12);
+                    workList.time = rand.Next(3, 10);
                     workList.workDet = "Null";
                     workList.users = Convert.ToInt32(Session["userId"]);
                  
@@ -352,7 +364,7 @@ namespace workReport.Controllers
             //int index = rand.Next(munList.Count);
             //string randomMun = munList[index];
             //int time = rand.Next(2, 10);
-            return View();
+            return RedirectToAction("createRandomWorkListPost");
         }
         public string GetRandomIssue()
         {
