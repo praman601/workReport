@@ -23,12 +23,12 @@ namespace workReport.Controllers
 {
     public class workListsController : SessionCheckController
     {
-  private workReportEntities db = new workReportEntities();
+        private workReportEntities db = new workReportEntities();
         // GET: workLists
 
         public ActionResult Main()
         {
-            
+
             ViewBag.mun = new SelectList(db.mun, "mun_id", "mun_name");
             ViewBag.work_Types = new SelectList(db.workTypes, "workId", "workName");
             ViewBag.issues = new SelectList(db.issues, "issueId", "issueName");
@@ -84,7 +84,7 @@ namespace workReport.Controllers
             DateTime endingDate = Convert.ToDateTime(EndDatee);
             ViewBag.PageNume = i;
             //return View(db.workList.AsNoTracking().Where(x => x.users == isuser && x.date_Eng == todaysDate).OrderByDescending(x => x.workListId).ToList().ToPagedList(i ?? 1, 10));
-            var worklistdatanew=db.workList.AsNoTracking().Where(x => x.users == isuser && x.date_Eng >= startingDate && x.date_Eng <= endingDate).OrderByDescending(x => x.workListId).ToList();
+            var worklistdatanew = db.workList.AsNoTracking().Where(x => x.users == isuser && x.date_Eng >= startingDate && x.date_Eng <= endingDate).OrderByDescending(x => x.workListId).ToList();
             return Json(new { data = worklistdatanew }, JsonRequestBehavior.AllowGet);
         }
 
@@ -156,7 +156,7 @@ namespace workReport.Controllers
                 return RedirectToAction("SignIn", "Login");
         }
 
-        
+
 
         public ActionResult Index1(int? i)
         {
@@ -220,7 +220,7 @@ namespace workReport.Controllers
 
         }
 
-      
+
         public ActionResult createRandomWorkList()
         {
             ViewBag.NepYears = new SelectList(db.COM_ENGLISH_NEPALI_DATE.Select(x => x.NEPALI_YEAR).Distinct().OrderByDescending(x => x.Value), "NEPALI_YEAR");
@@ -239,75 +239,60 @@ namespace workReport.Controllers
             int isUserId = Convert.ToInt32(Session["userId"]);
             Random rand = new Random();
 
-         
-            Random rand = new Random();
-            //var workListTypes = db.workTypes.Select(x =>
-            //new workTypes
-            //{
-            //    workId = x.workId,
-            //    workName = x.workName
-            //}).ToList().Distinct().OrderByDescending(x => x.workId);
-
-            //delete
-            //string query = "Select Distinct A.VDC_MUN_CD,B.DESC_ENG from SAT_SERVICE_PROVIDER_MAP A LEFT JOin MIS_VDC_MUNICIPALITY B on A.VDC_MUN_CD = B.VDC_MUN_CD where A.DISABLED = 'N' and A.SERVICE_PROVICER_CD =" + id + " and A.DISTRICT_CD=" + did;
-            //var data = con.Database.SqlQuery<BankLLVModel>(query).ToList();
-
-
-
-
-            for (int i = 1; i <= daysInMonth; i++)
+            if (nepDay == 0)
             {
-               
-                List<WorkListModel> worksList = new List<WorkListModel>();
-                string p = (i <= 9) ? "0" + i : i.ToString();
-                string nepDate = nepYear + "-" + monthh + "-" + p;
-                bool hasHoliday = db.workList.AsNoTracking().Where(h => (h.workDet == "Public Holiday" || h.workDet=="Leave") && h.date == nepDate && h.users== isUserId).Any();
-                var ssre = hasHoliday;
-                DateTime engDate = Convert.ToDateTime(db.PR_neptoeng(nepdate: nepDate).FirstOrDefault());
-                string x = engDate.ToString("yyyy-MM-dd");
-                int dailyWorkListCount = rand.Next(8, 20);
-                if(engDate.DayOfWeek.ToString()=="Friday")
+
+
+                int daysInMonth = Convert.ToInt32(db.COM_ENGLISH_NEPALI_DATE.AsNoTracking().Where(x => x.NEPALI_YEAR == nepYear && x.MONTH_CD == nepmonth).Select(x => x.NO_OF_DAYS).FirstOrDefault());
+                for (int i = 1; i <= daysInMonth; i++)
                 {
-                    dailyWorkListCount = rand.Next(5, 12);
-                }
-                int CallRecord = Convert.ToInt32(dailyWorkListCount * 0.6);
-                int test= Convert.ToInt32(CallRecord * 0.4);
-                int Anydesk = Convert.ToInt32(dailyWorkListCount * 0.1);
-                if (Convert.ToDateTime(x).DayOfWeek.ToString() != "Saturday")
-                {
-                    if (!hasHoliday)
-                    { 
-                for (int j = 1; j <= CallRecord; j++)
-                {
-                   
-                  
-                        WorkListModel workList = new WorkListModel();
-                    workList.date = nepDate;
-                    workList.date_Eng = Convert.ToDateTime(x);
-                    workList.workListType = "Call";
-                    workList.issue = GetRandomIssue();
-                   
-                    workList.mun = db.mun.OrderBy(s => Guid.NewGuid()).Select(s => s.mun_name).FirstOrDefault();
-                    workList.time = rand.Next(3, 10);
-                    workList.workDet = "Null";
-                    workList.users = Convert.ToInt32(Session["userId"]);
-                 
-                    worksList.Add(workList);
+
+                    List<WorkListModel> worksList = new List<WorkListModel>();
+                    string p = (i <= 9) ? "0" + i : i.ToString();
+                    string nepDate = nepYear + "-" + monthh + "-" + p;
+                    bool hasHoliday = db.workList.AsNoTracking().Where(h => (h.workDet == "Public Holiday" || h.workDet == "Leave") && h.date == nepDate && h.users == isUserId).Any();
+                    var ssre = hasHoliday;
+                    DateTime engDate = Convert.ToDateTime(db.PR_neptoeng(nepdate: nepDate).FirstOrDefault());
+                    string x = engDate.ToString("yyyy-MM-dd");
+                    int dailyWorkListCount = rand.Next(10, 20);
+                    int CallRecord = Convert.ToInt32(dailyWorkListCount * 0.7);
+                    int test = Convert.ToInt32(CallRecord * 0.4);
+                    int Anydesk = Convert.ToInt32(dailyWorkListCount * 0.1);
+                    if (Convert.ToDateTime(x).DayOfWeek.ToString() != "Saturday")
+                    {
+                        if (!hasHoliday)
+                        {
+                            for (int j = 1; j <= CallRecord; j++)
+                            {
+
+
+                                WorkListModel workList = new WorkListModel();
+                                workList.date = nepDate;
+                                workList.date_Eng = Convert.ToDateTime(x);
+                                workList.workListType = "Call";
+                                workList.issue = GetRandomIssue();
+
+                                workList.mun = db.mun.OrderBy(s => Guid.NewGuid()).Select(s => s.mun_name).FirstOrDefault();
+                                workList.time = rand.Next(3, 12);
+                                workList.workDet = "Null";
+                                workList.users = Convert.ToInt32(Session["userId"]);
+
+                                worksList.Add(workList);
+                            }
+                        }
                     }
-                    }
-                }
-               
-                List<WorkListModel> RandomList = new List<WorkListModel>();
-                RandomList = worksList.Take(test).ToList();
-                List<WorkListModel> AddLists = new List<WorkListModel>();
-            
-                foreach (var item in RandomList)
-                {
-                    WorkListModel andlist = new WorkListModel();
-                    andlist.date = item.date;
-                    andlist.date_Eng = item.date_Eng;
-                    
-                    andlist.issue = item.issue;
+
+                    List<WorkListModel> RandomList = new List<WorkListModel>();
+                    RandomList = worksList.Take(test).ToList();
+                    List<WorkListModel> AddLists = new List<WorkListModel>();
+
+                    foreach (var item in RandomList)
+                    {
+                        WorkListModel andlist = new WorkListModel();
+                        andlist.date = item.date;
+                        andlist.date_Eng = item.date_Eng;
+
+                        andlist.issue = item.issue;
 
                         andlist.mun = item.mun;
                         andlist.time = item.time;
@@ -359,18 +344,124 @@ namespace workReport.Controllers
 
 
 
+                }
+                //var munList = db.mun.Select(x => x.mun_name).Distinct().OrderByDescending(x => x.Length).ToList();
+                //int index = rand.Next(munList.Count);
+                //string randomMun = munList[index];
+                //int time = rand.Next(2, 10);
+                return RedirectToAction("Index");
             }
-            //var munList = db.mun.Select(x => x.mun_name).Distinct().OrderByDescending(x => x.Length).ToList();
-            //int index = rand.Next(munList.Count);
-            //string randomMun = munList[index];
-            //int time = rand.Next(2, 10);
-            return RedirectToAction("createRandomWorkListPost");
+            else
+            {
+                for (int i = nepDay; i <= nepDay; i++)
+                {
+
+                    List<WorkListModel> worksList = new List<WorkListModel>();
+                    string p = (i <= 9) ? "0" + i : i.ToString();
+                    string nepDate = nepYear + "-" + monthh + "-" + p;
+                    bool hasHoliday = db.workList.AsNoTracking().Where(h => (h.workDet == "Public Holiday" || h.workDet == "Leave") && h.date == nepDate && h.users == isUserId).Any();
+                    var ssre = hasHoliday;
+                    DateTime engDate = Convert.ToDateTime(db.PR_neptoeng(nepdate: nepDate).FirstOrDefault());
+                    string x = engDate.ToString("yyyy-MM-dd");
+                    int dailyWorkListCount = rand.Next(8, 20);
+                    int CallRecord = Convert.ToInt32(dailyWorkListCount * 0.7);
+                    int test = Convert.ToInt32(CallRecord * 0.4);
+                    int Anydesk = Convert.ToInt32(dailyWorkListCount * 0.1);
+                    if (Convert.ToDateTime(x).DayOfWeek.ToString() != "Saturday")
+                    {
+                        if (!hasHoliday)
+                        {
+                            for (int j = 1; j <= CallRecord; j++)
+                            {
+
+
+                                WorkListModel workList = new WorkListModel();
+                                workList.date = nepDate;
+                                workList.date_Eng = Convert.ToDateTime(x);
+                                workList.workListType = "Call";
+                                workList.issue = GetRandomIssue();
+
+                                workList.mun = db.mun.OrderBy(s => Guid.NewGuid()).Select(s => s.mun_name).FirstOrDefault();
+                                workList.time = rand.Next(3, 12);
+                                workList.workDet = "Null";
+                                workList.users = Convert.ToInt32(Session["userId"]);
+
+                                worksList.Add(workList);
+                            }
+                        }
+                    }
+
+                    List<WorkListModel> RandomList = new List<WorkListModel>();
+                    RandomList = worksList.Take(test).ToList();
+                    List<WorkListModel> AddLists = new List<WorkListModel>();
+
+                    foreach (var item in RandomList)
+                    {
+                        WorkListModel andlist = new WorkListModel();
+                        andlist.date = item.date;
+                        andlist.date_Eng = item.date_Eng;
+
+                        andlist.issue = item.issue;
+
+                        andlist.mun = item.mun;
+                        andlist.time = item.time;
+                        andlist.workDet = "Null";
+                        andlist.users = Convert.ToInt32(Session["userId"]);
+                        andlist.workListType = "Anydesk";
+
+                        worksList.Add(andlist);
+
+                    }
+                    worksList = worksList.OrderBy(n => n.mun).ToList();
+                    foreach (var item in worksList)
+                    {
+                        workList wl = new workList();
+                        wl.date = item.date;
+                        wl.date_Eng = item.date_Eng;
+
+                        wl.issue = item.issue;
+
+                        wl.mun = item.mun;
+                        wl.time = item.time;
+                        wl.workDet = item.workDet;
+                        wl.users = item.users;
+                        wl.workListType = item.workListType;
+                        db.workList.Add(wl);
+                        db.SaveChanges();
+                    }
+
+                    //foreach (var item in AddLists.OrderBy(t => t.mun))
+                    //{
+                    //    CP_WORKLIST wl = new CP_WORKLIST();
+                    //    wl = item;
+                    //    db.CP_WORKLIST.Add(wl);
+                    //    db.SaveChanges();
+                    //}
+                    //for (int j = 1; j <= Anydesk; j++)
+                    //{
+                    //    CP_WORKLIST workList = new CP_WORKLIST();
+                    //    workList.date = nepDate;
+                    //    workList.date_Eng = Convert.ToDateTime(x);
+                    //    workList.workListType = "AnyDesk";
+                    //    workList.issue = GetRandomIssue();
+                    //    workList.mun = db.mun.OrderBy(s => Guid.NewGuid()).Select(s => s.mun_name).FirstOrDefault();
+                    //    workList.time = rand.Next(3, 12);
+                    //    workList.workDet = "Null";
+                    //    workList.users = Convert.ToInt32(Session["userId"]);
+                    //    worksList.Add(workList);
+                    //}
+
+
+
+                }
+                return RedirectToAction("Index");
+            }
         }
         public string GetRandomIssue()
         {
             Random rand = new Random(DateTime.Now.Millisecond);
             var abc = 0;
-            abc=rand.Next(1,100);
+            abc = rand.Next(1, 100);
             if (abc <= 40)
             {
                 return "Vital";
@@ -418,8 +509,8 @@ namespace workReport.Controllers
             int nepYear = Convert.ToInt32(fc["NepYears"]);
             int nepmonth = Convert.ToInt32(fc["months"]);
             int nepDay = Convert.ToInt32(fc["days"]);
-            string monthh = (nepmonth <= 9 ) ? "0" + nepmonth : nepmonth.ToString();
-            string dayy = (nepDay <= 9 || nepDay>0) ? "0" + nepDay : nepDay.ToString();
+            string monthh = (nepmonth <= 9) ? "0" + nepmonth : nepmonth.ToString();
+            string dayy = (nepDay <= 9 || nepDay > 0) ? "0" + nepDay : nepDay.ToString();
             string isUserName = Session["userName"].ToString();
             int isUserId = Convert.ToInt32(Session["userId"]);
 
@@ -428,7 +519,7 @@ namespace workReport.Controllers
             var year = new SqlParameter("@year", nepYear);
             var month = new SqlParameter("@month", monthh);
             var day = new SqlParameter("@day", dayy);
-             db.Database.SqlQuery<deleteWorkListData>("exec allUsersDataCount @userId", userId).ToList();
+            db.Database.SqlQuery<deleteWorkListData>("exec allUsersDataCount @userId", userId).ToList();
 
 
             this.db.ExecuteSqlCommand("exec messageinsert @Date , @Subject , @Body , @Fid", date, subject, body, fid);
@@ -441,7 +532,7 @@ namespace workReport.Controllers
         public ActionResult addHoliday(int? i)
         {
             int isuser = Convert.ToInt32(Session["userId"]);
-            return View(db.workList.AsNoTracking().Where(x => x.users == isuser && x.mun=="" && x.workListType == "").OrderByDescending(x => x.workListId).ToList().ToPagedList(i ?? 1, 10));
+            return View(db.workList.AsNoTracking().Where(x => x.users == isuser && x.mun == "" && x.workListType == "").OrderByDescending(x => x.workListId).ToList().ToPagedList(i ?? 1, 10));
         }
         public ActionResult addHoliday1(int? i)
         {
@@ -469,9 +560,9 @@ namespace workReport.Controllers
 
             db.workList.Add(workList);
             db.SaveChanges();
-       
-                return RedirectToAction("addHoliday1");
-            
+
+            return RedirectToAction("addHoliday1");
+
 
 
         }
@@ -505,22 +596,23 @@ namespace workReport.Controllers
         public void ExportToExcel(int? nepMonth, int? nepYear)
         {
             var gv = new GridView();
-            List<workList> DATAALISTS = WorkListExportData(nepMonth, nepYear).Select(x => new workList() {
-workListType=x.workListType,
-mun=x.mun,
-time=x.time,
-users=x.users,
-date=x.date,
-issue=x.issue,
-date_Eng=x.date_Eng,
-workDet=x.workDet
- }).ToList();
+            List<workList> DATAALISTS = WorkListExportData(nepMonth, nepYear).Select(x => new workList()
+            {
+                workListType = x.workListType,
+                mun = x.mun,
+                time = x.time,
+                users = x.users,
+                date = x.date,
+                issue = x.issue,
+                date_Eng = x.date_Eng,
+                workDet = x.workDet
+            }).ToList();
 
-           List<workListone> workslist = new List<workListone>();
-            foreach(var x in DATAALISTS)
+            List<workListone> workslist = new List<workListone>();
+            foreach (var x in DATAALISTS)
             {
                 workListone workone = new workListone();
-               workone.workListType = x.workListType;
+                workone.workListType = x.workListType;
                 workone.mun = x.mun;
                 workone.time = x.time;
                 workone.users = x.users;
@@ -532,7 +624,7 @@ workDet=x.workDet
                 workslist.Add(workone);
 
             }
-         
+
 
 
             ExcelPackage excel = new ExcelPackage();
@@ -739,7 +831,7 @@ workDet=x.workDet
                     if (System.IO.File.Exists(filepath))
                     {
 
-                      //  DataTable dtExcel;
+                        //  DataTable dtExcel;
                         if (filepath != "")
                         {
                             if (filepath.Contains("."))
@@ -770,32 +862,33 @@ workDet=x.workDet
                                 worklist1 = CommonMethod.ConvertToList<workListnew>(dtExcelnew);
                                 foreach (var item in worklist1)
                                 {
-                                    item.date = item.date.Replace("'", ""); 
-                             
+                                    item.date = item.date.Replace("'", "");
+
                                 }
                                 List<workList> DATAALISTS = worklist1.Select(x => new workList()
                                 {
-                                    date=x.date,
+                                    date = x.date,
 
                                     date_Eng = Convert.ToDateTime(obj.PR_neptoeng(nepdate: x.date).FirstOrDefault()),
-                                
-                                    issue=x.issue,
-                                    mun=x.mun,
-                                    time=Convert.ToInt32( x.time),
-                                    users=Convert.ToInt32(Session["userId"]),
-                                    workDet=x.workDet,
-                                    workListType=x.workListType
+
+                                    issue = x.issue,
+                                    mun = x.mun,
+                                    time = Convert.ToInt32(x.time),
+                                    users = Convert.ToInt32(Session["userId"]),
+                                    workDet = x.workDet,
+                                    workListType = x.workListType
 
                                 }).ToList();
 
-                                foreach(var a in DATAALISTS)
+                                foreach (var a in DATAALISTS)
                                 {
                                     db.workList.Add(a);
                                     db.SaveChanges();
                                 }
 
 
-                                } catch (Exception ex)
+                            }
+                            catch (Exception ex)
                             {
                                 var text = ex.Message; oledbConn.Close();
                             }
@@ -817,7 +910,7 @@ workDet=x.workDet
             {
                 var columnNames = dt.Columns.Cast<DataColumn>().Select(c => c.ColumnName.ToLower()).ToList();
                 var properties = typeof(T).GetProperties();
-              var check =   dt.AsEnumerable().Select(row => {
+                var check = dt.AsEnumerable().Select(row => {
                     var objT = Activator.CreateInstance<T>();
                     foreach (var pro in properties)
                     {
@@ -825,22 +918,23 @@ workDet=x.workDet
                         {
                             try
                             {
-                              var a = row[pro.Name];
-                              var b = objT;
+                                var a = row[pro.Name];
+                                var b = objT;
                                 pro.SetValue(objT, row[pro.Name]);
                             }
-                            catch (Exception ex) {
+                            catch (Exception ex)
+                            {
                                 var text = ex.Message;
                             }
                         }
                     }
                     return objT;
                 }).ToList();
-                                         return check;
+                return check;
             }
         }
 
-        public List<WorkListModel> WorkListExportData(int? nepMonths,int? nepYears)
+        public List<WorkListModel> WorkListExportData(int? nepMonths, int? nepYears)
         {
             var obj = new workReportEntities();
             string nepMonthstr = "0";
@@ -910,7 +1004,7 @@ workDet=x.workDet
 
             for (int i = 0; i < daysInMonth; i++)
             {
-                
+
 
                 DateTime date_Eng = Convert.ToDateTime(engDate.AddDays(i).ToShortDateString());
                 var nextday = Convert.ToDateTime(engDate.AddDays(i + 1).ToShortDateString());
@@ -940,8 +1034,8 @@ workDet=x.workDet
             //else
             //{
 
-                return WorksList;
-            
+            return WorksList;
+
         }
 
         public ActionResult workListExport()
@@ -951,13 +1045,13 @@ workDet=x.workDet
             return View();
         }
 
-     
+
 
         public ActionResult WorkListData(FormCollection fc)
         {
             var obj = new workReportEntities();
-            string nepMonthstr="0";
-         
+            string nepMonthstr = "0";
+
             int nepYear = Convert.ToInt32(fc["fscYear"]);
             int nepmonth = Convert.ToInt32(fc["months"]);
 
@@ -965,7 +1059,7 @@ workDet=x.workDet
             ViewBag.fscYear = nepYear;
 
 
-            if (nepmonth<10)
+            if (nepmonth < 10)
             {
                 nepMonthstr = '0' + nepmonth.ToString();
             }
@@ -977,25 +1071,25 @@ workDet=x.workDet
             //DateTime todaysDateNep = DateTime.Parse(obj.PR_engtonep(engdate: todaysDateEng).FirstOrDefault());
             string todaysDateNep = obj.PR_engtonep(engdate: todaysDateEng).FirstOrDefault();
             var datesep = todaysDateNep.Split('-');
-            int todaysYear = Convert.ToInt32( datesep[0]);
-            int todaysMonth =Convert.ToInt32( datesep[1]);
+            int todaysYear = Convert.ToInt32(datesep[0]);
+            int todaysMonth = Convert.ToInt32(datesep[1]);
             int todaysDay = Convert.ToInt32(datesep[2]);
             ViewBag.todaysYear = todaysYear;
-            ViewBag.todaysMonth = db.nepMonths.AsNoTracking().Where(x => x.monthId == todaysMonth).Select(x=>x.monthName).FirstOrDefault();
+            ViewBag.todaysMonth = db.nepMonths.AsNoTracking().Where(x => x.monthId == todaysMonth).Select(x => x.monthName).FirstOrDefault();
             ViewBag.todaysDay = todaysDay;
 
 
             nepMonths nepaliMonth = db.nepMonths.AsNoTracking().Where(x => x.monthId == nepmonth).FirstOrDefault();
             ViewBag.nepmonth = nepaliMonth.monthName;
-            
+
             int nepDay = 1;
             string nepDaystr = '0' + nepDay.ToString();
-            string nepDate = nepYear.ToString() + '-' + nepMonthstr + '-' + nepDaystr ;
-            DateTime engDate =Convert.ToDateTime( obj.PR_neptoeng(nepdate: nepDate).FirstOrDefault());
+            string nepDate = nepYear.ToString() + '-' + nepMonthstr + '-' + nepDaystr;
+            DateTime engDate = Convert.ToDateTime(obj.PR_neptoeng(nepdate: nepDate).FirstOrDefault());
             int engYear = engDate.Year;
             int engMonth = engDate.Month;
 
-            int daysInMonth = Convert.ToInt32( db.COM_ENGLISH_NEPALI_DATE.AsNoTracking().Where(x => x.NEPALI_YEAR == nepYear && x.MONTH_CD == nepmonth).Select(x => x.NO_OF_DAYS).FirstOrDefault());
+            int daysInMonth = Convert.ToInt32(db.COM_ENGLISH_NEPALI_DATE.AsNoTracking().Where(x => x.NEPALI_YEAR == nepYear && x.MONTH_CD == nepmonth).Select(x => x.NO_OF_DAYS).FirstOrDefault());
 
 
             //  string isUserName = Session["userName"].ToString();
@@ -1020,18 +1114,18 @@ workDet=x.workDet
             var lastengdate = engDate.AddDays(daysInMonth);
             //var list=db.workList.Where(x=>x.date_Eng>= engDate && x.date_Eng<=lastengdate).Select
             List<WorkListModel> WorksList = new List<WorkListModel>();
-           
+
             for (int i = 0; i < daysInMonth; i++)
             {
-            
-     
+
+
                 DateTime date_Eng = Convert.ToDateTime(engDate.AddDays(i).ToShortDateString());
-                var nextday= Convert.ToDateTime(engDate.AddDays(i+1).ToShortDateString());
-              var  model1 = db.workList.AsNoTracking().Where(x =>  x.users == isUserId && x.date_Eng >= date_Eng && x.date_Eng < nextday).ToList();
-                foreach(var obj1 in model1)
+                var nextday = Convert.ToDateTime(engDate.AddDays(i + 1).ToShortDateString());
+                var model1 = db.workList.AsNoTracking().Where(x => x.users == isUserId && x.date_Eng >= date_Eng && x.date_Eng < nextday).ToList();
+                foreach (var obj1 in model1)
                 {
                     WorkListModel model = new WorkListModel();
-                    model.DayofMonth= Convert.ToDateTime(obj1.date_Eng).DayOfWeek.ToString();
+                    model.DayofMonth = Convert.ToDateTime(obj1.date_Eng).DayOfWeek.ToString();
                     model.workListType = obj1.workListType;
                     model.mun = obj1.mun;
                     model.time = obj1.time;
@@ -1042,10 +1136,10 @@ workDet=x.workDet
                     model.workDet = obj1.workDet;
                     WorksList.Add(model);
                 }
-               
-                
+
+
             }
-           
+
             //if (Convert.ToInt32(Session["userPost"]) == 7 || Convert.ToInt32(Session["userPost"]) == 8)
             //{
             //    //return View("Index1", WorksList);
@@ -1058,7 +1152,7 @@ workDet=x.workDet
             //else { 
 
             return View(WorksList);
-            
+
         }
 
         public ActionResult WorkListData1(List<WorkListModel> worksList)
