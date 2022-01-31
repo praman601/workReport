@@ -254,7 +254,11 @@ namespace workReport.Controllers
                     var ssre = hasHoliday;
                     DateTime engDate = Convert.ToDateTime(db.PR_neptoeng(nepdate: nepDate).FirstOrDefault());
                     string x = engDate.ToString("yyyy-MM-dd");
-                    int dailyWorkListCount = rand.Next(10, 20);
+                    int dailyWorkListCount = rand.Next(7, 15);
+                    if (Convert.ToDateTime(x).DayOfWeek.ToString() == "Friday")
+                    {
+                        dailyWorkListCount = rand.Next(4, 7);
+                    }
                     int CallRecord = Convert.ToInt32(dailyWorkListCount * 0.7);
                     int test = Convert.ToInt32(CallRecord * 0.4);
                     int Anydesk = Convert.ToInt32(dailyWorkListCount * 0.1);
@@ -363,7 +367,11 @@ namespace workReport.Controllers
                     var ssre = hasHoliday;
                     DateTime engDate = Convert.ToDateTime(db.PR_neptoeng(nepdate: nepDate).FirstOrDefault());
                     string x = engDate.ToString("yyyy-MM-dd");
-                    int dailyWorkListCount = rand.Next(8, 20);
+                    int dailyWorkListCount = rand.Next(7,16);
+                    if (Convert.ToDateTime(x).DayOfWeek.ToString() == "Friday")
+                    {
+                        dailyWorkListCount = rand.Next(4, 7);
+                    }
                     int CallRecord = Convert.ToInt32(dailyWorkListCount * 0.7);
                     int test = Convert.ToInt32(CallRecord * 0.4);
                     int Anydesk = Convert.ToInt32(dailyWorkListCount * 0.1);
@@ -382,7 +390,7 @@ namespace workReport.Controllers
                                 workList.issue = GetRandomIssue();
 
                                 workList.mun = db.mun.OrderBy(s => Guid.NewGuid()).Select(s => s.mun_name).FirstOrDefault();
-                                workList.time = rand.Next(3, 12);
+                                workList.time = rand.Next(3, 10);
                                 workList.workDet = "Null";
                                 workList.users = Convert.ToInt32(Session["userId"]);
 
@@ -404,7 +412,7 @@ namespace workReport.Controllers
                         andlist.issue = item.issue;
 
                         andlist.mun = item.mun;
-                        andlist.time = item.time;
+                        andlist.time =Convert.ToInt32( item.time * 0.7);
                         andlist.workDet = "Null";
                         andlist.users = Convert.ToInt32(Session["userId"]);
                         andlist.workListType = "Anydesk";
@@ -513,19 +521,32 @@ namespace workReport.Controllers
             string dayy = (nepDay <= 9 || nepDay > 0) ? "0" + nepDay : nepDay.ToString();
             string isUserName = Session["userName"].ToString();
             int isUserId = Convert.ToInt32(Session["userId"]);
+         
+            if(nepDay==0)
+            {
+                string insertBefore = "INSERT INTO JN_WORKLIST SELECT * FROM workList where date like'" + nepYear + "-" + monthh + "-%' and users=" + isUserId+ " and workDet <> 'leave'";
+                string deleteQuery = "delete FROM workList where date like'" + nepYear + "-" + monthh + "-%' and users=" + isUserId + " and workDet <> 'leave'";
+                var check = db.Database.ExecuteSqlCommand(insertBefore);
+                if (check > 0)
+                {
+                    db.Database.ExecuteSqlCommand(deleteQuery);
+                }
+
+            }
+            else
+            {
+                string insertBefore = "INSERT INTO JN_WORKLIST SELECT * FROM workList where date ='" + nepYear + "-" + monthh + "-" + dayy + "' and users=" + isUserId;
+                string deleteQuery= "delete FROM workList where date ='" + nepYear + "-" + monthh + "-" + dayy + "' and users=" + isUserId;
+                var check = db.Database.ExecuteSqlCommand(insertBefore);
+                if(check>0)
+                {
+                    db.Database.ExecuteSqlCommand(deleteQuery); 
+                }
+
+            }
 
 
-            var userId = new SqlParameter("@userId", isUserId);
-            var year = new SqlParameter("@year", nepYear);
-            var month = new SqlParameter("@month", monthh);
-            var day = new SqlParameter("@day", dayy);
-            db.Database.SqlQuery<deleteWorkListData>("exec allUsersDataCount @userId", userId).ToList();
-
-
-            this.db.ExecuteSqlCommand("exec messageinsert @Date , @Subject , @Body , @Fid", date, subject, body, fid);
-
-
-            return View();
+            return RedirectToAction("deleteWorkDataGet");
         }
 
 
