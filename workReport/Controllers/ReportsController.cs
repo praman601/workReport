@@ -252,13 +252,14 @@ namespace workReport.Controllers
                     DateTime endDateEng = Convert.ToDateTime(db.PR_neptoeng(nepdate: endDateNep).FirstOrDefault());
 
                     List<WorkListModel> WorksList = new List<WorkListModel>();
-
-                    for (int i = 1; i <= daysInMonth; i++)
+                    startDateEng = startDateEng.AddDays(-1);
+                    for (int i = 1; i < daysInMonth; i++)
                     {
                         string nepalidate = isYear + "-" + isMonth + "-" + (i);
                         int? xxx = 0, xxy = 0, xxz = 0, xyx = 0;
                         WorkListModel model = new WorkListModel();
                         model.date_Eng = Convert.ToDateTime(startDateEng.AddDays(i).ToShortDateString());
+                        
                         var nextday = Convert.ToDateTime(startDateEng.AddDays(i + 1).ToShortDateString());
                         model.DayofMonth = Convert.ToDateTime(model.date_Eng).DayOfWeek.ToString();
                         // string datess = obj.PR_engtonep(engdate: model.date_Eng.ToString()).FirstOrDefault();

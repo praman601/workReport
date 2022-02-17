@@ -373,6 +373,9 @@
     <Compile Include="Models\issues.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\JN_WORKLIST.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MisC_Data.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -402,6 +405,9 @@
     <Compile Include="Models\mun.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\mun_worklist.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\nepMonths.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -417,6 +423,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\userInUse.cs" />
+    <Compile Include="Models\userLogin.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\workList.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -522,67 +531,6 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
-    <Content Include="files\dontopen\%281%29.jpg" />
-    <Content Include="files\dontopen\%2810%29.jpg" />
-    <Content Include="files\dontopen\%2811%29.jpg" />
-    <Content Include="files\dontopen\%2812%29.jpg" />
-    <Content Include="files\dontopen\%2813%29.jpg" />
-    <Content Include="files\dontopen\%2814%29.jpg" />
-    <Content Include="files\dontopen\%2815%29.jpg" />
-    <Content Include="files\dontopen\%2816%29.jpg" />
-    <Content Include="files\dontopen\%2817%29.jpg" />
-    <Content Include="files\dontopen\%2818%29.jpg" />
-    <Content Include="files\dontopen\%2819%29.jpg" />
-    <Content Include="files\dontopen\%282%29.jpg" />
-    <Content Include="files\dontopen\%2820%29.jpg" />
-    <Content Include="files\dontopen\%2821%29.jpg" />
-    <Content Include="files\dontopen\%2822%29.jpg" />
-    <Content Include="files\dontopen\%2823%29.jpg" />
-    <Content Include="files\dontopen\%2824%29.jpg" />
-    <Content Include="files\dontopen\%2825%29.jpg" />
-    <Content Include="files\dontopen\%2826%29.jpg" />
-    <Content Include="files\dontopen\%2827%29.jpg" />
-    <Content Include="files\dontopen\%2828%29.jpg" />
-    <Content Include="files\dontopen\%2829%29.jpg" />
-    <Content Include="files\dontopen\%283%29.jpg" />
-    <Content Include="files\dontopen\%2830%29.jpg" />
-    <Content Include="files\dontopen\%2831%29.jpg" />
-    <Content Include="files\dontopen\%2832%29.jpg" />
-    <Content Include="files\dontopen\%2833%29.jpg" />
-    <Content Include="files\dontopen\%2834%29.jpg" />
-    <Content Include="files\dontopen\%2835%29.jpg" />
-    <Content Include="files\dontopen\%2836%29.jpg" />
-    <Content Include="files\dontopen\%2837%29.jpg" />
-    <Content Include="files\dontopen\%2838%29.jpg" />
-    <Content Include="files\dontopen\%2839%29.jpg" />
-    <Content Include="files\dontopen\%284%29.jpg" />
-    <Content Include="files\dontopen\%2840%29.jpg" />
-    <Content Include="files\dontopen\%2841%29.jpg" />
-    <Content Include="files\dontopen\%2842%29.jpg" />
-    <Content Include="files\dontopen\%2843%29.jpg" />
-    <Content Include="files\dontopen\%2844%29.jpg" />
-    <Content Include="files\dontopen\%2845%29.jpg" />
-    <Content Include="files\dontopen\%2846%29.jpg" />
-    <Content Include="files\dontopen\%2847%29.jpg" />
-    <Content Include="files\dontopen\%2848%29.jpg" />
-    <Content Include="files\dontopen\%2849%29.jpg" />
-    <Content Include="files\dontopen\%285%29.jpg" />
-    <Content Include="files\dontopen\%2850%29.jpg" />
-    <Content Include="files\dontopen\%2851%29.jpg" />
-    <Content Include="files\dontopen\%2852%29.jpg" />
-    <Content Include="files\dontopen\%2853%29.jpg" />
-    <Content Include="files\dontopen\%2854%29.jpg" />
-    <Content Include="files\dontopen\%2855%29.jpg" />
-    <Content Include="files\dontopen\%2856%29.jpg" />
-    <Content Include="files\dontopen\%2857%29.jpg" />
-    <Content Include="files\dontopen\%2858%29.jpg" />
-    <Content Include="files\dontopen\%2859%29.jpg" />
-    <Content Include="files\dontopen\%286%29.jpg" />
-    <Content Include="files\dontopen\%2860%29.jpg" />
-    <Content Include="files\dontopen\%2861%29.jpg" />
-    <Content Include="files\dontopen\%287%29.jpg" />
-    <Content Include="files\dontopen\%288%29.jpg" />
-    <Content Include="files\dontopen\%289%29.jpg" />
     <Content Include="files\loader\loader.gif" />
     <Content Include="files\nature\%283%29.jpg" />
     <Content Include="files\nature\%281%29.jpg" />
@@ -707,6 +655,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Data\" />
     <Folder Include="files\77\19\" />
+    <Folder Include="files\dontopen\" />
     <Folder Include="files\profilePictures\" />
     <Folder Include="files\upload\" />
     <Folder Include="Views\Login1\" />

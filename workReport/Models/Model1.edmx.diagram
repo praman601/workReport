@@ -18,6 +18,9 @@
         <EntityTypeShape EntityType="workReportModel.user" Width="1.5" PointX="9.375" PointY="0.75" />
         <EntityTypeShape EntityType="workReportModel.MisC_Data" Width="1.5" PointX="9.375" PointY="5.75" />
         <EntityTypeShape EntityType="workReportModel.CP_WORKLIST" Width="1.5" PointX="5.375" PointY="9.75" />
+        <EntityTypeShape EntityType="workReportModel.userLogin" Width="1.5" PointX="7.375" PointY="9.75" />
+        <EntityTypeShape EntityType="workReportModel.JN_WORKLIST" Width="1.5" PointX="9.375" PointY="8.75" />
+        <EntityTypeShape EntityType="workReportModel.mun_worklist" Width="1.5" PointX="11.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

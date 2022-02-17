@@ -250,7 +250,7 @@ namespace workReport.Controllers
                     List<WorkListModel> worksList = new List<WorkListModel>();
                     string p = (i <= 9) ? "0" + i : i.ToString();
                     string nepDate = nepYear + "-" + monthh + "-" + p;
-                    bool hasHoliday = db.workList.AsNoTracking().Where(h => (h.workDet == "Public Holiday" || h.workDet == "Leave") && h.date == nepDate && h.users == isUserId).Any();
+                    bool hasHoliday = db.workList.AsNoTracking().Where(h => (h.workDet == "Public Holiday" || h.workDet == "Leave" || h.workDet== "TravelOrder") && h.date == nepDate && h.users == isUserId).Any();
                     var ssre = hasHoliday;
                     DateTime engDate = Convert.ToDateTime(db.PR_neptoeng(nepdate: nepDate).FirstOrDefault());
                     string x = engDate.ToString("yyyy-MM-dd");
@@ -275,7 +275,7 @@ namespace workReport.Controllers
                                 workList.date_Eng = Convert.ToDateTime(x);
                                 workList.workListType = "Call";
                                 workList.issue = GetRandomIssue();
-
+                                
                                 workList.mun = db.mun.OrderBy(s => Guid.NewGuid()).Select(s => s.mun_name).FirstOrDefault();
                                 workList.time = rand.Next(3, 12);
                                 workList.workDet = "Null";
@@ -297,7 +297,7 @@ namespace workReport.Controllers
                         andlist.date_Eng = item.date_Eng;
 
                         andlist.issue = item.issue;
-
+                        
                         andlist.mun = item.mun;
                         andlist.time = item.time;
                         andlist.workDet = "Null";
@@ -313,7 +313,7 @@ namespace workReport.Controllers
                         workList wl = new workList();
                         wl.date = item.date;
                         wl.date_Eng = item.date_Eng;
-
+                        
                         wl.issue = item.issue;
 
                         wl.mun = item.mun;
@@ -324,7 +324,26 @@ namespace workReport.Controllers
                         db.workList.Add(wl);
                         db.SaveChanges();
                     }
+                    WorkListModel test1 = worksList.LastOrDefault();
+                    workList w2 = new workList();
+                    if (test1 != null)
+                    {
 
+                 
+                    w2.date = test1.date;
+                    w2.date_Eng = test1.date_Eng;
+
+                    w2.issue = "OTHERS";
+
+                    w2.mun = "";
+                        Random rrr = new Random();
+                        w2.time = rrr.Next(5, 13);
+                    w2.workDet = "";
+                    w2.users = test1.users;
+                    w2.workListType = "Email";
+                    db.workList.Add(w2);
+                    db.SaveChanges();
+                    }
                     //foreach (var item in AddLists.OrderBy(t => t.mun))
                     //{
                     //    CP_WORKLIST wl = new CP_WORKLIST();
@@ -363,7 +382,7 @@ namespace workReport.Controllers
                     List<WorkListModel> worksList = new List<WorkListModel>();
                     string p = (i <= 9) ? "0" + i : i.ToString();
                     string nepDate = nepYear + "-" + monthh + "-" + p;
-                    bool hasHoliday = db.workList.AsNoTracking().Where(h => (h.workDet == "Public Holiday" || h.workDet == "Leave") && h.date == nepDate && h.users == isUserId).Any();
+                    bool hasHoliday = db.workList.AsNoTracking().Where(h => (h.workDet == "Public Holiday" || h.workDet == "Leave" || h.workDet== "TravelOrder") && h.date == nepDate && h.users == isUserId).Any();
                     var ssre = hasHoliday;
                     DateTime engDate = Convert.ToDateTime(db.PR_neptoeng(nepdate: nepDate).FirstOrDefault());
                     string x = engDate.ToString("yyyy-MM-dd");
@@ -421,6 +440,7 @@ namespace workReport.Controllers
 
                     }
                     worksList = worksList.OrderBy(n => n.mun).ToList();
+                    
                     foreach (var item in worksList)
                     {
                         workList wl = new workList();
@@ -435,6 +455,26 @@ namespace workReport.Controllers
                         wl.users = item.users;
                         wl.workListType = item.workListType;
                         db.workList.Add(wl);
+                        db.SaveChanges();
+                    }
+                    WorkListModel test1 = worksList.LastOrDefault();
+                    workList w2 = new workList();
+                    if (test1 != null)
+                    {
+
+
+                        w2.date = test1.date;
+                        w2.date_Eng = test1.date_Eng;
+
+                        w2.issue = "OTHERS";
+
+                        w2.mun = "";
+                        Random rrr = new Random();
+                        w2.time = rrr.Next(5, 13);
+                        w2.workDet = "";
+                        w2.users = test1.users;
+                        w2.workListType = "Email";
+                        db.workList.Add(w2);
                         db.SaveChanges();
                     }
 
@@ -514,36 +554,43 @@ namespace workReport.Controllers
 
         public ActionResult deleteWorkDataPost(FormCollection fc)
         {
-            int nepYear = Convert.ToInt32(fc["NepYears"]);
-            int nepmonth = Convert.ToInt32(fc["months"]);
+            string nepYear = fc["NepYears"];
+            int nepmonth =Convert.ToInt32( fc["months"]);
             int nepDay = Convert.ToInt32(fc["days"]);
+            int operation = (nepDay==0) ?  0: 1;
+          
             string monthh = (nepmonth <= 9) ? "0" + nepmonth : nepmonth.ToString();
             string dayy = (nepDay <= 9 || nepDay > 0) ? "0" + nepDay : nepDay.ToString();
             string isUserName = Session["userName"].ToString();
             int isUserId = Convert.ToInt32(Session["userId"]);
+
+
+
+           var check = db.deleteWorkList(isUserId, operation, nepYear, monthh, dayy);
          
-            if(nepDay==0)
-            {
-                string insertBefore = "INSERT INTO JN_WORKLIST SELECT * FROM workList where date like'" + nepYear + "-" + monthh + "-%' and users=" + isUserId+ " and workDet <> 'leave'";
-                string deleteQuery = "delete FROM workList where date like'" + nepYear + "-" + monthh + "-%' and users=" + isUserId + " and workDet <> 'leave'";
-                var check = db.Database.ExecuteSqlCommand(insertBefore);
-                if (check > 0)
-                {
-                    db.Database.ExecuteSqlCommand(deleteQuery);
-                }
+           
+            //if(nepDay==0)
+            //{
+            //    string insertBefore = "INSERT INTO JN_WORKLIST SELECT * FROM workList where date like'" + nepYear + "-" + monthh + "-%' and users=" + isUserId+ " and workDet <> 'leave'";
+            //    string deleteQuery = "delete FROM workList where date like'" + nepYear + "-" + monthh + "-%' and users=" + isUserId + " and workDet <> 'leave'";
+            //    var check = db.Database.ExecuteSqlCommand(insertBefore);
+            //    if (check > 0)
+            //    {
+            //        db.Database.ExecuteSqlCommand(deleteQuery);
+            //    }
 
-            }
-            else
-            {
-                string insertBefore = "INSERT INTO JN_WORKLIST SELECT * FROM workList where date ='" + nepYear + "-" + monthh + "-" + dayy + "' and users=" + isUserId;
-                string deleteQuery= "delete FROM workList where date ='" + nepYear + "-" + monthh + "-" + dayy + "' and users=" + isUserId;
-                var check = db.Database.ExecuteSqlCommand(insertBefore);
-                if(check>0)
-                {
-                    db.Database.ExecuteSqlCommand(deleteQuery); 
-                }
+            //}
+            //else
+            //{
+            //    string insertBefore = "INSERT INTO JN_WORKLIST SELECT * FROM workList where date ='" + nepYear + "-" + monthh + "-" + dayy + "' and users=" + isUserId;
+            //    string deleteQuery= "delete FROM workList where date ='" + nepYear + "-" + monthh + "-" + dayy + "' and users=" + isUserId;
+            //    var check = db.Database.ExecuteSqlCommand(insertBefore);
+            //    if(check>0)
+            //    {
+            //        db.Database.ExecuteSqlCommand(deleteQuery); 
+            //    }
 
-            }
+            //}
 
 
             return RedirectToAction("deleteWorkDataGet");

@@ -54,6 +54,22 @@
           <Property Name="issueId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="issueName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'workReport.dbo.JN_WORKLIST' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="JN_WORKLIST">
+          <Key>
+            <PropertyRef Name="workListId" />
+          </Key>
+          <Property Name="workListId" Type="int" Nullable="false" />
+          <Property Name="workListType" Type="varchar" MaxLength="50" />
+          <Property Name="mun" Type="varchar" MaxLength="50" />
+          <Property Name="time" Type="int" />
+          <Property Name="users" Type="int" />
+          <Property Name="date" Type="varchar" MaxLength="50" />
+          <Property Name="issue" Type="varchar" MaxLength="50" />
+          <Property Name="date_Eng" Type="datetime" />
+          <Property Name="workDet" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="MisC_Data">
           <Key>
             <PropertyRef Name="int" />
@@ -71,6 +87,18 @@
         <EntityType Name="mun">
           <Key>
             <PropertyRef Name="mun_id" />
+          </Key>
+          <Property Name="mun_id" Type="int" Nullable="false" />
+          <Property Name="mun_name" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="district_id" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'workReport.dbo.mun_worklist' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="mun_worklist">
+          <Key>
+            <PropertyRef Name="mun_id" />
+            <PropertyRef Name="mun_name" />
+            <PropertyRef Name="district_id" />
           </Key>
           <Property Name="mun_id" Type="int" Nullable="false" />
           <Property Name="mun_name" Type="varchar" MaxLength="500" Nullable="false" />
@@ -119,6 +147,15 @@
           <Property Name="passencryp" Type="varchar" MaxLength="100" />
           <Property Name="passkey" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="userLogin">
+          <Key>
+            <PropertyRef Name="sn" />
+          </Key>
+          <Property Name="sn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userName" Type="nchar" MaxLength="10" />
+          <Property Name="password" Type="nchar" MaxLength="10" />
+          <Property Name="updatedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="workList">
           <Key>
             <PropertyRef Name="workListId" />
@@ -143,6 +180,13 @@
         <Function Name="allUsersDataCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userId" Type="int" Mode="In" />
         </Function>
+        <Function Name="deleteWorkList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="isUserId" Type="int" Mode="In" />
+          <Parameter Name="isOperation" Type="int" Mode="In" />
+          <Parameter Name="isYear" Type="varchar" Mode="In" />
+          <Parameter Name="isMonth" Type="varchar" Mode="In" />
+          <Parameter Name="isDay" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="PR_engtonep" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="engdate" Type="varchar" Mode="In" />
         </Function>
@@ -161,8 +205,29 @@
           <EntitySet Name="posts" EntityType="Self.posts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="repYear" EntityType="Self.repYear" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userLogin" EntityType="Self.userLogin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="workList" EntityType="Self.workList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="workTypes" EntityType="Self.workTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JN_WORKLIST" EntityType="Self.JN_WORKLIST" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [JN_WORKLIST].[workListId] AS [workListId], 
+    [JN_WORKLIST].[workListType] AS [workListType], 
+    [JN_WORKLIST].[mun] AS [mun], 
+    [JN_WORKLIST].[time] AS [time], 
+    [JN_WORKLIST].[users] AS [users], 
+    [JN_WORKLIST].[date] AS [date], 
+    [JN_WORKLIST].[issue] AS [issue], 
+    [JN_WORKLIST].[date_Eng] AS [date_Eng], 
+    [JN_WORKLIST].[workDet] AS [workDet]
+    FROM [dbo].[JN_WORKLIST] AS [JN_WORKLIST]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="mun_worklist" EntityType="Self.mun_worklist" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [mun_worklist].[mun_id] AS [mun_id], 
+    [mun_worklist].[mun_name] AS [mun_name], 
+    [mun_worklist].[district_id] AS [district_id]
+    FROM [dbo].[mun_worklist] AS [mun_worklist]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -206,6 +271,16 @@
           <Parameter Name="userId" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="CP_WORKLIST" EntityType="workReportModel.CP_WORKLIST" />
+          <EntitySet Name="userLogin" EntityType="workReportModel.userLogin" />
+          <EntitySet Name="JN_WORKLIST" EntityType="workReportModel.JN_WORKLIST" />
+          <EntitySet Name="mun_worklist" EntityType="workReportModel.mun_worklist" />
+          <FunctionImport Name="deleteWorkList">
+            <Parameter Name="isUserId" Mode="In" Type="Int32" />
+            <Parameter Name="isOperation" Mode="In" Type="Int32" />
+            <Parameter Name="isYear" Mode="In" Type="String" />
+            <Parameter Name="isMonth" Mode="In" Type="String" />
+            <Parameter Name="isDay" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Months">
           <Key>
@@ -330,6 +405,39 @@
           <Property Name="issue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="date_Eng" Type="DateTime" Precision="3" />
           <Property Name="workDet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="userLogin">
+          <Key>
+            <PropertyRef Name="sn" />
+          </Key>
+          <Property Name="sn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="updatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="JN_WORKLIST">
+          <Key>
+            <PropertyRef Name="workListId" />
+          </Key>
+          <Property Name="workListId" Type="Int32" Nullable="false" />
+          <Property Name="workListType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mun" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="time" Type="Int32" />
+          <Property Name="users" Type="Int32" />
+          <Property Name="date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="issue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_Eng" Type="DateTime" Precision="3" />
+          <Property Name="workDet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="mun_worklist">
+          <Key>
+            <PropertyRef Name="mun_id" />
+            <PropertyRef Name="mun_name" />
+            <PropertyRef Name="district_id" />
+          </Key>
+          <Property Name="mun_id" Type="Int32" Nullable="false" />
+          <Property Name="mun_name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="district_id" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -495,6 +603,41 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="userLogin">
+            <EntityTypeMapping TypeName="workReportModel.userLogin">
+              <MappingFragment StoreEntitySet="userLogin">
+                <ScalarProperty Name="updatedDate" ColumnName="updatedDate" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="sn" ColumnName="sn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JN_WORKLIST">
+            <EntityTypeMapping TypeName="workReportModel.JN_WORKLIST">
+              <MappingFragment StoreEntitySet="JN_WORKLIST">
+                <ScalarProperty Name="workDet" ColumnName="workDet" />
+                <ScalarProperty Name="date_Eng" ColumnName="date_Eng" />
+                <ScalarProperty Name="issue" ColumnName="issue" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="users" ColumnName="users" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="mun" ColumnName="mun" />
+                <ScalarProperty Name="workListType" ColumnName="workListType" />
+                <ScalarProperty Name="workListId" ColumnName="workListId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mun_worklist">
+            <EntityTypeMapping TypeName="workReportModel.mun_worklist">
+              <MappingFragment StoreEntitySet="mun_worklist">
+                <ScalarProperty Name="district_id" ColumnName="district_id" />
+                <ScalarProperty Name="mun_name" ColumnName="mun_name" />
+                <ScalarProperty Name="mun_id" ColumnName="mun_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="deleteWorkList" FunctionName="workReportModel.Store.deleteWorkList" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

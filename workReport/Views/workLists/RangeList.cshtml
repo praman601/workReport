@@ -110,9 +110,15 @@
 
         $(document).ready(function () {
             debugger;
+            $('#EndDatee').datepicker();
             $('#StartDatee').datepicker({ dateFormat: 'yy-mm-dd' }).datepicker("setDate", StartDatee);
        
-            $('#EndDatee').datepicker({ dateFormat: 'yy-mm-dd' }).datepicker("setDate", EndDatee);
+            $('#rangelisttable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
        
            
         });

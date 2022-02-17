@@ -40,6 +40,9 @@ namespace workReport.Models
         public virtual DbSet<user> user { get; set; }
         public virtual DbSet<MisC_Data> MisC_Data { get; set; }
         public virtual DbSet<CP_WORKLIST> CP_WORKLIST { get; set; }
+        public virtual DbSet<userLogin> userLogin { get; set; }
+        public virtual DbSet<JN_WORKLIST> JN_WORKLIST { get; set; }
+        public virtual DbSet<mun_worklist> mun_worklist { get; set; }
     
         public virtual ObjectResult<Nullable<System.DateTime>> PR_neptoeng(string nepdate)
         {
@@ -66,6 +69,31 @@ namespace workReport.Models
                 new ObjectParameter("userId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<allUsersDataCount_Result>("allUsersDataCount", userIdParameter);
+        }
+    
+        public virtual int deleteWorkList(Nullable<int> isUserId, Nullable<int> isOperation, string isYear, string isMonth, string isDay)
+        {
+            var isUserIdParameter = isUserId.HasValue ?
+                new ObjectParameter("isUserId", isUserId) :
+                new ObjectParameter("isUserId", typeof(int));
+    
+            var isOperationParameter = isOperation.HasValue ?
+                new ObjectParameter("isOperation", isOperation) :
+                new ObjectParameter("isOperation", typeof(int));
+    
+            var isYearParameter = isYear != null ?
+                new ObjectParameter("isYear", isYear) :
+                new ObjectParameter("isYear", typeof(string));
+    
+            var isMonthParameter = isMonth != null ?
+                new ObjectParameter("isMonth", isMonth) :
+                new ObjectParameter("isMonth", typeof(string));
+    
+            var isDayParameter = isDay != null ?
+                new ObjectParameter("isDay", isDay) :
+                new ObjectParameter("isDay", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("deleteWorkList", isUserIdParameter, isOperationParameter, isYearParameter, isMonthParameter, isDayParameter);
         }
     }
 }
