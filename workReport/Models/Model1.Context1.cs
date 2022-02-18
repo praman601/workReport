@@ -71,7 +71,7 @@ namespace workReport.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<allUsersDataCount_Result>("allUsersDataCount", userIdParameter);
         }
     
-        public virtual int deleteWorkList(Nullable<int> isUserId, Nullable<int> isOperation, string isYear, string isMonth, string isDay)
+        public virtual ObjectResult<deleteWorkList_Result> deleteWorkList(Nullable<int> isUserId, Nullable<int> isOperation, string isYear, string isMonth, string isDay)
         {
             var isUserIdParameter = isUserId.HasValue ?
                 new ObjectParameter("isUserId", isUserId) :
@@ -93,7 +93,7 @@ namespace workReport.Models
                 new ObjectParameter("isDay", isDay) :
                 new ObjectParameter("isDay", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("deleteWorkList", isUserIdParameter, isOperationParameter, isYearParameter, isMonthParameter, isDayParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<deleteWorkList_Result>("deleteWorkList", isUserIdParameter, isOperationParameter, isYearParameter, isMonthParameter, isDayParameter);
         }
     }
 }

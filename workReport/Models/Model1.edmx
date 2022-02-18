@@ -274,7 +274,7 @@ warning 6002: The table/view 'workReport.dbo.mun_worklist' does not have a prima
           <EntitySet Name="userLogin" EntityType="workReportModel.userLogin" />
           <EntitySet Name="JN_WORKLIST" EntityType="workReportModel.JN_WORKLIST" />
           <EntitySet Name="mun_worklist" EntityType="workReportModel.mun_worklist" />
-          <FunctionImport Name="deleteWorkList">
+          <FunctionImport Name="deleteWorkList" ReturnType="Collection(workReportModel.deleteWorkList_Result)">
             <Parameter Name="isUserId" Mode="In" Type="Int32" />
             <Parameter Name="isOperation" Mode="In" Type="Int32" />
             <Parameter Name="isYear" Mode="In" Type="String" />
@@ -439,6 +439,17 @@ warning 6002: The table/view 'workReport.dbo.mun_worklist' does not have a prima
           <Property Name="mun_name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="district_id" Type="Int32" Nullable="false" />
         </EntityType>
+        <ComplexType Name="deleteWorkList_Result">
+          <Property Type="Int32" Name="workListId" Nullable="false" />
+          <Property Type="String" Name="workListType" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="mun" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="time" Nullable="true" />
+          <Property Type="Int32" Name="users" Nullable="true" />
+          <Property Type="String" Name="date" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="issue" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="date_Eng" Nullable="true" Precision="23" />
+          <Property Type="String" Name="workDet" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -637,7 +648,21 @@ warning 6002: The table/view 'workReport.dbo.mun_worklist' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="deleteWorkList" FunctionName="workReportModel.Store.deleteWorkList" />
+          <FunctionImportMapping FunctionImportName="deleteWorkList" FunctionName="workReportModel.Store.deleteWorkList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="workReportModel.deleteWorkList_Result">
+                <ScalarProperty Name="workListId" ColumnName="workListId" />
+                <ScalarProperty Name="workListType" ColumnName="workListType" />
+                <ScalarProperty Name="mun" ColumnName="mun" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="users" ColumnName="users" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="issue" ColumnName="issue" />
+                <ScalarProperty Name="date_Eng" ColumnName="date_Eng" />
+                <ScalarProperty Name="workDet" ColumnName="workDet" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

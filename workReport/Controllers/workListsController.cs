@@ -614,14 +614,15 @@ namespace workReport.Controllers
             int isUserPost = Convert.ToInt32(Session["userPost"]);
             var obj = new workReportEntities();
 
-            string x = obj.PR_engtonep(engdate: workDate).FirstOrDefault();
+            string x =  workDate;
+           
 
             workList workList = new workList();
             workList.workListType = workTypeId;
             workList.issue = issueTypeId;
             workList.mun = munId;
             workList.time = timeId;
-            workList.date_Eng = Convert.ToDateTime(workDate);
+            workList.date_Eng = Convert.ToDateTime(obj.PR_neptoeng(nepdate: x).FirstOrDefault());
             workList.date = x;
             workList.workDet = workDet;
             workList.users = Convert.ToInt32(Session["userId"]);
