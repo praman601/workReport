@@ -296,12 +296,22 @@ namespace workReport.Controllers
             }
         }
 
-        public ActionResult Index(FormCollection fc)
+        public ActionResult Index(string yearcheck, string monthcheck,FormCollection fc)
         {
             var obj = new workReportEntities();
             string nepMonthstr = "0";
-            int nepYear = Convert.ToInt32(fc["fscYear"]);
-            int nepmonth = Convert.ToInt32(fc["months"]);
+            int nepYear;
+            int nepmonth;
+            if (yearcheck != null || monthcheck != null)
+            {
+                nepYear =Convert.ToInt32(yearcheck);
+                nepmonth =Convert.ToInt32( monthcheck);
+            }
+            else
+            {
+                nepYear = Convert.ToInt32(fc["fscYear"]);
+                nepmonth = Convert.ToInt32(fc["months"]);
+            }
             if (nepmonth < 10)
             {
                 nepMonthstr = '0' + nepmonth.ToString();

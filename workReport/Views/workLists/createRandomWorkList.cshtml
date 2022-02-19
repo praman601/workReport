@@ -1,6 +1,5 @@
 ﻿
-@using (Html.BeginForm("createRandomWorkListPost", "workLists" , FormMethod.Post))
-{
+
     <div class="box1" id="List_Container">
         <div class="box2">
             <div class="box3 ">
@@ -10,10 +9,32 @@
                 <h5 style="color: whitesmoke; font-family: sans-serif">
                 </h5>
 
+                <br />
+                <hr />
+                <div class="row" id="checkDate">
+                    <div class="col-md-3">
+                        <label>Select One:</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="radio" id="createWork" name="taskType" value="1" checked>
+
+                        <label for="createWork">Create Work List</label>
+                    </div>
+
+                    <div class="col-md-3">
+                        <input type="radio" id="deleteWork" name="taskType" value="2">
+                        <label for="deleteWork">Delete Work List</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="radio" id="generateReport" name="taskType" value="3">
+                        <label for="generateReport">Show Report</label>
+                    </div>
+                </div>
                 <hr />
 
 
-               
+
+
 
                 <div id="divOldtoNew" class="row">
                     <p style="font-size: 20px; color: lavender">
@@ -25,18 +46,18 @@
                         <div class="col-md-2" id="months1">
                             <select class="form-control" name="months" id="months">
 
-                                <option value="1">Baisakh</option>
-                                <option value="2">Jestha</option>
-                                <option value="3">Asad</option>
-                                <option value="4">Shrawan</option>
-                                <option value="5">Bhadra</option>
-                                <option value="6">Ashwin</option>
-                                <option value="7">Kartik</option>
-                                <option value="8">Mangsir</option>
-                                <option value="9">Poush</option>
-                                <option value="10">Magh</option>
-                                <option value="11">Falgun</option>
-                                <option value="12">Chaitra</option>
+                                <option value="1" name="Baisakh">Baisakh</option>
+                                <option value="2" name="Jestha">Jestha</option>
+                                <option value="3" name="Asad">Asad</option>
+                                <option value="4" name="Shrawan">Shrawan</option>
+                                <option value="5" name="Bhadra">Bhadra</option>
+                                <option value="6" name="Ashwin">Ashwin</option>
+                                <option value="7" name="Kartik">Kartik</option>
+                                <option value="8" name="Mangsir">Mangsir</option>
+                                <option value="9" name="Poush">Poush</option>
+                                <option value="10" name="Magh">Magh</option>
+                                <option value="11" name="Falgun">Falgun</option>
+                                <option value="12" name="Chaitra">Chaitra</option>
 
 
                             </select>
@@ -84,27 +105,123 @@
                         </div>
 
                         <div class="col-md-2">
-                            <input type="submit" name="btnConvertOldToNew" value=" Create New List" id="" class="btn btn-primary"  />
+                            <input type="submit" name="submitForResult" value=" Submit" id="submitData" class="btn btn-primary" onclick="return submitData()" />
                         </div>
+
+
+
                     </p>
-                    <hr />
-
-                    <br />
-
-                    <div class="row pull-left" id="hiddenresult" hidden>
-
-                        <h2 color: lavender">
-                            Date Converted :  <span id="message">
-                            </span>
-                        </h2>
+             
 
 
 
-                    </div>
+
                 </div>
 
+
+            </div>
+            <div class="row pull-left" id="hiddenresult" hidden>
+                <br />
+                <h2 color: lavender">
+                    <span id="message">
+                    </span>
+                </h2>
             </div>
         </div>
     </div>
-}
+
    
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<script>
+
+    var bsadchange = $("input[type='radio'][name='taskType']:checked").val();
+
+
+    $('input[type=radio][name=taskType]').change(function () {
+        debugger;
+        if (this.value == '3') {
+
+            $("#days1").hide();
+        }
+        else {
+            $("#days1").show();
+        }
+        
+    });
+
+
+
+    function submitData() {
+        debugger;
+        $('#List_Container').html();
+        var year = $('#NepYears').val();
+        var month = $('#months').val();
+        var monthName = $("#months option:selected").text();
+        var day = $('#day').val();
+        if (day == undefined) {
+            day = 0;
+        }
+        var taskType = $("input[type='radio'][name='taskType']:checked").val();
+
+        {
+            
+                $.ajax({
+                    url: '/worklists/addelRepTask',
+                    //type: "post",
+                    //dataType: "JSON",
+                    // async: true,
+                    method: "post",
+                    type: "application/json",
+
+                    data: {
+                        year: year,
+                        month: month,
+                        monthName: monthName,
+                        day: day,
+                        taskType: taskType
+
+                    }
+                    ,
+                    success: function (json) {
+                        debugger;
+                        if (json.isRedirect) {
+                            window.location.href = json.redirectUrl;
+                        }
+                        else {
+                            console.log(json.message);
+                            $('#hiddenresult').show();
+                            $('#message').text(json.message);
+                        }
+                    }
+
+                    , error: function (result) {
+                        debugger;
+
+                        alert("something went wrongsss!!");
+                    }
+
+
+                });
+
+           
+
+
+
+
+
+        }
+    }
+
+
+
+    //$('#generateReport').click(function () {
+    //    if ($('#generateReport').is(':checked')) {
+
+    //        $("#days1").hide();
+    //    }
+    //    else {
+
+    //    }
+    //});
+
+</script>
