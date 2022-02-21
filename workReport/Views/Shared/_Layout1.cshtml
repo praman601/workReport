@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Report</title>
+    @Styles.Render("~/Content/css")
+   @* <script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
+    <script src="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/js/nepali.datepicker.v3.7.min.js" type="text/javascript"></script>
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Work Report", "Index", "workLists", new { area = "" }, new { @class = "navbar-brand" })
+
+
+            </div>
+
+            <div class="navbar-collapse collapse">
+                @if (Session["userName"] != null)
+                {
+                    <ul class="nav navbar-nav">
+                        @*     <li>@Html.ActionLink("Home", "Index", "Home")</li>*@
+
+
+                        <li class="nav-item dropdown">
+
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                WorkList
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                <li>@Html.ActionLink("Dashboard", "Main", "WorkLists")</li>
+                                @*<li>@Html.ActionLink("Create Work Data", "createRandomWorkList", "WorkLists")</li>
+                                    <li>@Html.ActionLink("Delete Work Data", "deleteWorkDataGet", "WorkLists")</li>*@
+
+                                <li>@Html.ActionLink("Worklist Data Export", "workListExport", "WorkLists")</li>
+                                <li>@Html.ActionLink("Worklist Data Import", "ImportExcel", "WorkLists")</li>
+
+                            </ul>
+                        </li>
+
+
+                        <li>@Html.ActionLink("Add Holiday", "addHoliday", "WorkLists")</li>
+                        <li>@Html.ActionLink("Range Search", "RangeList", "WorkLists")</li>
+
+                        <li class="nav-item dropdown">
+
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Report
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                <li>@Html.ActionLink("Monthly Report", "report", "Reports")</li>
+                                <li>@Html.ActionLink("Daily Report", "report1", "Reports")</li>
+
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Utilities
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                <li>@Html.ActionLink("Date Converter", "DateConvert", "Reports")</li>
+                                <li>@Html.ActionLink("Report Graph", "worklistgraph", "Reports")</li>
+                                <li>@Html.ActionLink("Change Password", "changepassword", "users")</li>
+                                @*<li>@Html.ActionLink("Daily Report", "report1", "Reports")</li>*@
+
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Work Data
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                <li>@Html.ActionLink("Work List Data", "createRandomWorkList", "worklists")</li>
+
+
+                                @*<li>@Html.ActionLink("Daily Report", "report1", "Reports")</li>*@
+
+                            </ul>
+                        </li>
+
+                        @*<li>@Html.ActionLink("About", "About", "Home")</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="">Dear - @Session["userName"].ToString()</a></li>
+                        <li>@Html.ActionLink("Log Out", "SignOut", "Login")</li>
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+
+    </div>
+    @*<script>
+
+        var clicks = 0;
+        function click() {
+            debugger;
+            alert("Clicekd");
+            clicks += 1;
+            document.getElementById("clicks").innerHTML = clicks;
+        };
+
+        </script>*@
+
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+
+
+</body>
+</html>

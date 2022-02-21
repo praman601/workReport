@@ -37,8 +37,8 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
                             <li>@Html.ActionLink("Dashboard", "Main", "WorkLists")</li>
-                            <li>@Html.ActionLink("Create Work Data", "createRandomWorkList", "WorkLists")</li>
-                            <li>@Html.ActionLink("Delete Work Data", "deleteWorkDataGet", "WorkLists")</li>
+                            @*<li>@Html.ActionLink("Create Work Data", "createRandomWorkList", "WorkLists")</li>
+                            <li>@Html.ActionLink("Delete Work Data", "deleteWorkDataGet", "WorkLists")</li>*@
 
                             <li>@Html.ActionLink("Worklist Data Export", "workListExport", "WorkLists")</li>
                             <li>@Html.ActionLink("Worklist Data Import", "ImportExcel", "WorkLists")</li>
@@ -87,8 +87,8 @@
 
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                            <li>@Html.ActionLink("Create Work List", "createRandomWorkList", "worklists")</li>
-                            <li>@Html.ActionLink("Delete Work List", "deleteWorkDataGet", "worklists")</li>
+                            <li>@Html.ActionLink("Work List Data", "createRandomWorkList", "worklists")</li>
+                          
                             
                             @*<li>@Html.ActionLink("Daily Report", "report1", "Reports")</li>*@
 
@@ -123,7 +123,7 @@
 
     </script>*@
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -2,112 +2,122 @@
 
 @using PagedList.Mvc;
 @using PagedList;
-
-<h2>Index</h2>
-<link href="~/Scripts/nepali.datepicker.v2.2 (1)/nepali.datepicker.v2.2.min.css" rel="stylesheet" />
-
-@using (Html.BeginForm())
-{
-
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-3">
-                @Html.TextBoxFor(model => model.FirstOrDefault().date, new { @class = "form-control nepali-calendar" })
-            </div>
+@{
+    //Layout = "~/Views/Shared/_Layout1.cshtml";
+    //Layout = null;
+}
+<h2>Add Holiday</h2>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Scripts/nepali.datepicker.v3.7/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+<body>
+    @using (Html.BeginForm())
+    {
 
 
-            @*<div class="col-md-3">
-                    @Html.Editor("workDet", new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Detail" } })
+        <div class="form-group">
+            <div class="row">
 
-                </div>*@
-            <div class="col-md-3">
-                <select class="btn btn-md btn-danger" name="workDet" id="workDet" style="
+                <div class="col-md-3" id="fromdatediv">
+                    @Html.Editor("date", new { htmlAttributes = new { @class = "form-control nepali-calendar ", @id = "fromdate" } })
+                </div>
+                <div class="col-md-3" id="todatediv">
+                    @Html.Editor("date1", new { htmlAttributes = new { @class = "form-control nepali-calendar1", @id = "todate" } })
+                </div>
+
+                @*<div class="col-md-3">
+                        @Html.Editor("workDet", new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Detail" } })
+
+                    </div>*@
+                <div class="col-md-3">
+                    <select class="btn btn-md btn-danger" name="workDet" id="workDet" style="
     width: 270px;
     height: 35px;
 ">
-                    <option value="Public Holiday" selected>Public Holiday</option>
-                    <option value="Leave" selected>Leave</option>
-                    <option value="TravelOrder">Travel Order</option>
+                        <option value="Public Holiday" selected>Public Holiday</option>
+                        <option value="Leave" selected>Leave</option>
+                        <option value="TravelOrder">Travel Order</option>
 
 
-                </select>
+                    </select>
+                </div>
+
+
+                <div class="col-md-2">
+                    <input type="button" class="btn  btn-primary btn-block" value="Add" onclick="return addWork()">
+                </div>
             </div>
+            <br />
 
+            <br />
 
-            <div class="col-md-2">
-                <input type="button" class="btn  btn-primary btn-block" value="Add" onclick="return addWork()">
-            </div>
+            <br />
+
         </div>
-        <br />
 
-        <br />
 
-        <br />
+    }
+
+    <div id="List_Container">
+        <table class="table">
+            <tr>
+                <th>
+                    SN
+                </th>
+
+                <th>
+                    Date
+                </th>
+                <th>
+                    Details
+                </th>
+
+
+
+                <th></th>
+            </tr>
+            @{ int rowNo = 0; }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @(rowNo += 1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.workDet)
+                    </td>
+
+
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.workListId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.workListId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.workListId })
+                    </td>
+                </tr>
+            }
+
+        </table>
+        @Html.PagedListPager(Model, i => Url.Action("addHoliday", "workLists", new { i }))
 
     </div>
+</body>
 
+<script src="~/Scripts/nepali.datepicker.v3.7/js/nepali.datepicker.v3.7.min.js"></script>
 
-}
-
-<div id="List_Container">
-    <table class="table">
-        <tr>
-            <th>
-                SN
-            </th>
-
-            <th>
-                Date
-            </th>
-            <th>
-                Details
-            </th>
-
-
-
-            <th></th>
-        </tr>
-        @{ int rowNo = 0; }
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @(rowNo += 1)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.workDet)
-                </td>
-
-
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.workListId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.workListId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.workListId })
-                </td>
-            </tr>
-        }
-
-    </table>
-    @Html.PagedListPager(Model, i => Url.Action("addHoliday", "workLists", new { i }))
-
-</div>
-
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<script src="~/Scripts/jquery-1.12.4.js"></script>
-<script src="~/Scripts/nepali.datepicker.v2.2 (1)/nepali.datepicker.v2.2.min.js"></script>
-
-
-<script>
-
-    $('.nepali-calendar').click(function () {
-        debugger;
-        $('.nepali-calendar').nepaliDatePicker();
-    });
-    $('.nepali-calendar').nepaliDatePicker();
+<script type="text/javascript">
+    window.onload = function () {
+        var mainInput = document.getElementById("fromdate");
+        var secondInput = document.getElementById("todate");
+        secondInput.nepaliDatePicker({});
+        mainInput.nepaliDatePicker({
+            onChange: function () {
+                var secondInput = document.getElementById("todate");
+                secondInput.value = mainInput.value;
+            }
+        });
+    };
 
 
     function addWork() {
@@ -118,7 +128,8 @@
         var munId = "";
         var timeId ="";
         var userId = '@Session["userId"]';
-        var workDate = $('#date').val();
+        var workDate = $('#fromdate').val();
+        var workDate1 = $('#todate').val();
         var workDet = $('#workDet').val();
 
         {
@@ -138,6 +149,7 @@
                     timeId: timeId,
                     userId: userId,
                     workDate: workDate,
+                    workDate1: workDate1,
                     workDet: workDet
 
                 }
@@ -149,8 +161,9 @@
 
                     $('#List_Container').html(result);
 
-                    $("#workDate").val();
-                    $('#workDet').val('');
+                    $("#fromdate").val();
+                    $("#todate").val();
+                    $('#workDet').val();
 
                 }
                 , error: function (result) {
@@ -164,3 +177,6 @@
         }
     }
 </script>
+
+
+

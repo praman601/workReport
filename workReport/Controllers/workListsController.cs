@@ -381,7 +381,7 @@ namespace workReport.Controllers
             {
                 return Json(new
                 {
-                    redirectUrl = Url.Action("report", "Reports", new { yearcheck = year, monthcheck = month }),
+                    redirectUrl = Url.Action("Index", "Reports", new { yearcheck = year, monthcheck = month }),
                     isRedirect = true
                 });
             }
@@ -959,6 +959,8 @@ namespace workReport.Controllers
         public ActionResult addHoliday(int? i)
         {
             int isuser = Convert.ToInt32(Session["userId"]);
+            ViewBag.date = db.PR_engtonep(DateTime.Now.ToString("yyyy-MM-dd"));
+            ViewBag.date1 = db.PR_engtonep(DateTime.Now.ToString("yyyy-MM-dd"));
             return View(db.workList.AsNoTracking().Where(x => x.users == isuser && x.mun == "" && x.workListType == "").OrderByDescending(x => x.workListId).ToList().ToPagedList(i ?? 1, 10));
         }
         public ActionResult addHoliday1(int? i)
@@ -968,28 +970,41 @@ namespace workReport.Controllers
         }
 
 
-        public ActionResult CreateHoliday(string workTypeId, string issueTypeId, string munId, int? timeId, int userId, string workDate, string workDet)
+        public ActionResult CreateHoliday(string workTypeId, string issueTypeId, string munId, int? timeId, int userId, string workDate, string workDate1,string workDet)
         {
             int isUserPost = Convert.ToInt32(Session["userPost"]);
             var obj = new workReportEntities();
+            DateTime startDate = Convert.ToDateTime(obj.PR_neptoeng(nepdate: workDate).FirstOrDefault());
+            DateTime endDate = Convert.ToDateTime(obj.PR_neptoeng(nepdate: workDate1).FirstOrDefault());
+            
+            if(endDate>=startDate)
+            {
+                for (DateTime date = startDate; startDate <= endDate; startDate.AddDays(1))
+                {
+                    string x = obj.PR_engtonep(engdate: startDate.ToString("yyyy-MM-dd")).FirstOrDefault().ToString();
+                    workList workList = new workList();
+                    workList.workListType = workTypeId;
+                    workList.issue = issueTypeId;
+                    workList.mun = munId;
+                    workList.time = timeId;
+                    workList.date_Eng = startDate;
+                    workList.date = x;
+                    workList.workDet = workDet;
+                    workList.users = Convert.ToInt32(Session["userId"]);
 
-            string x =  workDate;
+                    db.workList.Add(workList);
+                    db.SaveChanges();
+                  startDate=  startDate.AddDays(1);
+                }
+                return RedirectToAction("addHoliday1");
+            }
+            else
+            {
+                
+                return RedirectToAction("addHoliday");
+            }
+
            
-
-            workList workList = new workList();
-            workList.workListType = workTypeId;
-            workList.issue = issueTypeId;
-            workList.mun = munId;
-            workList.time = timeId;
-            workList.date_Eng = Convert.ToDateTime(obj.PR_neptoeng(nepdate: x).FirstOrDefault());
-            workList.date = x;
-            workList.workDet = workDet;
-            workList.users = Convert.ToInt32(Session["userId"]);
-
-            db.workList.Add(workList);
-            db.SaveChanges();
-
-            return RedirectToAction("addHoliday1");
 
 
 

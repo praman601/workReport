@@ -1,0 +1,84 @@
+﻿@model IPagedList<workReport.Models.workList>
+
+@using PagedList.Mvc;
+@using PagedList;
+@{
+
+}
+
+<h2>Index</h2>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<link href="~/Scripts/nepali.datepicker.v3.7/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+<body>
+    @using (Html.BeginForm())
+    {
+
+        <div class="form-group">
+            <div class="row">
+
+                <div class="col-md-3" id="fromdatediv">
+                    @Html.Editor("date", new { htmlAttributes = new { @class = "form-control nepali-calendar ", @id = "fromdate" } })
+                </div>
+                <div class="col-md-3" id="todatediv">
+                    @Html.Editor("date1", new { htmlAttributes = new { @class = "form-control nepali-calendar1", @id = "todate" } })
+                </div>
+</div>
+            </div>
+
+                @*<p>
+                    <input type="text" value="2078-11-03" id="fromdate" placeholder="Select Nepali Date" />
+                </p>
+
+                <p>
+                    <input type="text" id="todate" placeholder="Select Nepali Date" />
+                </p>*@
+
+                <script src="~/Scripts/nepali.datepicker.v3.7/js/nepali.datepicker.v3.7.min.js"></script>
+                <script type="text/javascript">
+                    window.onload = function () {
+                        var mainInput = document.getElementById("fromdate");
+                        var secondInput = document.getElementById("todate");
+                        secondInput.nepaliDatePicker({});
+                        mainInput.nepaliDatePicker({
+                            onChange: function () {
+                                var secondInput = document.getElementById("todate");
+                                secondInput.value = mainInput.value;
+                            }
+                        });
+                    };
+
+                                                            //var x = document.getElementById("fromdate").value;
+                                                            //alert(x);
+
+
+                                                            //function myFunction() {
+                                                            //    var x = document.getElementById("fromdate");
+                                                            //    alert(x.value);
+                                                            //}
+
+                                                                    //$(document).ready(function () {
+                                                                    //    debugger;
+                                                                    //    $('#fromdate').change(function () {
+                                                                    //        alert('hi');
+                                                                    //    });
+                                                                    //    var mainInput1 = document.getElementById("fromdate").value;
+                                                                    //    alert(mainInput1);
+                                                                    //    //$('#nepali-datepicker').change(function () {
+                                                                    //    //    alert('hi');
+                                                                    //    //});
+                                                                    //});
+                </script>
+
+
+                }
+    </body>
+
+<script>
+
+
+
+</script>
+
+
+

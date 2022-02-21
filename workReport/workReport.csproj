@@ -591,21 +591,9 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
-    <Content Include="Scripts\nepali.datepicker.v2.2 %281%29\css\bootstrap-theme.css" />
-    <Content Include="Scripts\nepali.datepicker.v2.2 %281%29\css\bootstrap-theme.min.css" />
-    <Content Include="Scripts\nepali.datepicker.v2.2 %281%29\css\bootstrap.css" />
-    <Content Include="Scripts\nepali.datepicker.v2.2 %281%29\css\bootstrap.min.css" />
-    <Content Include="Scripts\nepali.datepicker.v2.2 %281%29\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Scripts\nepali.datepicker.v2.2 %281%29\images\ndp_bg_wave.png" />
-    <Content Include="Scripts\nepali.datepicker.v2.2 %281%29\images\ndp_buttons.png" />
-    <Content Include="Scripts\nepali.datepicker.v2.2 %281%29\images\ndp_date_bg.png" />
-    <Content Include="Scripts\nepali.datepicker.v2.2 %281%29\index.html" />
-    <Content Include="Scripts\nepali.datepicker.v2.2 %281%29\js\bootstrap.js" />
-    <Content Include="Scripts\nepali.datepicker.v2.2 %281%29\js\bootstrap.min.js" />
-    <Content Include="Scripts\nepali.datepicker.v2.2 %281%29\js\jquery-2.1.0.min.js" />
-    <Content Include="Scripts\nepali.datepicker.v2.2 %281%29\js\jquery.js" />
-    <Content Include="Scripts\nepali.datepicker.v2.2 %281%29\nepali.datepicker.v2.2.min.css" />
-    <Content Include="Scripts\nepali.datepicker.v2.2 %281%29\nepali.datepicker.v2.2.min.js" />
+    <Content Include="Scripts\nepali.datepicker.v3.7\css\nepali.datepicker.v3.7.min.css" />
+    <Content Include="Scripts\nepali.datepicker.v3.7\js\nepali.datepicker.v3.7.min.js" />
+    <Content Include="Scripts\nepali.datepicker.v3.7\sample.html" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Web.config" />
@@ -646,7 +634,7 @@
     <Content Include="Views\Reports\dailyReport.cshtml" />
     <Content Include="Views\Reports\dailyReport1.cshtml" />
     <Content Include="Views\workLists\Main.cshtml" />
-    <Content Include="Views\workLists\addHoliday.cshtml" />
+    <Content Include="Views\workLists\addHolidaycpy.cshtml" />
     <Content Include="Views\workLists\addHoliday1.cshtml" />
     <Content Include="Views\workLists\RangeList.cshtml" />
     <Content Include="Views\workLists\RangeList1.cshtml" />
@@ -668,11 +656,8 @@
     <Content Include="Views\KhaltiPayment\Payment.cshtml" />
     <Content Include="Views\workLists\createRandomWorkList.cshtml" />
     <Content Include="Views\workLists\deleteWorkDataGet.cshtml" />
-    <Content Include="Scripts\nepali.datepicker.v2.2 %281%29\css\bootstrap-theme.css.map" />
-    <Content Include="Scripts\nepali.datepicker.v2.2 %281%29\css\bootstrap.css.map" />
-    <Content Include="Scripts\nepali.datepicker.v2.2 %281%29\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Scripts\nepali.datepicker.v2.2 %281%29\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Scripts\nepali.datepicker.v2.2 %281%29\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Views\Shared\_Layout1.cshtml" />
+    <Content Include="Views\workLists\addHoliday.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -741,6 +726,5 @@
     </ItemGroup>
     <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
     <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
-</Target>
-  
+  </Target>
 </Project>
