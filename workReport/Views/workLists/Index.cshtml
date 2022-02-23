@@ -4,7 +4,9 @@
 @using PagedList;
 
 <h2>Index</h2>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
 
+<link href="~/Scripts/nepali.datepicker.v3.7/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
 
 @using (Html.BeginForm())
 {
@@ -50,9 +52,9 @@
 
                     @for (var i = 1; i <= 60; i++)
                     {
-                      <option value="@i">@i</option>
+                        <option value="@i">@i</option>
                     }
-                  
+
                 </datalist>
             </div>
             <div class="col-md-2">
@@ -63,29 +65,25 @@
         <div class="row">
 
             <div class="col-md-3">
-                @Html.Editor("workDate", new
-                {
-                    htmlAttributes = new
-                    {
-                        @class = "form-control "@*, @Value = @DateTime.Now.ToShortDateString()*@}
-})
+                @Html.Editor("date", new { htmlAttributes = new { @class = "form-control nepali-calendar ", @id = "workDate" } })
+
             </div>
             <div id="" class="col-lg-8">
-             @Html.Editor("workDet", new
-        {
-            htmlAttributes = new
-            {
-                @class = "form-control form-grp-lg ",
-                @placeholder = "Work Details",
-                @width ="200px"
+                @Html.Editor("workDet", new
+           {
+               htmlAttributes = new
+               {
+                   @class = "form-control form-grp-lg ",
+                   @placeholder = "Work Details",
+                   @width = "200px"
 
-            }
-        })
-         </div>
+               }
+           })
+            </div>
 
             @*<div class="col-md-7">
-                <input type="text" width="200" class="form-control  form-group" id="workDet" >
-            </div>*@
+                    <input type="text" width="200" class="form-control  form-group" id="workDet" >
+                </div>*@
         </div>
         <br />
 
@@ -141,7 +139,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.time)
                 </td>
-                <td>@Html.DisplayFor(ModelItem=>item.date)</td>
+                <td>@Html.DisplayFor(ModelItem => item.date)</td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.workListId }) |
                     @Html.ActionLink("Details", "Details", new { id = item.workListId }) |
@@ -157,22 +155,29 @@
 <div class="row">
     <div class="btn-primary form-control col-md-3 " style="width:250px;">Total Number of visitors: @ViewBag.VisitCount</div>
 </div>
-@section scripts {
-    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
-    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
-    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
-    <script>
 
-        $(document).ready(function () {
-            debugger;
-            $('#workDate').datepicker({ dateFormat: 'yy-mm-dd' }).datepicker("setDate", new Date());
-        });
-    </script>
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
 
-}
+<script src="~/Scripts/nepali.datepicker.v3.7/js/nepali.datepicker.v3.7.min.js"></script>
 
 
-<script>
+
+
+<script type="text/javascript">
+
+    window.onload = function () {
+        var mainInput = document.getElementById("workDate");
+
+        mainInput.nepaliDatePicker();
+        //mainInput.nepaliDatePicker({
+        //    onChange: function () {
+        //        var secondInput = document.getElementById("todate");
+        //        secondInput.value = mainInput.value;
+        //    }
+        //});
+    };
 
 
 

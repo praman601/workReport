@@ -403,7 +403,8 @@ namespace workReport.Controllers
         {
             DateTime todaysDate = DateTime.Now.Date;
             int isuser = Convert.ToInt32(Session["userId"]);
-
+            ViewBag.date = db.PR_engtonep(DateTime.Now.ToString("yyyy-MM-dd"));
+            ViewBag.date1 = db.PR_engtonep(DateTime.Now.ToString("yyyy-MM-dd"));
             ViewBag.StartDatee = StartDatee;
             ViewBag.EndDatee = EndDatee;
             if (ViewBag.StartDatee == null || ViewBag.EndDatee == null)
@@ -439,8 +440,8 @@ namespace workReport.Controllers
                 return Json(new { data = worklistdata }, JsonRequestBehavior.AllowGet);
             }
             ViewBag.PageNume = i;
-            DateTime startingDate = Convert.ToDateTime(StartDatee);
-            DateTime endingDate = Convert.ToDateTime(EndDatee);
+            DateTime startingDate = Convert.ToDateTime(db.PR_neptoeng(nepdate: StartDatee).FirstOrDefault());
+            DateTime endingDate =  Convert.ToDateTime(db.PR_neptoeng(nepdate: EndDatee).FirstOrDefault());
             ViewBag.PageNume = i;
             //return View(db.workList.AsNoTracking().Where(x => x.users == isuser && x.date_Eng == todaysDate).OrderByDescending(x => x.workListId).ToList().ToPagedList(i ?? 1, 10));
             var worklistdatanew = db.workList.AsNoTracking().Where(x => x.users == isuser && x.date_Eng >= startingDate && x.date_Eng <= endingDate).OrderByDescending(x => x.workListId).ToList();
@@ -493,6 +494,7 @@ namespace workReport.Controllers
         {
             if (Session["userId"] != null)
             {
+                ViewBag.date = db.PR_engtonep(DateTime.Now.ToString("yyyy-MM-dd"));
                 ViewBag.VisitCount = db.MisC_Data.Find(1).Visit_Count;
                 ViewBag.mun = new SelectList(db.mun, "mun_id", "mun_name");
                 ViewBag.work_Types = new SelectList(db.workTypes, "workId", "workName");
@@ -553,15 +555,15 @@ namespace workReport.Controllers
             int isUserPost = Convert.ToInt32(Session["userPost"]);
             var obj = new workReportEntities();
 
-            string x = obj.PR_engtonep(engdate: workDate).FirstOrDefault();
+            DateTime workDateEng =Convert.ToDateTime( obj.PR_neptoeng(nepdate: workDate).FirstOrDefault());
 
             workList workList = new workList();
             workList.workListType = workTypeId;
             workList.issue = issueTypeId;
             workList.mun = munId;
             workList.time = timeId;
-            workList.date_Eng = Convert.ToDateTime(workDate);
-            workList.date = x;
+            workList.date_Eng = workDateEng;
+            workList.date = workDate;
             workList.workDet = workDet;
             workList.users = Convert.ToInt32(Session["userId"]);
 

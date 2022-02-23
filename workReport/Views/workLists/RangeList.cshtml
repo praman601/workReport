@@ -7,9 +7,9 @@
 @{
     var StartDatee = @ViewBag.StartDatee;
     var EndDatee = @ViewBag.EndDatee;
+    Layout = "~/Views/Shared/_Layout1.cshtml";
     // var PageNume = @ViewBag.PageNume;
 }
-
 
 
 
@@ -21,116 +21,147 @@
 
     <div class="row">
 
-        <div class="col-md-3">
-            @Html.Editor("StartDatee", new
-       {
-           htmlAttributes = new
-           {
-               @class = "form-control "@*, @Value = @DateTime.Now.ToShortDateString()*@}
-})
-        </div>
-        <div class="col-md-3">
-            @Html.Editor("EndDatee", new
-       {
-           htmlAttributes = new
-           {
-               @class = "form-control "@*, @Value = @DateTime.Now.ToShortDateString()*@}
-})
-        </div>
+        <div class="row">
 
-        <div class="col-md-3">
-            <input type="button" class="btn  btn-primary btn-block" value="submit" onclick="return searchWork1()">
+            <div class="col-md-3" id="fromdatediv">
+                @Html.Editor("date", new { htmlAttributes = new { @class = "form-control nepali-calendar ", @id = "StartDatee" } })
+            </div>
+            <div class="col-md-3" id="todatediv">
+                @Html.Editor("date1", new { htmlAttributes = new { @class = "form-control nepali-calendar", @id = "EndDatee" } })
+            </div>
+
+            <div class="col-md-3">
+                <input type="button" class="btn  btn-primary btn-block" value="submit" onclick="return searchWork1()">
+            </div>
+
+
         </div>
 
 
+        <br />
     </div>
-   
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="List_Container">
+        <table id="rangelisttable" class="table">
+
+            <thead>
+                <tr>
+
+
+                    <th>
+                        workListType
+                    </th>
+                    <th>
+                        issue
+                    </th>
+
+                    <th>
+                        mun
+                    </th>
+
+                    <th>
+                        time
+                    </th>
+                    <th>date</th>
+                    <th></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+
+
+
 }
-<br />
 
 
 
+@*<script src="~/Scripts/nepali.datepicker.v3.7/js/nepali.datepicker.v3.7.min.js"></script>*@
 
-
-
-
-
-
-
-
-
-
-
-<div id="List_Container">
-    <table id="rangelisttable" class="table">
-      
-        <thead>
-            <tr>
-
-
-                <th>
-                    workListType
-                </th>
-                <th>
-                    issue
-                </th>
-
-                <th>
-                    mun
-                </th>
-
-                <th>
-                    time
-                </th>
-                <th>date</th>
-                <th></th>
-            </tr>
-        </thead>
-    </table>
-</div>
-
-
-
-
-
-    
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/Scripts/nepali.datepicker.v3.7/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+<link href="~/Content/datatables.min.css" rel="stylesheet" />
 
-@section scripts {
+<link href="~/Content/datatables.min.css" rel="stylesheet" />
+<script src="~/Scripts/datatables.min.js"></script>
 
-
-    <link href="~/Content/datatables.min.css" rel="stylesheet" />
-    <script src="~/Scripts/datatables.min.js"></script>
-
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
-    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
-  
-    <script>
-
-        $(document).ready(function () {
-            debugger;
-            $('#EndDatee').datepicker();
-            $('#StartDatee').datepicker({ dateFormat: 'yy-mm-dd' }).datepicker("setDate", StartDatee);
-       
-            $('#rangelisttable').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
-                ]
-            });
-       
-           
+<script type="text/javascript">
+    window.onload = function () {
+        var mainInput = document.getElementById("StartDatee");
+        var secondInput = document.getElementById("EndDatee");
+        secondInput.nepaliDatePicker();
+        mainInput.nepaliDatePicker({
+            onChange: function () {
+                var secondInput = document.getElementById("EndDatee");
+                secondInput.value = mainInput.value;
+            }
         });
+    };
+</script>
+<script>
+
+        //$(document).ready(function () {
+        //    debugger;
+        //    $('#EndDatee').datepicker();
+        //    $('#StartDatee').datepicker({ dateFormat: 'yy-mm-dd' }).datepicker("setDate", StartDatee);
+
+        //    $('#rangelisttable').DataTable({
+        //        dom: 'Bfrtip',
+        //        buttons: [
+        //            'copy', 'csv', 'excel', 'pdf', 'print'
+        //        ]
+        //    });
+
+
+        //});
 
         function searchWork1() {
 
             debugger;
             $("#rangelisttable").DataTable().destroy();
 
-       var userId = '@Session["userId"]';
+            var userId = '@Session["userId"]';
             var startDate = $('#StartDatee').val();
             var endDate = $('#EndDatee').val();
+            //$.ajax({
+            //    "url": "/workLists/RangeListnew",
+            //    "type": "GET",
+            //    "datatype": "json",
+            //    data: {
+            //        StartDatee: startDate,
+            //        EndDatee: endDate
+
+            //    },
+            //    success: function (result) {
+            //        debugger;
+            //        $("#rangelisttable").DataTable(
+            //            {
+
+            //                "columns": [
+            //                    { "data": "workListType" },
+            //                    { "data": "issue" },
+            //                    { "data": "mun" },
+            //                    { "data": "time" },
+            //                    { "data": "date" }
+            //                ]
+
+            //            });
+            //    }
+            //});
         $("#rangelisttable").DataTable(
             {
                 "ajax": {
@@ -153,12 +184,12 @@
 
             });
 
-
+          
     }
 
 
 
 
-    </script>
-    }
+</script>
+
 
