@@ -971,8 +971,8 @@ namespace workReport.Controllers
             return View(db.workList.AsNoTracking().Where(x => x.users == isuser && x.mun == "" && x.workListType == "").OrderByDescending(x => x.workListId).ToList().ToPagedList(i ?? 1, 10));
         }
 
-
-        public ActionResult CreateHoliday(string workTypeId, string issueTypeId, string munId, int? timeId, int userId, string workDate, string workDate1,string workDet)
+      //  [OutputCache(Duration =60)]
+        public ActionResult CreateHoliday(string workTypeId, string issueTypeId, string munId, int? timeId, int userId, string workDate, string workDate1,string workDet,string isForAll)
         {
             int isUserPost = Convert.ToInt32(Session["userPost"]);
             var obj = new workReportEntities();
@@ -981,24 +981,62 @@ namespace workReport.Controllers
             
             if(endDate>=startDate)
             {
-                for (DateTime date = startDate; startDate <= endDate; startDate.AddDays(1))
+                if (isForAll == "true")
                 {
-                    string x = obj.PR_engtonep(engdate: startDate.ToString("yyyy-MM-dd")).FirstOrDefault().ToString();
-                    workList workList = new workList();
-                    workList.workListType = workTypeId;
-                    workList.issue = issueTypeId;
-                    workList.mun = munId;
-                    workList.time = timeId;
-                    workList.date_Eng = startDate;
-                    workList.date = x;
-                    workList.workDet = workDet;
-                    workList.users = Convert.ToInt32(Session["userId"]);
+                    var userIdList = db.user.Select(x => x.usrId).Distinct();
+                    foreach (var id in userIdList)
+                    {
+                        try { 
+                            using(var objn=new workReportEntities())
+                            {
 
-                    db.workList.Add(workList);
-                    db.SaveChanges();
-                  startDate=  startDate.AddDays(1);
+                         
+                        for (DateTime date = startDate; startDate <= endDate; startDate.AddDays(1))
+                        {
+                            string x = objn.PR_engtonep(engdate: startDate.ToString("yyyy-MM-dd")).FirstOrDefault().ToString();
+                            workList workList = new workList();
+                            workList.workListType = workTypeId;
+                            workList.issue = issueTypeId;
+                            workList.mun = munId;
+                            workList.time = timeId;
+                            workList.date_Eng = startDate;
+                            workList.date = x;
+                            workList.workDet = workDet;
+                            workList.users = id;
+
+                            objn.workList.Add(workList);
+                                    objn.SaveChanges();
+                            startDate = startDate.AddDays(1);
+                                }
+                            } }catch (Exception ex)
+                        {
+                            Console.WriteLine(ex);
+                        }
+                    }
+
+                    return RedirectToAction("addHoliday1");
                 }
-                return RedirectToAction("addHoliday1");
+                else
+                {
+                    for (DateTime date = startDate; startDate <= endDate; startDate.AddDays(1))
+                    {
+                        string x = obj.PR_engtonep(engdate: startDate.ToString("yyyy-MM-dd")).FirstOrDefault().ToString();
+                        workList workList = new workList();
+                        workList.workListType = workTypeId;
+                        workList.issue = issueTypeId;
+                        workList.mun = munId;
+                        workList.time = timeId;
+                        workList.date_Eng = startDate;
+                        workList.date = x;
+                        workList.workDet = workDet;
+                        workList.users = Convert.ToInt32(Session["userId"]);
+
+                        db.workList.Add(workList);
+                        db.SaveChanges();
+                        startDate = startDate.AddDays(1);
+                    }
+                    return RedirectToAction("addHoliday1");
+                }
             }
             else
             {

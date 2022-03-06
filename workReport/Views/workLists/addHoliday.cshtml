@@ -17,20 +17,20 @@
         <div class="form-group">
             <div class="row">
 
-                <div class="col-md-3" id="fromdatediv">
+                <div class="col-md-2" id="fromdatediv">
                     @Html.Editor("date", new { htmlAttributes = new { @class = "form-control nepali-calendar ", @id = "fromdate" } })
                 </div>
-                <div class="col-md-3" id="todatediv">
+                <div class="col-md-2" id="todatediv">
                     @Html.Editor("date1", new { htmlAttributes = new { @class = "form-control nepali-calendar1", @id = "todate" } })
                 </div>
 
                 @*<div class="col-md-3">
-                        @Html.Editor("workDet", new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Detail" } })
+            @Html.Editor("workDet", new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Detail" } })
 
-                    </div>*@
+        </div>*@
                 <div class="col-md-3">
                     <select class="btn btn-md btn-danger" name="workDet" id="workDet" style="
-    width: 270px;
+    width: 210px;
     height: 35px;
 ">
                         <option value="Public Holiday" selected>Public Holiday</option>
@@ -45,6 +45,9 @@
                 <div class="col-md-2">
                     <input type="button" class="btn  btn-primary btn-block" value="Add" onclick="return addWork()">
                 </div>
+                <input type="checkbox" name="holidayForAll" id="forAll"> <label for="remember_me" data-color="info">For All</label>
+
+
             </div>
             <br />
 
@@ -131,7 +134,8 @@
         var workDate = $('#fromdate').val();
         var workDate1 = $('#todate').val();
         var workDet = $('#workDet').val();
-
+        var isForAll = $('#forAll').prop('checked')
+    
         {
 
             $.ajax({
@@ -150,7 +154,8 @@
                     userId: userId,
                     workDate: workDate,
                     workDate1: workDate1,
-                    workDet: workDet
+                    workDet: workDet,
+                    isForAll: isForAll
 
                 }
                 ,
