@@ -40,7 +40,7 @@ namespace workReport.Controllers
             return View();
         }
 
-        public JsonResult addelRepTask(int year, int month,string monthName, int day, int taskType)
+        public JsonResult addelRepTask(int year, int month, string monthName, int day, int taskType)
         {
 
             string message = monthName;
@@ -325,7 +325,7 @@ namespace workReport.Controllers
 
 
                     }
-                    message = message +" "+day +" worklist Created";
+                    message = message + " " + day + " worklist Created";
                     return Json(new
                     {
                         message = message,
@@ -339,11 +339,11 @@ namespace workReport.Controllers
 
 
 
-                
 
-               
+
+
             }
-             else if(taskType==2)
+            else if (taskType == 2)
             {
                 string nepYear = year.ToString();
                 int nepmonth = month;
@@ -355,16 +355,16 @@ namespace workReport.Controllers
                 string isUserName = Session["userName"].ToString();
                 int isUserId = Convert.ToInt32(Session["userId"]);
                 var check = db.deleteWorkList(isUserId, operation, nepYear, monthh, dayy);
-                if(operation==0)
+                if (operation == 0)
                 {
-                    message = message  + " worklist Deleted";
+                    message = message + " worklist Deleted";
                     return Json(new
                     {
-                        message =message,
+                        message = message,
                         isRedirect = false
                     });
 
-                   
+
                 }
                 else
                 {
@@ -375,9 +375,9 @@ namespace workReport.Controllers
                         isRedirect = false
                     });
                 }
-              
+
             }
-            else if(taskType==3)
+            else if (taskType == 3)
             {
                 return Json(new
                 {
@@ -441,7 +441,7 @@ namespace workReport.Controllers
             }
             ViewBag.PageNume = i;
             DateTime startingDate = Convert.ToDateTime(db.PR_neptoeng(nepdate: StartDatee).FirstOrDefault());
-            DateTime endingDate =  Convert.ToDateTime(db.PR_neptoeng(nepdate: EndDatee).FirstOrDefault());
+            DateTime endingDate = Convert.ToDateTime(db.PR_neptoeng(nepdate: EndDatee).FirstOrDefault());
             ViewBag.PageNume = i;
             //return View(db.workList.AsNoTracking().Where(x => x.users == isuser && x.date_Eng == todaysDate).OrderByDescending(x => x.workListId).ToList().ToPagedList(i ?? 1, 10));
             var worklistdatanew = db.workList.AsNoTracking().Where(x => x.users == isuser && x.date_Eng >= startingDate && x.date_Eng <= endingDate).OrderByDescending(x => x.workListId).ToList();
@@ -555,7 +555,7 @@ namespace workReport.Controllers
             int isUserPost = Convert.ToInt32(Session["userPost"]);
             var obj = new workReportEntities();
 
-            DateTime workDateEng =Convert.ToDateTime( obj.PR_neptoeng(nepdate: workDate).FirstOrDefault());
+            DateTime workDateEng = Convert.ToDateTime(obj.PR_neptoeng(nepdate: workDate).FirstOrDefault());
 
             workList workList = new workList();
             workList.workListType = workTypeId;
@@ -611,7 +611,7 @@ namespace workReport.Controllers
                     List<WorkListModel> worksList = new List<WorkListModel>();
                     string p = (i <= 9) ? "0" + i : i.ToString();
                     string nepDate = nepYear + "-" + monthh + "-" + p;
-                    bool hasHoliday = db.workList.AsNoTracking().Where(h => (h.workDet == "Public Holiday" || h.workDet == "Leave" || h.workDet== "TravelOrder") && h.date == nepDate && h.users == isUserId).Any();
+                    bool hasHoliday = db.workList.AsNoTracking().Where(h => (h.workDet == "Public Holiday" || h.workDet == "Leave" || h.workDet == "TravelOrder") && h.date == nepDate && h.users == isUserId).Any();
                     var ssre = hasHoliday;
                     DateTime engDate = Convert.ToDateTime(db.PR_neptoeng(nepdate: nepDate).FirstOrDefault());
                     string x = engDate.ToString("yyyy-MM-dd");
@@ -636,7 +636,7 @@ namespace workReport.Controllers
                                 workList.date_Eng = Convert.ToDateTime(x);
                                 workList.workListType = "Call";
                                 workList.issue = GetRandomIssue();
-                                
+
                                 workList.mun = db.mun.OrderBy(s => Guid.NewGuid()).Select(s => s.mun_name).FirstOrDefault();
                                 workList.time = rand.Next(3, 12);
                                 workList.workDet = "Null";
@@ -658,7 +658,7 @@ namespace workReport.Controllers
                         andlist.date_Eng = item.date_Eng;
 
                         andlist.issue = item.issue;
-                        
+
                         andlist.mun = item.mun;
                         andlist.time = item.time;
                         andlist.workDet = "Null";
@@ -674,7 +674,7 @@ namespace workReport.Controllers
                         workList wl = new workList();
                         wl.date = item.date;
                         wl.date_Eng = item.date_Eng;
-                        
+
                         wl.issue = item.issue;
 
                         wl.mun = item.mun;
@@ -690,20 +690,20 @@ namespace workReport.Controllers
                     if (test1 != null)
                     {
 
-                 
-                    w2.date = test1.date;
-                    w2.date_Eng = test1.date_Eng;
 
-                    w2.issue = "OTHERS";
+                        w2.date = test1.date;
+                        w2.date_Eng = test1.date_Eng;
 
-                    w2.mun = "";
+                        w2.issue = "OTHERS";
+
+                        w2.mun = "";
                         Random rrr = new Random();
                         w2.time = rrr.Next(5, 13);
-                    w2.workDet = "";
-                    w2.users = test1.users;
-                    w2.workListType = "Email";
-                    db.workList.Add(w2);
-                    db.SaveChanges();
+                        w2.workDet = "";
+                        w2.users = test1.users;
+                        w2.workListType = "Email";
+                        db.workList.Add(w2);
+                        db.SaveChanges();
                     }
                     //foreach (var item in AddLists.OrderBy(t => t.mun))
                     //{
@@ -743,11 +743,11 @@ namespace workReport.Controllers
                     List<WorkListModel> worksList = new List<WorkListModel>();
                     string p = (i <= 9) ? "0" + i : i.ToString();
                     string nepDate = nepYear + "-" + monthh + "-" + p;
-                    bool hasHoliday = db.workList.AsNoTracking().Where(h => (h.workDet == "Public Holiday" || h.workDet == "Leave" || h.workDet== "TravelOrder") && h.date == nepDate && h.users == isUserId).Any();
+                    bool hasHoliday = db.workList.AsNoTracking().Where(h => (h.workDet == "Public Holiday" || h.workDet == "Leave" || h.workDet == "TravelOrder") && h.date == nepDate && h.users == isUserId).Any();
                     var ssre = hasHoliday;
                     DateTime engDate = Convert.ToDateTime(db.PR_neptoeng(nepdate: nepDate).FirstOrDefault());
                     string x = engDate.ToString("yyyy-MM-dd");
-                    int dailyWorkListCount = rand.Next(7,16);
+                    int dailyWorkListCount = rand.Next(7, 16);
                     if (Convert.ToDateTime(x).DayOfWeek.ToString() == "Friday")
                     {
                         dailyWorkListCount = rand.Next(4, 7);
@@ -792,7 +792,7 @@ namespace workReport.Controllers
                         andlist.issue = item.issue;
 
                         andlist.mun = item.mun;
-                        andlist.time =Convert.ToInt32( item.time * 0.7);
+                        andlist.time = Convert.ToInt32(item.time * 0.7);
                         andlist.workDet = "Null";
                         andlist.users = Convert.ToInt32(Session["userId"]);
                         andlist.workListType = "Anydesk";
@@ -801,7 +801,7 @@ namespace workReport.Controllers
 
                     }
                     worksList = worksList.OrderBy(n => n.mun).ToList();
-                    
+
                     foreach (var item in worksList)
                     {
                         workList wl = new workList();
@@ -916,10 +916,10 @@ namespace workReport.Controllers
         public ActionResult deleteWorkDataPost(FormCollection fc)
         {
             string nepYear = fc["NepYears"];
-            int nepmonth =Convert.ToInt32( fc["months"]);
+            int nepmonth = Convert.ToInt32(fc["months"]);
             int nepDay = Convert.ToInt32(fc["days"]);
-            int operation = (nepDay==0) ?  0: 1;
-          
+            int operation = (nepDay == 0) ? 0 : 1;
+
             string monthh = (nepmonth <= 9) ? "0" + nepmonth : nepmonth.ToString();
             string dayy = (nepDay <= 9 || nepDay > 0) ? "0" + nepDay : nepDay.ToString();
             string isUserName = Session["userName"].ToString();
@@ -927,9 +927,9 @@ namespace workReport.Controllers
 
 
 
-           var check = db.deleteWorkList(isUserId, operation, nepYear, monthh, dayy);
-         
-           
+            var check = db.deleteWorkList(isUserId, operation, nepYear, monthh, dayy);
+
+
             //if(nepDay==0)
             //{
             //    string insertBefore = "INSERT INTO JN_WORKLIST SELECT * FROM workList where date like'" + nepYear + "-" + monthh + "-%' and users=" + isUserId+ " and workDet <> 'leave'";
@@ -971,48 +971,55 @@ namespace workReport.Controllers
             return View(db.workList.AsNoTracking().Where(x => x.users == isuser && x.mun == "" && x.workListType == "").OrderByDescending(x => x.workListId).ToList().ToPagedList(i ?? 1, 10));
         }
 
-      //  [OutputCache(Duration =60)]
-        public ActionResult CreateHoliday(string workTypeId, string issueTypeId, string munId, int? timeId, int userId, string workDate, string workDate1,string workDet,string isForAll)
+        //  [OutputCache(Duration =60)]
+        public ActionResult CreateHoliday(string workTypeId, string issueTypeId, string munId, int? timeId, int userId, string workDate, string workDate1, string workDet, string isForAll)
         {
             int isUserPost = Convert.ToInt32(Session["userPost"]);
             var obj = new workReportEntities();
             DateTime startDate = Convert.ToDateTime(obj.PR_neptoeng(nepdate: workDate).FirstOrDefault());
             DateTime endDate = Convert.ToDateTime(obj.PR_neptoeng(nepdate: workDate1).FirstOrDefault());
-            
-            if(endDate>=startDate)
+
+            if (endDate >= startDate)
             {
                 if (isForAll == "true")
                 {
-                    var userIdList = db.user.Select(x => x.usrId).Distinct();
-                    foreach (var id in userIdList)
+
+                    try
                     {
-                        try { 
-                            using(var objn=new workReportEntities())
+                        using (var objn = new workReportEntities())
+                        {
+                            var userIdList = db.user.Select(x => x.usrId).Distinct();
+
+
+                            for (DateTime date = startDate; startDate <= endDate; startDate.AddDays(1))
                             {
+                                foreach (var id in userIdList)
+                                {
+                                    string x = objn.PR_engtonep(engdate: startDate.ToString("yyyy-MM-dd")).FirstOrDefault().ToString();
+                                    workList workList = new workList();
+                                    workList.workListType = workTypeId;
+                                    workList.issue = issueTypeId;
+                                    workList.mun = munId;
+                                    workList.time = timeId;
+                                    workList.date_Eng = startDate;
+                                    workList.date = x;
+                                    workList.workDet = workDet;
+                                    workList.users = id;
 
-                         
-                        for (DateTime date = startDate; startDate <= endDate; startDate.AddDays(1))
-                        {
-                            string x = objn.PR_engtonep(engdate: startDate.ToString("yyyy-MM-dd")).FirstOrDefault().ToString();
-                            workList workList = new workList();
-                            workList.workListType = workTypeId;
-                            workList.issue = issueTypeId;
-                            workList.mun = munId;
-                            workList.time = timeId;
-                            workList.date_Eng = startDate;
-                            workList.date = x;
-                            workList.workDet = workDet;
-                            workList.users = id;
-
-                            objn.workList.Add(workList);
+                                    objn.workList.Add(workList);
                                     objn.SaveChanges();
-                            startDate = startDate.AddDays(1);
+
+
                                 }
-                            } }catch (Exception ex)
-                        {
-                            Console.WriteLine(ex);
+                                startDate = startDate.AddDays(1);
+                            }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
+
 
                     return RedirectToAction("addHoliday1");
                 }
@@ -1040,11 +1047,11 @@ namespace workReport.Controllers
             }
             else
             {
-                
+
                 return RedirectToAction("addHoliday");
             }
 
-           
+
 
 
 
@@ -1393,7 +1400,8 @@ namespace workReport.Controllers
             {
                 var columnNames = dt.Columns.Cast<DataColumn>().Select(c => c.ColumnName.ToLower()).ToList();
                 var properties = typeof(T).GetProperties();
-                var check = dt.AsEnumerable().Select(row => {
+                var check = dt.AsEnumerable().Select(row =>
+                {
                     var objT = Activator.CreateInstance<T>();
                     foreach (var pro in properties)
                     {

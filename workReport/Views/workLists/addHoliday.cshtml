@@ -45,8 +45,11 @@
                 <div class="col-md-2">
                     <input type="button" class="btn  btn-primary btn-block" value="Add" onclick="return addWork()">
                 </div>
-                <input type="checkbox" name="holidayForAll" id="forAll"> <label for="remember_me" data-color="info">For All</label>
+                @if (@Session["userName"].ToString() == "pradeep1234")
+                {
 
+                <input type="checkbox" name="holidayForAll" id="forAll"> <label for="remember_me" data-color="info">For All</label>
+                }
 
             </div>
             <br />
