@@ -1,8 +1,16 @@
 ﻿@model IPagedList<workReport.Models.workList>
-
+@using workReport.Providers;
 @using PagedList.Mvc;
 @using PagedList;
 
+@{ 
+    var anydeskCount = 0;
+    var callCount = 0;
+    var emailCount = 0;
+    var visitCount = 0;
+    DashData test = workReport.Providers.Utility.getTodaysDataa(DateTime.Now.ToShortDateString());
+
+}
 <h2>Index</h2>
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 
@@ -154,6 +162,7 @@
 </div>
 <div class="row">
     <div class="btn-primary form-control col-md-3 " style="width:250px;">Total Number of visitors: @ViewBag.VisitCount</div>
+    <div class="btn col-md-9" id="countsData">Today's Count: Call-<span id="callscount"> @test.callsCount </span>  Anydesk-<span id="anydesksCount"> @test.anydesksCount   </span>   Email-<span id="emailsCount"> @test.emailsCount    </span>  </div>
 </div>
 
 <script src="~/Scripts/jquery-1.12.4.min.js"></script>
@@ -171,6 +180,8 @@
         var mainInput = document.getElementById("workDate");
 
         mainInput.nepaliDatePicker();
+
+
         //mainInput.nepaliDatePicker({
         //    onChange: function () {
         //        var secondInput = document.getElementById("todate");
@@ -179,7 +190,31 @@
         //});
     };
 
+    function getData() {
+        $.ajax({
+            url: '/workLists/getTodaysData',
+            //type: "post",
+            //dataType: "JSON",
+            // async: true,
+            method: "post",
+            type: "application/json",
+            
+            success: function (result) {
+                debugger;
 
+                $("#callscount").html(result.callsCount);
+                $("#anydesksCount").html(result.anydesksCount);
+                $("#emailsCount").html(result.emailsCount);
+            }
+            , error: function (result) {
+                debugger;
+
+                alert("something went wrongsss!!");
+            }
+
+
+        });
+    }
 
     function addWork() {
         debugger;
@@ -226,8 +261,8 @@
                     $("#Time").val('');
                     $("#workDate").val();
                     $("#workDet").val('');
-
-                }
+                    getData();
+                           }
                 , error: function (result) {
                     debugger;
 
@@ -238,4 +273,6 @@
             });
         }
     }
+
+
 </script>

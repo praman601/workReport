@@ -423,6 +423,25 @@ namespace workReport.Controllers
 
         }
 
+        public JsonResult getTodaysData()
+        {
+            int isuser = Convert.ToInt32(Session["userId"]);
+            DateTime isDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+
+            int? callsCount=0;
+            int? anydesksCount=0;
+            int? emailsCount=0;
+            var todaysData = db.workList.Where(x => x.date_Eng == isDate).ToList();
+         
+                callsCount = todaysData.Where(x=>x.workListType=="Call").Sum(x=>x.time);
+                anydesksCount= todaysData.Where(x => x.workListType == "Anydesk").Sum(x => x.time);
+                emailsCount = todaysData.Where(x => x.workListType == "Email").Sum(x => x.time);
+            var resultData = new { callsCount = callsCount, anydesksCount = anydesksCount, emailsCount = emailsCount };
+            return Json(resultData, JsonRequestBehavior.AllowGet);
+
+        }
+
+
 
 
         public ActionResult RangeListnew(string StartDatee, string EndDatee, int? i)
