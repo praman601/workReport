@@ -8,7 +8,8 @@
     var callCount = 0;
     var emailCount = 0;
     var visitCount = 0;
-    DashData test = workReport.Providers.Utility.getTodaysDataa(DateTime.Now.ToShortDateString());
+    Utility Newn = new Utility(new workReport.Controllers.SessionCheckController());
+    DashData test =Newn.getTodaysDataa(DateTime.Now.ToShortDateString());
 
 }
 <h2>Index</h2>
@@ -161,8 +162,8 @@
 
 </div>
 <div class="row">
-    <div class="btn-primary form-control col-md-3 " style="width:250px;">Total Number of visitors: @ViewBag.VisitCount</div>
-    <div class="btn col-md-9" id="countsData">Today's Count: Call-<span id="callscount"> @test.callsCount </span>  Anydesk-<span id="anydesksCount"> @test.anydesksCount   </span>   Email-<span id="emailsCount"> @test.emailsCount    </span>  </div>
+    <div class="col-md-3 btn-primary  " >Total Number of visitors: @ViewBag.VisitCount</div>
+    <div class="col-md-9 btn-primary " style="text-align: center;" id="countsData">Today's Count: Call-<span id="callscount"> @test.callsCount </span>  Anydesk-<span id="anydesksCount"> @test.anydesksCount   </span>   Email-<span id="emailsCount"> @test.emailsCount    </span>  </div>
 </div>
 
 <script src="~/Scripts/jquery-1.12.4.min.js"></script>
