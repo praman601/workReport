@@ -32,7 +32,7 @@ namespace workReport.Providers
     {
         private readonly SessionCheckController _stt;
         public Utility(SessionCheckController stt)
-        {
+        { 
             _stt = stt;
         }
         public  DashData getTodaysDataa(string todaysDate)
